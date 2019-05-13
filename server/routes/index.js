@@ -11,6 +11,7 @@ router.get('/', (req, res, next) => {
   render('/');
 });
 
+
 //4- Profile-Page: Show Libraries, Books, 
 router.get('/profile-page',  isLoggedIn, (req, res, next) => {
   Library.find()
@@ -23,7 +24,7 @@ router.get('/profile-page',  isLoggedIn, (req, res, next) => {
   
   Book.find()
     .then(booksFromDb => {
-      res.json(booksFromDb) //change for cooks which will be shown: only the borrowed books
+      res.json(booksFromDb) //change for books which will be shown: only the borrowed books
         })
     .catch(err => {
       res.json(err);
@@ -31,7 +32,8 @@ router.get('/profile-page',  isLoggedIn, (req, res, next) => {
   });
 
 
-//Route Secret --Optional
+
+//Route Secret --Optional to keep--
 router.get('/secret', isLoggedIn, (req, res, next) => {
   res.json({
     secret: 42,
