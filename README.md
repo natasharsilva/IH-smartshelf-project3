@@ -1,3 +1,35 @@
+# Project 3
+
+## Notes from Maxence
+
+In `models/Book.js`:
+- currentOwner -> _owner  
+- Add _library
+
+
+In `models/Library.js`:
+- Remove _books
+- _comments -> comments
+- Remove _members
+- notification => notifications
+    [{_book, status, _user}] (example, the book "Harry Potter" has been "borrowed" by "Goncalo")
+
+In `models/Member.js`:
+```js
+{
+  _user
+  _library
+  role: {
+    type: String,
+    enum: ["participant","admin"]
+  }
+}
+```
+
+----
+
+
+
 # MERN boilerplate | Ironhack Fullstack Application
 
 - [Global information](#global-information)
