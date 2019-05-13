@@ -3,7 +3,7 @@ const Library = require('../models/Library')
 
 const router = express.Router();
 
-// Route to get all libraries -> Profile Page
+// Route to get all libraries -> Profile
 router.get('/', (req, res, next) => {
   Library.find()
     .then(libraries => {
