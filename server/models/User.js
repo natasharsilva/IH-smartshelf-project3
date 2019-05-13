@@ -2,8 +2,18 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  username: String,
-  password: String
+  email: {type:String, required: true},
+  password: {type:String, required: true},
+  username: {type:String, required: true},
+  pictureUrl: {type: String, default: "/images/defaultProfile.png"},
+  phoneNumber: Number,
+  favoriteBooks: String,
+  favoriteQuote: String,
+  role: {type:String, default: "User"},
+  _libraries: [{
+    type:Schema.Types.ObjectId, 
+    ref: "Libraries"
+  }]
 }, {
     timestamps: {
       createdAt: 'created_at',
