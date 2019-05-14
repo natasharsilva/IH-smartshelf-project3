@@ -4,7 +4,7 @@ const Library = require("../models/Library")
 const uploader = require("../configs/cloudinary")
 
 
-// Get library details by Id --- Library Homepage
+// Get library details by Id --- Library Homepage / when testing use http://localhost:5000/api/libraries
 router.get('/:libraryId', (req, res, next) => {
   Library.findById(req.params.libraryId)
   .then(response => {
@@ -13,7 +13,7 @@ router.get('/:libraryId', (req, res, next) => {
   .catch(err => next(err))
 });
 
-// Create Library -- 
+// Create Library -- when testing use http://localhost:5000/api/libraries
 router.post('/', uploader.single('picture'), (req, res, next) => {
   Library.create({
     name: req.body.name,
