@@ -15,10 +15,12 @@ const bookSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  images: [String],
   description: String,
   rating: Number,
   pages: Number,
   ISBN: {type: Number, minlength: 10},
+  createdBy: {type: Schema.Types.ObjectId, ref: "User"},
   currentOwner: {type: Schema.Types.ObjectId, ref: "User"},
   status: { type: String, enum: ['Available', 'Unavailable'] },
 }, {
