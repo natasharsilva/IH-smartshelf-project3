@@ -16,26 +16,6 @@ const librarySchema = new mongoose.Schema({
   description: {
     type: String,
   },
-    notification: [{
-      _user: {
-        type: Schema.Types.ObjectId,
-        ref: "User"
-      },
-      _book: {
-        type: Schema.Types.ObjectId,
-        // status: { type: String, enum: ['Available', 'Unavailable']},
-        ref:"Book"
-      }}],
-
-    _comments: [{
-    type: Schema.Types.ObjectId, ref: "User",
-    text: String, 
-    rating: Number,
-  }],
-  
-
-
-
 }, {
   timestamps: {
     createdAt: 'created_at',
