@@ -4,8 +4,10 @@ const Library = require("../models/Library")
 const uploader = require("../configs/cloudinary")
 
 
-// Get library details by Id --- Library Homepage / when testing use http://localhost:5000/api/libraries
-router.get('/:libraryId', (req, res, next) => {
+// when testing use http://localhost:5000/api/libraries
+
+// ------------ Get library details by Id --- Library Homepage / 
+router.get("/:libraryId", (req, res, next) => {
   Library.findById(req.params.libraryId)
   .then(response => {
     res.json(response);
@@ -13,7 +15,31 @@ router.get('/:libraryId', (req, res, next) => {
   .catch(err => next(err))
 });
 
-// Create Library -- when testing use http://localhost:5000/api/libraries
+// ---------Update Libraries ------------
+
+//notification
+router.put("/:libraryId", (req, res, next) => {
+  Library.findByIdAndUpdate(req.params.id, req.body)
+  .then(() => {
+    res.json({
+      message: "library was updated"
+    });
+  })
+  .catch(err => next(err))
+});
+
+//---------------- Delete libraries --------------   Working
+router.delete('/:libraryId', (req, res, next) => {
+  Library.findByIdAndRemove(req.params.libraryId)
+  .then(() => {
+    res.json({
+      message: "library was deleted"
+    });
+  })
+  .catch(err => next(err))
+});
+
+// ------------------ Create Library ------------- Working
 router.post('/', uploader.single('picture'), (req, res, next) => {
   Library.create({
     name: req.body.name,
@@ -28,7 +54,9 @@ router.post('/', uploader.single('picture'), (req, res, next) => {
   })
   .catch(err => next(err))
 });
+// -----------------------------------------------
 
+// -------- Add member via JOIN button ------------ 
 // router.get("/library-books/:libraryId", (req,res,next) => {
 //   Library.findById(req.params.libraryId)
 //   .then(response => {
