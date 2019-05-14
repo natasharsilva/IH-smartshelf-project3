@@ -9,7 +9,7 @@ const userSchema = new Schema({
   phoneNumber: Number,
   favoriteBooks: String,
   favoriteQuote: String,
-  role: {type:String, default: "User"},
+  role: {type:String, default: "User",enum:['Admin', 'User'],},
   
   _libraries: [{
     type:Schema.Types.ObjectId, 

@@ -5,6 +5,7 @@ const librarySchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, 'The library name is required'],
+    unique: true,
     minlength: 1
   },
   address: {
