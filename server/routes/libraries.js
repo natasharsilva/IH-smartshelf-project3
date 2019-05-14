@@ -3,6 +3,8 @@ const router = express.Router();
 const Library = require("../models/Library")
 const uploader = require("../configs/cloudinary")
 
+
+// Get library details --- Library Homepage
 router.get('/:libraryId', (req, res, next) => {
   Library.findById(req.params.libraryId)
   .then(response => {
@@ -21,7 +23,7 @@ router.get('/:libraryId', (req, res, next) => {
 //   .catch(err => next(err))
 // });
 
-
+// Create Library -- 
 router.post('/', uploader.single('picture'), (req, res, next) => {
     Library.create({
     name: req.body.name,
