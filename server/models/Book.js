@@ -15,7 +15,7 @@ const bookSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  images: [String],
+  picture: String,
   description: String,
   rating: Number,
   pages: Number,

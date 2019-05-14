@@ -50,6 +50,7 @@ require('./passport')(app)
 
 app.use('/api', require('./routes/index'))
 app.use('/api', require('./routes/auth'))
+app.use('/api/books', require('./routes/books'))
 app.use('/api/libraries', require('./routes/libraries'))
 app.use('/api/members', require('./routes/members'))
 

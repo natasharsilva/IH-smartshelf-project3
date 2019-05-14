@@ -3,7 +3,6 @@ const router = express.Router();
 const Library = require("../models/Library")
 const uploader = require("../configs/cloudinary")
 
-
 // when testing use http://localhost:5000/api/libraries
 
 // ------------ Get library details by Id --- Library Homepage / 
@@ -21,7 +20,7 @@ router.get("/:libraryId", (req, res, next) => {
 router.put("/:libraryId", (req, res, next) => {
   Library.findOneAndUpdate(req.params.id,{
     name: req.body.name,
-    profilePicture: req.file && req.file.url,  
+    picture: req.file && req.file.url,  
     address: req.body.address,
   })
   .then(response => {
@@ -35,7 +34,7 @@ router.delete('/:libraryId', (req, res, next) => {
   Library.findByIdAndRemove(req.params.libraryId)
   .then(() => {
     res.json({
-      message: "library was deleted"
+      message: "Library was deleted"
     });
   })
   .catch(err => next(err))
@@ -51,7 +50,7 @@ router.post('/', uploader.single('picture'), (req, res, next) => {
   })
   .then(response => {
     res.json({
-      message: "library created!",
+      message: "Library created!",
       response,
     });
   })
