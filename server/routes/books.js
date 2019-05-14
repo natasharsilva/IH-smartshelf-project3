@@ -5,13 +5,26 @@ const axios = require('axios');
 const Book = require('../models/Book');
 
 router.post("/", (req, res, next) => {
-  let ISBN = req.body
   axios
     .get(
-      "https://www.googleapis.com/books/v1/volumes?q=isbn:"+ISBN
+      `https://www.googleapis.com/books/v1/volumes?q=isbn:${req.body.isbn}`
     )
     .then(response => {
-      res.json(response);
+      res.json(response.data);
+      Book.create({
+        title: response.data.items[0].volumeInfo.title,
+        author: response.data.items[0].volumeInfo.authors[0],
+        genre: response.data.items[0].volumeInfo.categories[0],
+        images: response.data.items[0].volumeInfo.imageLinks,
+        description: response.data.items[0].volumeInfo.description,
+        rating: response.data.items[0].volumeInfo.averageRating,
+        pages: response.data.items[0].volumeInfo.pageCount,
+        ISBN: {type: Number, minlength: 10},
+        _createdBy: req.user._id,
+        _currentOwner,
+        status,
+        _library,
+      })
     })
     .catch(err => next(err))
 });
