@@ -17,26 +17,6 @@ const userSchema = new Schema(
         type: Schema.Types.ObjectId,
         ref: "Libraries"
       }],
-    notification: [
-      {
-        _user: {
-          type: Schema.Types.ObjectId,
-          ref: "User"
-        },
-        _book: {
-          type: Schema.Types.ObjectId,
-          ref: "Book"
-        }
-      }],
-    comments: [{
-        _user: {
-          type: Schema.Types.ObjectId,
-          ref: "User"
-        },
-        text: String,
-        rating: Number
-      }
-    ]
   },
 
   {
