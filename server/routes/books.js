@@ -16,14 +16,4 @@ router.post("/", (req, res, next) => {
     .catch(err => next(err))
 });
 
-// router.post("/:ISBN", (req, res, next) => {
-//   axios
-//     .get(
-//       "https://www.googleapis.com/books/v1/volumes?q=isbn:" + req.params.ISBN
-//     )
-//     .then(response => {
-//       res.json(response);
-//     });
-// });
-
 module.exports = router;
