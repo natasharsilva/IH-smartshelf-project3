@@ -90,6 +90,14 @@ export default {
     .then(response => response.data)
     .catch(errHandler)
   },
+
+  addBookByIsbn(ISBN) {
+    return service
+    .get('/books/'+ISBN)
+    .then(response => response.data)
+    .catch(errHandler)
+  },
+
   getSecret() {
     return service
       .get('/secret')
