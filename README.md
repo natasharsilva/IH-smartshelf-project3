@@ -1,5 +1,12 @@
 # Project 3
 
+ ## Useful commands
+
+In case the PORT is already in use
+
+$ kill $(lsof -t -i:5000)
+
+
 ## Notes from Maxence
 
 In `models/Book.js`:
@@ -17,8 +24,8 @@ In `models/Library.js`:
 In `models/Member.js`:
 ```js
 {
-  _user
-  _library
+  _user,
+  _library,
   role: {
     type: String,
     enum: ["participant","admin"]
@@ -29,15 +36,6 @@ In `models/Member.js`:
 ----
 
 
-
-# MERN boilerplate | Ironhack Fullstack Application
-
-- [Global information](#global-information)
-- [Setups and execution of the project](#setups-and-execution-of-the-project)
-- [How to implement a Full Stack feature?](#how-to-implement-a-full-stack-feature)
-- [Example in the code](#example-in-the-code)
-- [Deployement on Heroku](#deployement-on-heroku)
-- [Guideline to create clean code](#guideline-to-create-clean-code)
 
 ## Set up and execution of the project
 

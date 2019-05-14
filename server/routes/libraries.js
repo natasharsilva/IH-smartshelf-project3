@@ -4,7 +4,7 @@ const Library = require("../models/Library")
 const uploader = require("../configs/cloudinary")
 
 
-// Get library details --- Library Homepage
+// Get library details by Id --- Library Homepage
 router.get('/:libraryId', (req, res, next) => {
   Library.findById(req.params.libraryId)
   .then(response => {
@@ -13,23 +13,13 @@ router.get('/:libraryId', (req, res, next) => {
   .catch(err => next(err))
 });
 
-
-
-// router.get("/library-books/:libraryId", (req,res,next) => {
-//   Library.findById(req.params.libraryId)
-//   .then(response => {
-//     res.json(response);
-//   })
-//   .catch(err => next(err))
-// });
-
 // Create Library -- 
 router.post('/', uploader.single('picture'), (req, res, next) => {
-    Library.create({
+  Library.create({
     name: req.body.name,
     profilePicture: req.file && req.file.url,  
     address: req.body.address,
-    })
+  })
   .then(response => {
     res.json({
       message: "library created!",
@@ -38,6 +28,14 @@ router.post('/', uploader.single('picture'), (req, res, next) => {
   })
   .catch(err => next(err))
 });
+
+// router.get("/library-books/:libraryId", (req,res,next) => {
+//   Library.findById(req.params.libraryId)
+//   .then(response => {
+//     res.json(response);
+//   })
+//   .catch(err => next(err))
+// });
 
 
 module.exports = router;
