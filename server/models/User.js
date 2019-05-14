@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  email: {type:String, required: true},
+  email: {type:String, required: ['Your email is required'], minlength: 1},
   password: {type:String, required: true},
   username: {type:String, required: true},
   pictureUrl: {type: String, default: "/images/defaultProfile.png"},

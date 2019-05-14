@@ -41,10 +41,10 @@ export default {
       .catch(errHandler)
   },
 
-  login(email, password) {
+  login(username, password) {
     return service
       .post('/login', {
-        email,
+        username,
         password,
       })
       .then(res => {
@@ -70,13 +70,26 @@ export default {
       .catch(errHandler)
   },
 
-  addCountry(body) {
+  addLibrary(body) {
     return service
-      .post('/countries', body)
+      .post('/add-library', body)
       .then(res => res.data)
       .catch(errHandler)
   },
 
+  getLibraries() {
+    return service
+      .get('/libraries')
+      .then(res => res.data)
+      .catch(errHandler)
+  },
+
+  getLibrary(libraryId) {
+    return service
+    .get(`/library-detail/${libraryId}`)
+    .then(response => response.data)
+    .catch(errHandler)
+  },
   getSecret() {
     return service
       .get('/secret')
