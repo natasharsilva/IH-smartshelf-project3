@@ -16,7 +16,7 @@ const errHandler = err => {
 
 export default {
   service: service,
-
+// Begining of AUTH methods ------------ DONT CHANGE ANYTHING -----------------------
   // This method is synchronous and returns true or false
   // To know if the user is connected, we just check if we have a value for localStorage.getItem('user')
   isLoggedIn() {
@@ -60,15 +60,19 @@ export default {
     return service
       .get('/logout')
   },
+  // End of AUTH methods ------------------------------------------------------
 
   // This is an example on how to use this method in a different file
   // api.getCountries().then(countries => { /* ... */ })
-  getCountries() {
-    return service
-      .get('/countries')
-      .then(res => res.data)
-      .catch(errHandler)
-  },
+  // getCountries() {
+  //   return service
+  //     .get('/countries')
+  //     .then(res => res.data)
+  //     .catch(errHandler)
+  // },
+
+
+// -------------------- GET / POST Library methods -------------------------
 
   addLibrary(body) {
     return service
@@ -90,20 +94,10 @@ export default {
     .then(response => response.data)
     .catch(errHandler)
   },
+// -------------------- END OF GET / POST Library methods -------------------------
 
-  addBookByIsbn(ISBN) {
-    return service
-    .get('/books/'+ISBN)
-    .then(response => response.data)
-    .catch(errHandler)
-  },
 
-  getSecret() {
-    return service
-      .get('/secret')
-      .then(res => res.data)
-      .catch(errHandler)
-  },
+// --------------------  Picture Upload method ----------------------------------
 
   addPicture(file) {
     const formData = new FormData()
@@ -118,3 +112,5 @@ export default {
       .catch(errHandler)
   },
 }
+// -------------------- END OF Upload method ----------------------------------
+
