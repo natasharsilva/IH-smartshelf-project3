@@ -23,7 +23,25 @@ const bookSchema = new mongoose.Schema({
   _createdBy: {type: Schema.Types.ObjectId, ref: "User"},
   _currentOwner: {type: Schema.Types.ObjectId, ref: "User"},
   status: { type: String, enum: ['Available', 'Unavailable'] },
-  _library: {type: Schema.Types.ObjectId, ref:"Library"}
+  _library: {type: Schema.Types.ObjectId, ref:"Library"},
+  notification: [
+    {_user: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+      },
+      _book: {
+        type: Schema.Types.ObjectId,
+        ref: "Book"
+      }
+    }],
+  comments: [{
+      _user: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+      },
+      text: String,
+      rating: Number
+    }]
 }, {
   timestamps: {
     createdAt: 'created_at',
