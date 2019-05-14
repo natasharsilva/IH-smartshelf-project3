@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Library = require("../models/Library")
+const Member = require("../models/Member")
 const uploader = require("../configs/cloudinary")
 
 // when testing use http://localhost:5000/api/libraries
@@ -16,20 +17,21 @@ router.get("/:libraryId", (req, res, next) => {
 
 // ---------Update Libraries ------------
 
-//notification 
 router.put("/:libraryId", (req, res, next) => {
-  Library.findByIdAndUpdate(req.params.id, req.body)
-  .then(() => {
-    res.json({
-      message: "Library was updated"
-    });
+  Library.findOneAndUpdate(req.params.id,{
+    name: req.body.name,
+    picture: req.file && req.file.url,  
+    address: req.body.address,
+  })
+  .then(response => {
+    res.json(response);
   })
   .catch(err => next(err))
 });
 
 //---------------- Delete libraries --------------   Working
 router.delete('/:libraryId', (req, res, next) => {
-  Library.findByIdAndRemove(req.params.libraryId)
+  Library.findOneAndRemove(req.params.libraryId)
   .then(() => {
     res.json({
       message: "Library was deleted"
@@ -39,23 +41,28 @@ router.delete('/:libraryId', (req, res, next) => {
 });
 
 // ------------------ Create Library ------------- Working
+// uploader.single('picture') is a middleware, that takes from the request the field "picture" (must be a file), save it to cloudinary, save the info in req.file and go to the next middleware
 router.post('/', uploader.single('picture'), (req, res, next) => {
   Library.create({
     name: req.body.name,
-    profilePicture: req.file && req.file.url,  
+    picture: req.file && req.file.secure_url,  
     address: req.body.address,
   })
-  .then(response => {
-    res.json({
-      message: "Library created!",
-      response,
-    });
-  })
-  .catch(err => next(err))
-});
-// -----------------------------------------------
+    .then(libraryCreated => {
+        Member.create({
+            role:'admin',
+            _user: req.user._id,
+            _library: libraryCreated._id
+          })
+          .then(memberCreated => {
+            res.json({
+              message: `Member ${memberCreated._user} and Library ${libraryCreated._id}  created!`,
+              memberCreated,libraryCreated
+            });
+          }).catch(err => next(err))
+    })})
 
-// -------- Add member via JOIN button ------------ 
+
 // router.get("/library-books/:libraryId", (req,res,next) => {
 //   Library.findById(req.params.libraryId)
 //   .then(response => {
