@@ -10,7 +10,6 @@ const userSchema = new Schema(
     phoneNumber: Number,
     favoriteBooks: String,
     favoriteQuote: String,
-
   },
 
   {
