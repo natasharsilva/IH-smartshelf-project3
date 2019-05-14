@@ -22,7 +22,7 @@ router.post('/', uploader.single('picture'), (req, res, next) => {
   })
   .then(response => {
     res.json({
-      message: "library created!",
+      message: "Library created!",
       response,
     });
   })

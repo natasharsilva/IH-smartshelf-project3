@@ -10,7 +10,6 @@ const userSchema = new Schema({
   favoriteBooks: String,
   favoriteQuote: String,
   role: {type:String, default: "User"},
-  
   _libraries: [{
     type:Schema.Types.ObjectId, 
     ref: "Libraries"

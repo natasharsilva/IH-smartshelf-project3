@@ -10,20 +10,21 @@ router.post("/", (req, res, next) => {
       `https://www.googleapis.com/books/v1/volumes?q=isbn:${req.body.isbn}`
     )
     .then(response => {
-      res.json(response.data);
       Book.create({
         title: response.data.items[0].volumeInfo.title,
         author: response.data.items[0].volumeInfo.authors[0],
         genre: response.data.items[0].volumeInfo.categories[0],
-        images: response.data.items[0].volumeInfo.imageLinks,
+        images: response.data.items[0].volumeInfo.imageLinks.thumbnail,
         description: response.data.items[0].volumeInfo.description,
         rating: response.data.items[0].volumeInfo.averageRating,
         pages: response.data.items[0].volumeInfo.pageCount,
-        ISBN: {type: Number, minlength: 10},
+        ISBN: response.data.items[0].volumeInfo.industryIdentifiers[1].identifier,
         _createdBy: req.user._id,
-        _currentOwner,
-        status,
-        _library,
+      }).then(response => {
+        res.json({
+          message: "Book created!",
+          response
+        });
       })
     })
     .catch(err => next(err))
