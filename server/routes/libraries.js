@@ -31,7 +31,7 @@ router.put("/:libraryId", (req, res, next) => {
 
 //---------------- Delete libraries --------------   Working
 router.delete('/:libraryId', (req, res, next) => {
-  Library.findByIdAndRemove(req.params.libraryId)
+  Library.findOneAndRemove(req.params.libraryId)
   .then(() => {
     res.json({
       message: "Library was deleted"
