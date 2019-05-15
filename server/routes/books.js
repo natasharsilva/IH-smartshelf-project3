@@ -1,10 +1,13 @@
 const express = require("express");
 const { isLoggedIn } = require('../middlewares');
 const router = express.Router();
+const uploader = require("../configs/cloudinary");
 const axios = require('axios');
 const Book = require('../models/Book');
 
-router.post("/", (req, res, next) => {
+// ------------------ Create Book with API ------------- Working
+
+router.post("/", isLoggedIn, (req, res, next) => {
   axios
     .get(
       `https://www.googleapis.com/books/v1/volumes?q=isbn:${req.body.isbn}`
@@ -30,5 +33,30 @@ router.post("/", (req, res, next) => {
     })
     .catch(err => next(err))
 });
+
+// ------------------ Create Book with Form ------------- 
+
+router.post('/', isLoggedIn, uploader.single('picture'), (req, res, next) => {
+    Book.create({
+        title: req.body.title,
+        author: req.body.author,
+        genre: req.body.genre,
+        picture: req.body.picture,
+        description: req.body.description,
+        rating: req.body.rating,
+        pages: req.body.pages,
+        isbn: req.body.isbn,
+        _createdBy: req.user._id,
+        _library: '5cdb135c23066b50d130b60d'
+      })
+        .then(response => {
+            res.json({
+              message: "Book created!",
+              response
+            });
+        })
+    .catch(err => next(err))
+});
+
 
 module.exports = router;
