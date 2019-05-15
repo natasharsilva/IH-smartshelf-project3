@@ -1,7 +1,9 @@
 const express = require('express');
 const { isLoggedIn } = require('../middlewares')
 const router = express.Router();
+const Member = require('../models/Member');
 const Library = require('../models/Library');
+const Book = require('../models/Book');
 const User = require('../models/User');
 const uploader = require("../configs/cloudinary")
 
@@ -11,26 +13,19 @@ router.get('/', (req, res, next) => {
 });
 
 
-//4- Profile-Page: Show Libraries , Books, 
+//4- Profile-Page: Show Libraries and Show Books, 
+//ONLY LIBRARIES THAT THE USER IS A PART OF
+//only books borrowed by the user
 router.get('/profile-page/',  isLoggedIn, (req, res, next) => {
-  Library.find({'_members._id':req.user.id})
-    .then(librariesFromDb => {
-      res.json(librariesFromDb)
-        })
-    .catch(err => {
-      res.json(err);
-    })
+  Promise.all([
+    Member.find({_user: req.user._id}).populate("_library"),
+        //{'_currentOwner': '5cdc2b9196f7706fc9e93389'}
+    Book.find({_currentOwner: req.user._id})])
+            .then(response => {
+              res.json(response);
+            })
+  })
   
-    //only books borrowed by the user
-  Book.find({ "currentOwner.ref._user": req.user.id})
-    .then(booksFromDb => {
-      res.json(booksFromDb) //change for books which will be shown: only the borrowed books
-        })
-    .catch(err => {
-      res.json(err);
-    })
-  });
-
 
 router.put("edit-user/:userId", uploader.single('picture'), (req, res, next) => {
   User.findOneAndUpdate(req.params.userId,{
