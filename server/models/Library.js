@@ -12,7 +12,7 @@ const librarySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  profilePicture: String,
+  picture: String,
   description: {
     type: String,
   },

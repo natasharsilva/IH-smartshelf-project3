@@ -19,7 +19,7 @@ const bookSchema = new mongoose.Schema({
   description: String,
   rating: Number,
   pages: Number,
-  ISBN: {type: Number, minlength: 10},
+  isbn: {type: Number, minlength: 10},
   _createdBy: {type: Schema.Types.ObjectId, ref: "User"},
   _currentOwner: {type: Schema.Types.ObjectId, ref: "User"},
   status: { type: String, enum: ['Available', 'Unavailable'] },
