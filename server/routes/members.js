@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const Member = require("../models/Member")
 const uploader = require("../configs/cloudinary")
-const mongoose = require('mongoose');
 
 
 // Get Members using library IDs / when testing use http://localhost:5000/api/members/ 
@@ -25,7 +24,6 @@ router.delete('/:id', (req, res, next)=>{
       res.json(err);
     })
 })
-
 
 
 module.exports = router;

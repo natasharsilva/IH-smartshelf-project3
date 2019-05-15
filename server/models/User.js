@@ -6,7 +6,7 @@ const userSchema = new Schema(
     email: { type: String, required: ["Your email is required"], minlength: 1 },
     password: { type: String, required: true },
     username: { type: String, required: true },
-    pictureUrl: { type: String, default: "/images/defaultProfile.png" },
+    picture: { type: String, default: "/images/defaultProfile.png" },
     phoneNumber: Number,
     favoriteBooks: String,
     favoriteQuote: String,
