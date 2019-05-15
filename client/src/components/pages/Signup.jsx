@@ -6,7 +6,7 @@ export default class Signup extends Component {
     super(props)
     this.state = {
       email: "",
-      name: "",
+      username: "",
       password: "",
       message: null
     }
@@ -15,7 +15,7 @@ export default class Signup extends Component {
 
   handleInputChange(event) {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.username]: event.target.value
     })
   }
 
@@ -23,7 +23,7 @@ export default class Signup extends Component {
     e.preventDefault()
     let data = {
       email: this.state.email,
-      name: this.state.name,
+      username: this.state.username,
       password: this.state.password,
     }
     api.signup(data)
@@ -40,7 +40,7 @@ export default class Signup extends Component {
         <h2>Signup</h2>
         <form>
           Email: <input type="text" value={this.state.email} name="email" onChange={this.handleInputChange} /> <br />
-          Name: <input type="text" value={this.state.name} name="name" onChange={this.handleInputChange} /> <br />
+          Username: <input type="text" value={this.state.username} name="username" onChange={this.handleInputChange} /> <br />
           Password: <input type="password" value={this.state.password} name="password" onChange={this.handleInputChange} /> <br />
           <button onClick={(e) => this.handleClick(e)}>Signup</button>
         </form>

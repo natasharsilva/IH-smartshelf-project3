@@ -5,22 +5,22 @@ export default class Login extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      username: "",
+      email: "",
       password: "",
       message: null
     }
     this.handleInputChange = this.handleInputChange.bind(this)
   }
-
+  
   handleInputChange(event) {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.username]: event.target.value
     })
   }
 
   handleClick(e) {
     e.preventDefault()
-    api.login(this.state.username, this.state.password)
+    api.login(this.state.email, this.state.password)
       .then(result => {
         console.log('SUCCESS!')
         this.props.history.push("/") // Redirect to the home page
@@ -33,7 +33,7 @@ export default class Login extends Component {
       <div className="Login">
         <h2>Login</h2>
         <form>
-          username: <input type="text" value={this.state.username} name="username" onChange={this.handleInputChange} /> <br />
+          email: <input type="text" value={this.state.email} name="email" onChange={this.handleInputChange} /> <br />
           Password: <input type="password" value={this.state.password} name="password" onChange={this.handleInputChange} /> <br />
           <button onClick={(e) => this.handleClick(e)}>Login</button>
         </form>
