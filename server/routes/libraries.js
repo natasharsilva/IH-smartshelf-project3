@@ -17,7 +17,7 @@ router.get("/:libraryId", (req, res, next) => {
 
 // ---------Update Libraries ------------
 
-router.put("/:libraryId", (req, res, next) => {
+router.put("/:libraryId", uploader.single('picture'), (req, res, next) => {
   Library.findOneAndUpdate(req.params.id,{
     name: req.body.name,
     picture: req.file && req.file.url,  
@@ -29,18 +29,26 @@ router.put("/:libraryId", (req, res, next) => {
   .catch(err => next(err))
 });
 
-//---------------- Delete libraries --------------   Working
+//---------------- Delete libraries --------------   
 router.delete('/:libraryId', (req, res, next) => {
-  Library.findOneAndRemove(req.params.libraryId)
-  .then(() => {
-    res.json({
-      message: "Library was deleted"
-    });
+  Member.find({_library: req.params.libraryId})
+  .then(member => {
+    if(req.user._id === member._user && member.role === "admin"){
+    Library.findOneAndRemove(req.params.libraryId)
+    .then(() => {
+      res.json({
+        message: "Library was deleted"
+      })
+    })}
+    else {res.json({
+      message:"You are not allowed to delete this library"
+    })}
+    
   })
   .catch(err => next(err))
 });
 
-// ------------------ Create Library ------------- Working
+// ------------------ Create Library ---------------------
 // uploader.single('picture') is a middleware, that takes from the request the field "picture" (must be a file), save it to cloudinary, save the info in req.file and go to the next middleware
 router.post('/', uploader.single('picture'), (req, res, next) => {
   Library.create({
@@ -60,8 +68,19 @@ router.post('/', uploader.single('picture'), (req, res, next) => {
               memberCreated,libraryCreated
             });
           }).catch(err => next(err))
-    })})
-
+    })
+  })
+//--------------------------------------------------
+// Route to display books 
+router.get("library-books/:libraryId", (req, res, next) => {
+  Books.find({
+    _library: req.params.id
+  })
+  .then(response => {
+    res.json(response);
+  })
+  .catch(err => next(err))
+});
 
 // router.get("/library-books/:libraryId", (req,res,next) => {
 //   Library.findById(req.params.libraryId)
