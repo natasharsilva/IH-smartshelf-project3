@@ -53,7 +53,6 @@ app.use('/api', require('./routes/auth'))
 app.use('/api/books', require('./routes/books'))
 app.use('/api/libraries', require('./routes/libraries'))
 app.use('/api/members', require('./routes/members'))
-app.use('/api/edit-profile', require('./routes/index'))
 
 
 
