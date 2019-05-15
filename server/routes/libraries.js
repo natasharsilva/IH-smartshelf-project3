@@ -37,7 +37,6 @@ router.delete('/:libraryId', (req, res, next) => {
         message: "Library was deleted"
       })
     })
-
   .catch(err => next(err))
 });
 
