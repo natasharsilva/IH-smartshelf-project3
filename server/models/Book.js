@@ -29,10 +29,6 @@ const bookSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: "User"
       },
-      _book: {
-        type: Schema.Types.ObjectId,
-        ref: "Book"
-      }
     }],
   comments: [{
       _user: {

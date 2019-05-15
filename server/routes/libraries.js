@@ -29,8 +29,10 @@ router.put("/:libraryId", (req, res, next) => {
   .catch(err => next(err))
 });
 
-//---------------- Delete libraries --------------   Working
+//---------------- Delete libraries --------------   
 router.delete('/:libraryId', (req, res, next) => {
+  Member.find({_library: req.params.id})
+  .then
   Library.findOneAndRemove(req.params.libraryId)
   .then(() => {
     res.json({
@@ -40,7 +42,7 @@ router.delete('/:libraryId', (req, res, next) => {
   .catch(err => next(err))
 });
 
-// ------------------ Create Library ------------- Working
+// ------------------ Create Library ---------------------
 // uploader.single('picture') is a middleware, that takes from the request the field "picture" (must be a file), save it to cloudinary, save the info in req.file and go to the next middleware
 router.post('/', uploader.single('picture'), (req, res, next) => {
   Library.create({
@@ -60,7 +62,21 @@ router.post('/', uploader.single('picture'), (req, res, next) => {
               memberCreated,libraryCreated
             });
           }).catch(err => next(err))
-    })})
+    })
+  })
+//--------------------------------------------------
+// Route to display books 
+router.get("library-books/:libraryId", (req, res, next) => {
+  Books.find({
+    _library: req.params.id
+  })
+  .then(response => {
+    res.json(response);
+  })
+  .catch(err => next(err))
+});
+
+
 
 
 // router.get("/library-books/:libraryId", (req,res,next) => {
