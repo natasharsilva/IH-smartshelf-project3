@@ -18,9 +18,9 @@ router.get("/:libraryId", (req, res, next) => {
 // ---------Update Libraries ------------
 
 router.put("/:libraryId", uploader.single('picture'), (req, res, next) => {
-  Library.findOneAndUpdate(req.params.id,{
+  Library.findOneAndUpdate(req.params.libraryId,{
     name: req.body.name,
-    picture: req.file && req.file.url,  
+    picture: req.file && req.file.secure_url,  
     address: req.body.address,
   })
   .then(response => {
@@ -31,20 +31,13 @@ router.put("/:libraryId", uploader.single('picture'), (req, res, next) => {
 
 //---------------- Delete libraries --------------   
 router.delete('/:libraryId', (req, res, next) => {
-  Member.find({_library: req.params.libraryId})
-  .then(member => {
-    if(req.user._id === member._user && member.role === "admin"){
     Library.findOneAndRemove(req.params.libraryId)
     .then(() => {
       res.json({
         message: "Library was deleted"
       })
-    })}
-    else {res.json({
-      message:"You are not allowed to delete this library"
-    })}
-    
-  })
+    })
+
   .catch(err => next(err))
 });
 

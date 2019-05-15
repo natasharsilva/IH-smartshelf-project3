@@ -14,7 +14,7 @@ export default class Login extends Component {
 
   handleInputChange(event) {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.username]: event.target.value
     })
   }
 
