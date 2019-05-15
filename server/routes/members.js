@@ -13,23 +13,17 @@ router.get("/:id", (req, res, next) => {
   .catch(err => next(err))
 });
 
+//----Delete a Member---- 
 
-// Create a Member -- 
-// router.post('/',(req, res, next) => {
-//   Member.create({
-//     _user: req.user._id,
-//     _library: req.body._library 
-//   })
-//   .then(response => {
-//     res.json({
-//       message: "Member created!",
-//       response,
-//     });
-//   })
-//   .catch(err => next(err))
-// });
-
-
+router.delete('/:id', (req, res, next)=>{
+  Member.findByIdAndRemove(req.params.id)
+    .then(() => {
+      res.json({ message: `Member with ${req.params.id} is removed successfully.` });
+    })
+    .catch( err => {
+      res.json(err);
+    })
+})
 
 
 module.exports = router;
