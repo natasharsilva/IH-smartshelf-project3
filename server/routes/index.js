@@ -27,7 +27,7 @@ router.get('/profile-page/',  isLoggedIn, (req, res, next) => {
   })
   
 
-router.put("edit-user/:userId", uploader.single('picture'), (req, res, next) => {
+  router.put("edit-profile/:userId", uploader.single('picture'), (req, res, next) => {
   User.findOneAndUpdate(req.params.userId,{
     name: req.body.name,
     picture: req.file && req.file.secure_url,  

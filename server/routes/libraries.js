@@ -31,12 +31,23 @@ router.put("/:libraryId", uploader.single('picture'), (req, res, next) => {
 
 //---------------- Delete libraries --------------   
 router.delete('/:libraryId', (req, res, next) => {
-    Library.findOneAndRemove(req.params.libraryId)
-    .then(() => {
+  Member.findOne({_library: req.params.libraryId})
+  .then(member => {
+    console.log("what is this",member.role)
+    if(JSON.stringify(req.user._id) === JSON.stringify(member._user) && member.role === "admin"){
+    Library.findOneAndRemove({_id:req.params.libraryId})
+    .then(library => {
       res.json({
+        library,
         message: "Library was deleted"
       })
-    })
+    })}
+    else {
+      res.json({
+      message:"You are not allowed to delete this library"
+    })}
+    
+  })
   .catch(err => next(err))
 });
 
