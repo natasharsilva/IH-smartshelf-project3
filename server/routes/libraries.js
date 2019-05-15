@@ -17,7 +17,7 @@ router.get("/:libraryId", (req, res, next) => {
 
 // ---------Update Libraries ------------
 
-router.put("/:libraryId", (req, res, next) => {
+router.put("/:libraryId", uploader.single('picture'), (req, res, next) => {
   Library.findOneAndUpdate(req.params.id,{
     name: req.body.name,
     picture: req.file && req.file.url,  
@@ -31,13 +31,19 @@ router.put("/:libraryId", (req, res, next) => {
 
 //---------------- Delete libraries --------------   
 router.delete('/:libraryId', (req, res, next) => {
-  Member.find({_library: req.params.id})
-  .then
-  Library.findOneAndRemove(req.params.libraryId)
-  .then(() => {
-    res.json({
-      message: "Library was deleted"
-    });
+  Member.find({_library: req.params.libraryId})
+  .then(member => {
+    if(req.user._id === member._user && member.role === "admin"){
+    Library.findOneAndRemove(req.params.libraryId)
+    .then(() => {
+      res.json({
+        message: "Library was deleted"
+      })
+    })}
+    else {res.json({
+      message:"You are not allowed to delete this library"
+    })}
+    
   })
   .catch(err => next(err))
 });
@@ -75,9 +81,6 @@ router.get("library-books/:libraryId", (req, res, next) => {
   })
   .catch(err => next(err))
 });
-
-
-
 
 // router.get("/library-books/:libraryId", (req,res,next) => {
 //   Library.findById(req.params.libraryId)
