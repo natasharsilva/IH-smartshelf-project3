@@ -38,13 +38,19 @@ router.put("/:bookId", uploader.single("picture"), (req, res, next) => {
 
 //---------------- Delete books -------------- Working
 router.delete("/:bookId", (req, res, next) => {
-  Book.findOneAndRemove(req.params.bookId)
-    .then(() => {
-      res.json({
-        message: "The book was deleted"
+  Book.findById(req.params.bookId).then(book => {
+    if (JSON.stringify(req.user._id) === JSON.stringify(book._createdBy)) {
+      Book.deleteOne({ '_id': book._id }).then(() => {
+        res.json({
+          message: `The book ${book.title} was deleted`
+        });
       });
-    })
-    .catch(err => next(err));
+    } else {
+      res.json({
+        message: `You are not allowed to delete ${book.title}`
+      });
+    }
+  });
 });
 
 // ------------------ Create Book with API ------------- Working

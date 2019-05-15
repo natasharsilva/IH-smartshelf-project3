@@ -43,7 +43,6 @@ router.delete('/:libraryId', (req, res, next) => {
     else {res.json({
       message:"You are not allowed to delete this library"
     })}
-    
   })
   .catch(err => next(err))
 });
