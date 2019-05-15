@@ -1,5 +1,4 @@
 const express = require("express");
-const { isLoggedIn } = require("../middlewares");
 const router = express.Router();
 const axios = require("axios");
 const Book = require("../models/Book");
@@ -16,7 +15,7 @@ router.get("/:bookId", (req, res, next) => {
     .catch(err => next(err));
 });
 
-// --------- Update Books ------------ Working without picture****
+// --------- Update Books ------------ Working without picture ****
 
 router.put("/:bookId", uploader.single("picture"), (req, res, next) => {
   Book.findOneAndUpdate(req.params.id, {
