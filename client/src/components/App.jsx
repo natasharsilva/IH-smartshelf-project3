@@ -39,7 +39,7 @@ export default class App extends Component {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/profile" component={Profile} />
-          <Route path="/libraries" component={AddLibrary} />
+          <Route path="/libraries" exact component={AddLibrary} />
           <Route path="/libraries/:libraryId" component={LibraryDetail} />
           <Route path="/libraries/:libraryId/books" component={LibraryBooks} />
           <Route path="/books/:bookId" component={BookDetail} />

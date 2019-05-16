@@ -17,14 +17,12 @@ export default class BookDetail extends Component {
     super(props);
     this.state = {
       response: {
-        book: null,
+        book: null
       }
     };
     this.borrowBook = this.borrowBook.bind(this);
   }
-  borrowBook() {
-
-  }
+  borrowBook() {}
 
   render() {
     return (
@@ -42,16 +40,28 @@ export default class BookDetail extends Component {
                     alt="Card image cap"
                   />
                 </Col>
-                  <CardBody>
-                    <CardTitle>
-                      <b>{this.state.book.name}</b>
-                    </CardTitle>
-                    <CardSubtitle>{this.state.book.address}</CardSubtitle>
-                    <CardText>{this.state.book.description}</CardText>
-                    <Button onClick={this.borrowBook} className="btn btn-info">
-                      Borrow
-                    </Button>
-                  </CardBody>
+                <CardBody>
+                  <CardTitle tag="h3">
+                    <strong>{this.state.book.title}</strong>
+                  </CardTitle>
+                  <CardSubtitle tag="h4">{this.state.book.author}</CardSubtitle>
+                  <CardText>
+                    {this.state.book.description}
+                    <br />
+                    <strong>Rating: </strong>
+                    {this.state.book.rating}
+                    <br />
+                    <strong>Pages: </strong>
+                    {this.state.book.pages}
+                    <br />
+                    <strong>ISBN: </strong>
+                    {this.state.book.isbn}
+                    <br />
+                  </CardText>
+                  <Button onClick={this.borrowBook} className="btn btn-info">
+                    Borrow
+                  </Button>
+                </CardBody>
               </Row>
             </Card>
           </div>
@@ -62,9 +72,7 @@ export default class BookDetail extends Component {
   componentDidMount() {
     api
       .getBook(this.props.match.params.bookId)
-
       .then(response => {
-        console.log("response------->", response);
         this.setState({
           book: response
         });
