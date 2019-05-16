@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button } from 'reactstrap'
 import api from '../../api';
 
 export default class Signup extends Component {
@@ -37,12 +38,15 @@ export default class Signup extends Component {
   render() {
     return (
       <div className="Signup">
-        <h2>Signup</h2>
+        <h2>Sign up</h2>
         <form>
-          Email: <input type="text" value={this.state.email} name="email" onChange={this.handleInputChange} /> <br />
-          Username: <input type="text" value={this.state.username} name="username" onChange={this.handleInputChange} /> <br />
-          Password: <input type="password" value={this.state.password} name="password" onChange={this.handleInputChange} /> <br />
-          <button onClick={(e) => this.handleClick(e)}>Signup</button>
+          Email <br />
+          <input type="text" value={this.state.email} name="email" onChange={this.handleInputChange} /> <br /><br />
+          Username <br />
+          <input type="text" value={this.state.username} name="username" onChange={this.handleInputChange} /> <br /><br />
+          Password <br />
+          <input type="password" value={this.state.password} name="password" onChange={this.handleInputChange} /> <br /><br />
+          <Button tag="a" outline color="info" onClick={(e) => this.handleClick(e)}>Signup</Button>
         </form>
         {this.state.message && <div className="info info-danger">
           {this.state.message}

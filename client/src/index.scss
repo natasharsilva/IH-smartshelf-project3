@@ -101,9 +101,6 @@ body {
     padding-top: 10px;
     padding-bottom:30px;
   }
-
-  
-
 }
 
 // --------------------
@@ -112,5 +109,70 @@ body {
   .result {
     font-size: 1.2em;
     color: $primary;
+  }
+}
+
+// --------------------
+// Style for Login and Sign Up components
+
+.Login {
+  input {
+  margin-top: 5px;
+  }
+
+  h2 {
+  margin-top: 5px;
+  }
+}
+
+.Signup {
+  input {
+  margin-top: 5px;
+  }
+
+  h2 {
+  margin-top: 5px;
+  }
+}
+
+a {
+  cursor: pointer
+}
+
+// --------------------
+// Style for Profile Page component
+
+.profilePage {
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  li {
+    text-align: left;
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+  }
+
+  a {
+    margin-top: 5px;
+  }
+
+  .infoContainer {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .infoContainer img {
+    height: 100px;
+  }
+
+  .userContainer img {
+    height: 150px;
+    width: 150px;
+    object-fit: cover;
+    border-radius: 100px;
   }
 }
