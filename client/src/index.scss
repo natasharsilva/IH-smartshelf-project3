@@ -1,22 +1,8 @@
+
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
 // --------------------
 // Definition of variables
 $primary: #32c3ff;
-
-
-// ----------------------------------------
-// To install Boostrap:
-// 1) Run in the client folder: $ npm i bootstrap
-// 2) Import bootstrap with the following line
-// @import '../node_modules/bootstrap/scss/bootstrap.scss';
-// 
-// To install Reactstrap:
-// 1) Run in the client folder: $ npm i reactstrap
-// 2) Go to the official documentation and take some examples: https://reactstrap.github.io/
-// import { Button } from 'reactstrap';
-// <Button color="danger">Danger!</Button>
-// ----------------------------------------
-
 
 // --------------------
 // Style reusable for all components
@@ -87,8 +73,33 @@ body {
 // --------------------
 // Style for Home component
 .Home {
+  display:flex;
+  flex-direction: column;
+  padding:5px;
+
   p {
     font-size: 1.2em;
+  }
+
+  img {
+    width:70%;
+    max-width:400px;
+    min-width:250px;
+    padding:30px;
+  }
+
+  .features {
+    padding:5px;
+    margin:5px;
+  }
+
+  .icon{
+    padding-bottom:15px;
+  }
+
+  .home-header{
+    padding-top: 10px;
+    padding-bottom:30px;
   }
 }
 
@@ -104,22 +115,64 @@ body {
 // --------------------
 // Style for Login and Sign Up components
 
-.Login input {
+.Login {
+  input {
   margin-top: 5px;
+  }
+
+  h2 {
+  margin-top: 5px;
+  }
 }
 
-.Login h2 {
+.Signup {
+  input {
   margin-top: 5px;
-}
+  }
 
-.Signup input {
+  h2 {
   margin-top: 5px;
-}
-
-.Signup h2 {
-  margin-top: 5px;
+  }
 }
 
 a {
   cursor: pointer
+}
+
+// --------------------
+// Style for Profile Page component
+
+.profilePage {
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  li {
+    text-align: left;
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+  }
+
+  a {
+    margin-top: 5px;
+  }
+
+  .infoContainer {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .infoContainer img {
+    height: 100px;
+  }
+
+  .userContainer img {
+    height: 150px;
+    width: 150px;
+    object-fit: cover;
+    border-radius: 100px;
+  }
 }

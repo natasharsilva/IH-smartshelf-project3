@@ -11,12 +11,13 @@ const uploader = require("../configs/cloudinary")
 //only books borrowed by the user
 router.get('/profile',  isLoggedIn, (req, res, next) => {
   Promise.all([
+    User.findById(req.user._id),
     Member.find({_user: req.user._id}).populate("_library"),
         //{'_currentOwner': '5cdc2b9196f7706fc9e93389'}
     Book.find({_currentOwner: req.user._id})])
-            .then(([members,books]) => {
+            .then(([user,members,books]) => {
               res.json({
-                members,books
+                user,members,books
               });
             })
   })

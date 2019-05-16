@@ -1,54 +1,101 @@
 import React, { Component } from "react";
-import { Button } from "reactstrap";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardDeck,
+  CardText,
+  CardTitle
+} from "reactstrap";
+import { Link } from "react-router-dom";
 import api from "../../api";
 
 export default class Profile extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      profileInfo: null,
-    }
+      profileInfo: null
+    };
   }
   render() {
     return (
       <div className="profilePage">
         {!this.state.profileInfo && <div>Loading...</div>}
-        {this.state.profileInfo &&
-        <div>
-        <div>
-          <p>Picture</p>
-          <img src="/" alt="" />
-          <p>E-mail</p>
-          <h3>Username</h3>
-          <p>Favorite Quote</p>
-          <Button outline color="info" size="sm">
-            Edit Profile
-          </Button>
-        </div>
-        <div>
-        <h3>Libraries</h3>
-        <ul>
-        {this.state.profileInfo.members.map(library => <li key={library._id}>{library._library.name}</li>)}
-        </ul>
-        </div>
-        <div>
-        <h3>Books</h3>
-        <ul>
-        {this.state.profileInfo.books.map(book => <li key={book._id}>{book.title}, by {book.author}</li>)}
-        </ul>
-        </div>
-        </div>}
+        {this.state.profileInfo && (
+          <div>
+            <CardDeck>
+              <Card>
+                <CardBody>
+                  <CardText className="userContainer">
+                  <img src={this.state.profileInfo.user.picture} alt="" />
+                  {this.state.profileInfo.user.email} <br />
+                  {this.state.profileInfo.user.username[0].toUpperCase()+this.state.profileInfo.user.username.substr(1)} <br />
+                    Favorite quote
+                  </CardText>
+                  <Button outline color="info" size="sm">
+                    Edit Profile
+                  </Button>
+                </CardBody>
+              </Card>
+              <Card>
+                <CardBody>
+                  <CardTitle tag="h3">Libraries</CardTitle>
+                  <CardText className="infoContainer">
+                    {this.state.profileInfo.members.map(library => (
+                      <li key={library._library._id}>
+                        {/* <img src={library._library.name.picture} alt="" /> */}
+                        <span>
+                          <Link to={`/libraries/${library._library._id}`}>
+                            {library._library.name}
+                          </Link>
+                        </span>
+                      </li>
+                    ))}
+                  </CardText>
+                  <Button tag="a" outline color="info" size="sm">
+                    Show more
+                  </Button>
+                </CardBody>
+              </Card>
+              <Card>
+                <CardBody>
+                  <CardTitle tag="h3">Books</CardTitle>
+                  <CardText className="infoContainer">
+                    {this.state.profileInfo.books.map(book => (
+                      <li key={book._id}>
+                        <img src={book.picture} alt="" />
+                        <span>
+                          <strong>Title: </strong>
+                          {book.title}
+                          <br />
+                          <strong>Author: </strong>
+                          {book.author}
+                          <br />
+                          <strong>Due date: </strong> XXXX <br />
+                          <Button tag="a" outline color="info" size="sm">
+                            Return to library
+                          </Button>
+                        </span>
+                      </li>
+                    ))}
+                  </CardText>
+                </CardBody>
+              </Card>
+            </CardDeck>
+          </div>
+        )}
       </div>
     );
   }
   componentDidMount() {
-    api.showProfile()
+    api
+      .showProfile()
       .then(response => {
         this.setState({
           profileInfo: response
-        })
-        console.log(this.state)
+        });
+        console.log(this.state);
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log(err));
   }
 }

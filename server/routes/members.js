@@ -24,7 +24,7 @@ router.post("/", isLoggedIn, (req, res, next) => {
 
 //-------------- Delete a Member-------------- 
 
-// TODO: Make sure the user is connected and is either an admin or himself
+// Make sure the user is connected and is either an admin or himself
 router.delete('/:id', isLoggedIn, (req, res, next)=>{
 
     Member.findOne({_id: req.params.id})
@@ -33,7 +33,7 @@ router.delete('/:id', isLoggedIn, (req, res, next)=>{
         Member.findOne({_user: req.user._id,_library:memberToDelete._library})
         .then(loggedUser =>{
             console.log("TCL: memberToDelete,loggedUser", loggedUser )
-    
+          
         if(loggedUser.role === 'admin'){
       Member.deleteOne({_id: memberToDelete.id})
       res.json({
