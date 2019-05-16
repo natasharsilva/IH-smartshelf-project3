@@ -146,13 +146,14 @@ a {
   div {
     display: flex;
     flex-direction: column;
+    max-width: 600px;
   }
 
   li {
     text-align: left;
     list-style-type: none;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
   }
 
   a {
@@ -161,18 +162,26 @@ a {
 
   .infoContainer {
     margin-top: 10px;
-    display: flex;
-    justify-content: center;
   }
 
   .infoContainer img {
-    height: 100px;
+    height: 120px;
+  }
+
+  .userContainer {
+    display: flex;
+    justify-content: space-evenly;
   }
 
   .userContainer img {
     height: 150px;
     width: 150px;
+    margin-bottom: 10px;
     object-fit: cover;
     border-radius: 100px;
+  }
+
+  .userName {
+    font-size: 2.5em;
   }
 }
