@@ -13,15 +13,10 @@ import api from '../api';
 import Profile from './pages/Profile';
 
 export default class App extends Component {
-  // constructor(props) {
-  //   super(props)
-
-  // }
 
   handleLogoutClick(e) {
     api.logout()
   }
-
   render() {
     return (
       <div className="App">
@@ -36,7 +31,6 @@ export default class App extends Component {
           {api.isLoggedIn() && <Link to="/" onClick={(e) => this.handleLogoutClick(e)}>Logout</Link>}
         <NavLink to="/secret">Secret</NavLink> */}
 
-        
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/profile" component={Profile} />
