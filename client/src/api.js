@@ -1,64 +1,66 @@
-import axios from 'axios'
+import axios from "axios";
 
 const service = axios.create({
-  baseURL: process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:5000/api',
+  baseURL:
+    process.env.NODE_ENV === "production"
+      ? "/api"
+      : "http://localhost:5000/api",
   withCredentials: true
-})
+});
 
 const errHandler = err => {
-  console.error(err)
+  console.error(err);
   if (err.response && err.response.data) {
-    console.error("API response", err.response.data)
-    throw err.response.data.message
+    console.error("API response", err.response.data);
+    throw err.response.data.message;
   }
-  throw err
-}
+  throw err;
+};
 
 export default {
   service: service,
-// Begining of AUTH methods ------------ DONT CHANGE ANYTHING -----------------------
+  // Begining of AUTH methods ------------ DONT CHANGE ANYTHING -----------------------
   // This method is synchronous and returns true or false
   // To know if the user is connected, we just check if we have a value for localStorage.getItem('user')
   isLoggedIn() {
-    return localStorage.getItem('user') != null
+    return localStorage.getItem("user") != null;
   },
 
   // This method returns the user from the localStorage
   // Be careful, the value is the one when the user logged in for the last time
   getLocalStorageUser() {
-    return JSON.parse(localStorage.getItem('user'))
+    return JSON.parse(localStorage.getItem("user"));
   },
 
   // This method signs up and logs in the user
   signup(userInfo) {
     return service
-      .post('/signup', userInfo)
+      .post("/signup", userInfo)
       .then(res => {
         // If we have localStorage.getItem('user') saved, the application will consider we are loggedin
-        localStorage.setItem('user', JSON.stringify(res.data))
-        return res.data
+        localStorage.setItem("user", JSON.stringify(res.data));
+        return res.data;
       })
-      .catch(errHandler)
+      .catch(errHandler);
   },
 
   login(email, password) {
     return service
-      .post('/login', {
+      .post("/login", {
         email,
-        password,
+        password
       })
       .then(res => {
         // If we have localStorage.getItem('user') saved, the application will consider we are loggedin
-        localStorage.setItem('user', JSON.stringify(res.data))
-        return res.data
+        localStorage.setItem("user", JSON.stringify(res.data));
+        return res.data;
       })
-      .catch(errHandler)
+      .catch(errHandler);
   },
 
   logout() {
-    localStorage.removeItem('user')
-    return service
-      .get('/logout')
+    localStorage.removeItem("user");
+    return service.get("/logout");
   },
   // End of AUTH methods ------------------------------------------------------
 
@@ -71,46 +73,82 @@ export default {
   //     .catch(errHandler)
   // },
 
-
-// -------------------- GET / POST Library methods -------------------------
+  // -------------------- GET / POST Library methods -------------------------
 
   addLibrary(body) {
     return service
-      .post('/add-library', body)
+      .post("/add-library", body)
       .then(res => res.data)
-      .catch(errHandler)
+      .catch(errHandler);
   },
 
   getLibraries() {
     return service
-      .get('/libraries')
+      .get("/libraries")
       .then(res => res.data)
-      .catch(errHandler)
+      .catch(errHandler);
   },
 
   getLibrary(libraryId) {
     return service
-    .get(`/library-detail/${libraryId}`)
-    .then(response => response.data)
-    .catch(errHandler)
+      .get(`/library-detail/${libraryId}`)
+      .then(response => response.data)
+      .catch(errHandler);
   },
-// -------------------- END OF GET / POST Library methods -------------------------
+  // -------------------- END OF GET / POST Library methods -------------------------
 
+  // -------------------- START OF BOOK METHODS -------------------------
 
-// --------------------  Picture Upload method ----------------------------------
+  getBook(bookId) {
+    return service
+      .get(`/${bookId}`)
+      .then(res => res.data)
+      .catch(errHandler);
+  },
+
+  updateBook(bookId, body) {
+    return service
+      .put(`/${bookId}`, body)
+      .then(res => res.data)
+      .catch(errHandler);
+  },
+
+  deleteBook(bookId) {
+    return service
+      .delete(`/${bookId}`)
+      .then(res => res.data)
+      .catch(errHandler);
+  },
+
+  addBook(body) {
+    return service
+      .post(`/`, body)
+      .then(res => res.data)
+      .catch(errHandler);
+  },
+
+  addBookWithForm(body) {
+    return service
+      .post(`/form`, body)
+      .then(res => res.data)
+      .catch(errHandler);
+  },
+
+  // -------------------- END OF BOOK METHODS -------------------------
+
+  // --------------------  Picture Upload method ----------------------------------
 
   addPicture(file) {
-    const formData = new FormData()
-    formData.append("picture", file)
+    const formData = new FormData();
+    formData.append("picture", file);
     return service
-      .post('/endpoint/to/add/a/picture', formData, {
+      .post("/endpoint/to/add/a/picture", formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+          "Content-Type": "multipart/form-data"
+        }
       })
       .then(res => res.data)
-      .catch(errHandler)
-  },
-}
+      .catch(errHandler);
+  }
+};
 // -------------------- END OF Upload method ----------------------------------
-
