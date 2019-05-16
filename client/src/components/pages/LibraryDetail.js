@@ -87,18 +87,13 @@ export default class LibraryDetail extends Component {
               </Card>
             </div>
           ))}
-        }
       </div>
     );
   }
   componentDidMount() {
-    console.log("SETSTATE", this.props.match.params.libraryId);
-
     api
       .getLibrary(this.props.match.params.libraryId)
-
       .then(response => {
-        console.log("response------->", response);
         this.setState({
           library: response.library,
           book: response.book
