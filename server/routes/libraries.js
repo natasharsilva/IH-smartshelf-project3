@@ -81,6 +81,7 @@ router.post('/', isLoggedIn, uploader.single('picture'), (req, res, next) => {
     name: req.body.name,
     picture: req.file && req.file.secure_url,  
     address: req.body.address,
+    description: req.body.description
   })
     .then(libraryCreated => {
         Member.create({

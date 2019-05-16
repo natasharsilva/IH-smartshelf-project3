@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Route, Link, NavLink, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
-import Countries from './pages/Countries';
 import LibraryDetail from './pages/LibraryDetail.js';
 import NavBar from './NavBar';
 import Login from './pages/Login';
@@ -9,12 +8,11 @@ import Signup from './pages/Signup';
 import api from '../api';
 import logo from '../logo.svg';
 
+
 export default class App extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      countries: []
-    }
+
   }
 
   handleLogoutClick(e) {
@@ -25,8 +23,7 @@ export default class App extends Component {
     return (
       <div className="App">
       <NavBar />
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+
           <h1 className="App-title">Project 3</h1>
         
           {/* <NavLink to="/" exact>Home</NavLink>
@@ -35,11 +32,12 @@ export default class App extends Component {
           {!api.isLoggedIn() && <NavLink to="/signup">Signup</NavLink>}
           {!api.isLoggedIn() && <NavLink to="/login">Login</NavLink>}
           {api.isLoggedIn() && <Link to="/" onClick={(e) => this.handleLogoutClick(e)}>Logout</Link>}
-          <NavLink to="/secret">Secret</NavLink> */}
-        </header>
+        <NavLink to="/secret">Secret</NavLink> */}
+
+        
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/librares/:libraryId" component={LibraryDetail} />
+          <Route path="/libraries/:libraryId" component={LibraryDetail} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
           <Route render={() => <h2>404</h2>} />
