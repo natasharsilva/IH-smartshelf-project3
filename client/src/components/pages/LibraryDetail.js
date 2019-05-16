@@ -16,7 +16,9 @@ export default class LibraryDetail extends Component {
     }
     this.joinLibrary = this.joinLibrary.bind(this)
   }
-
+  joinLibrary() {
+    
+  }
 
   render() {
 

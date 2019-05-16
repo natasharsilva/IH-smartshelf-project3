@@ -171,6 +171,28 @@ editProfile(body) {
   },
 
   // -------------------- END OF BOOK METHODS -------------------------
+  getMember(id) {
+    return service
+    .get(`/member/${id}`)
+    .then(response => response.data)
+    .catch(errHandler)
+  },
+  createMember(libraryId) {
+    return service
+    .post(`/member/${libraryId}`)
+    .then(response => response.data)
+    .catch(errHandler)
+  },
+  deleteMember(libraryId) {
+    return service
+    .delete(`/member/${libraryId}`)
+    .then(response => response.data)
+    .catch(errHandler)
+  },
+
+  // ------------------- START OF MEMBER METHODS------------------- 
+
+    // ------------------- END OF MEMBER METHODS------------------- 
 
   // --------------------  START OF PICTURE UPLOAD METHOD --------------------
 
