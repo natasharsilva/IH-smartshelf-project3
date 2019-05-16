@@ -103,6 +103,16 @@ body {
   }
 }
 
+.AddLibrary{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  
+  form{
+    width:70%;
+    max-width:500px;}
+}
+
 // --------------------
 // Style for Secret component
 .Secret {
