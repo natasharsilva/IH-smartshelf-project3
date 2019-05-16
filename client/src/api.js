@@ -113,7 +113,7 @@ deleteLibrary(libraryId) {
 
 // -------------------- End of Library methods -------------------------
 
-// --------------------  Profile methods -------------------------
+// --------------------  START OF PROFILE METHODS -------------------------
 
 showProfile() {
   return service
@@ -131,7 +131,7 @@ editProfile(body) {
 
 
 
-// --------------------  End ofProfile methods -------------------------
+// --------------------  END OF PROFILE METHODS -------------------------
 
   // -------------------- START OF BOOK METHODS -------------------------
 
@@ -171,8 +171,30 @@ editProfile(body) {
   },
 
   // -------------------- END OF BOOK METHODS -------------------------
+  getMember(id) {
+    return service
+    .get(`/member/${id}`)
+    .then(response => response.data)
+    .catch(errHandler)
+  },
+  createMember(libraryId) {
+    return service
+    .post(`/member/${libraryId}`)
+    .then(response => response.data)
+    .catch(errHandler)
+  },
+  deleteMember(libraryId) {
+    return service
+    .delete(`/member/${libraryId}`)
+    .then(response => response.data)
+    .catch(errHandler)
+  },
 
-  // --------------------  Picture Upload method ----------------------------------
+  // ------------------- START OF MEMBER METHODS------------------- 
+
+    // ------------------- END OF MEMBER METHODS------------------- 
+
+  // --------------------  START OF PICTURE UPLOAD METHOD --------------------
 
   addPicture(file) {
     const formData = new FormData();

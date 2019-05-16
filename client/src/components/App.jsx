@@ -8,8 +8,7 @@ import NavBar from './NavBar';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import api from '../api';
-import logo from '../logo.svg';
-
+import Profile from './pages/Profile';
 
 export default class App extends Component {
   constructor(props) {
@@ -25,8 +24,7 @@ export default class App extends Component {
     return (
       <div className="App">
       <NavBar />
-
-          <h1 className="App-title">Project 3</h1>
+          {/* <h1 className="App-title">Project 3</h1> */}
         
           {/* <NavLink to="/" exact>Home</NavLink>
           <NavLink to="/countries">Countries</NavLink>
@@ -39,6 +37,7 @@ export default class App extends Component {
         
         <Switch>
           <Route path="/" exact component={Home} />
+          <Route path="/profile" exact component={Profile} />
           <Route path="/libraries/:libraryId" component={LibraryDetail} />
           <Route path="/:libraryId/books" component={LibraryBooks} />
           <Route path="/add-library" component={AddLibrary} />
