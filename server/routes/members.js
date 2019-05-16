@@ -22,7 +22,7 @@ router.post("/", isLoggedIn, (req, res, next) => {
   .catch(err => next(err))
 });
 
-//----Delete a Member---- 
+//-------------- Delete a Member-------------- 
 
 // Make sure the user is connected and is either an admin or himself
 router.delete('/:id', isLoggedIn, (req, res, next)=>{
