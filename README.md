@@ -7,7 +7,7 @@ In case the PORT is already in use
 $ kill $(lsof -t -i:5000)
 
 
-## Notes from Maxence
+## Notes from Maxence - DONE
 
 In `models/Book.js`:
 - currentOwner -> _owner  
