@@ -7,6 +7,7 @@ const Book = require("../models/Book")
 const uploader = require("../configs/cloudinary")
 const { isLoggedIn } = require('../middlewares')
 
+// when testing use http://localhost:5000/api/libraries
 
 // ------------ Get library details by Id --- Library Homepage / 
 // TODO: send an object with the library and the books (and delete the route GET "library-books/:libraryId")
@@ -97,13 +98,6 @@ router.post('/', isLoggedIn, uploader.single('picture'), (req, res, next) => {
   })
 //--------------------------------------------------
 
-// router.get("/library-books/:libraryId", (req,res,next) => {
-//   Library.findById(req.params.libraryId)
-//   .then(response => {
-//     res.json(response);
-//   })
-//   .catch(err => next(err))
-// });
 
 
 module.exports = router;
