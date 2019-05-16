@@ -25,5 +25,8 @@ const memberSchema = new Schema(
   }
 );
 
+memberSchema.index({ _user: 1, _library: 1 }, { unique: true });
+
+
 const Member = mongoose.model("Member", memberSchema);
 module.exports = Member;
