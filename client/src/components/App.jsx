@@ -11,15 +11,11 @@ import api from '../api';
 import Profile from './pages/Profile';
 
 export default class App extends Component {
-  constructor(props) {
-    super(props)
 
-  }
 
   handleLogoutClick(e) {
     api.logout()
   }
-
   render() {
     return (
       <div className="App">
