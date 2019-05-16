@@ -72,30 +72,64 @@ export default {
   // },
 
 
-// -------------------- GET / POST Library methods -------------------------
+// --------------------  Library methods -------------------------
 
-  addLibrary(body) {
-    return service
-      .post('/add-library', body)
-      .then(res => res.data)
-      .catch(errHandler)
+getLibrary(libraryId) {
+  return service
+  .get(`/libraries/${libraryId}`)
+  .then(response => response.data)
+  .catch(errHandler)
+},
+
+updateLibrary(libraryId, body) {
+  return service
+  .put(`/libraries/${libraryId}`, body)
+  .then(response => response.data)
+  .catch(errHandler)
+},
+
+deleteLibrary(libraryId) {
+  return service
+  .delete(`/libraries/${libraryId}`)
+  .then(response => response.data)
+  .catch(errHandler)
+},
+
+  createLibrary(body) {
+  return service
+  .post("/libraries", body)
+  .then(res => res.data)
+  .catch(errHandler)
   },
 
-  getLibraries() {
-    return service
-      .get('/libraries')
-      .then(res => res.data)
-      .catch(errHandler)
-  },
+  // getLibraries() {
+  //   return service
+  //     .get('/libraries')
+  //     .then(res => res.data)
+  //     .catch(errHandler)
+  // },
 
-  getLibrary(libraryId) {
-    return service
-    .get(`/library-detail/${libraryId}`)
-    .then(response => response.data)
-    .catch(errHandler)
-  },
-// -------------------- END OF GET / POST Library methods -------------------------
+// -------------------- End of Library methods -------------------------
 
+// --------------------  Profile methods -------------------------
+
+showProfile() {
+  return service
+  .get("/profile")
+  .then(response => response.data)
+  .catch(errHandler)
+},
+
+editProfile(body) {
+  return service
+  .put("/profile", body)
+  .then(response => response.data)
+  .catch(errHandler)
+},
+
+
+
+// --------------------  End ofProfile methods -------------------------
 
 // --------------------  Picture Upload method ----------------------------------
 
