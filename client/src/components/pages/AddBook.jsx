@@ -7,10 +7,14 @@ export default class AddBook extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      name: "",
-      picture: "",
-      address: "",
+      title: "",
+      author: "",
+      genre: "",
       description: "",
+      rating: "",
+      pages: "",
+      isbn: "",
+      isbn: "",
       message: null,
       modal: false
     }
@@ -43,20 +47,31 @@ export default class AddBook extends Component {
     event.preventDefault()
     console.log(this.state.name, this.state.description)
     let data = {
-      name: this.state.name,
+      title: this.state.title,
+      author: this.state.author,
       picture: this.state.picture,
       address: this.state.address,
+      genre: this.state.genre,
       description: this.state.description,
+      rating: this.state.rating,
+      pages: this.state.pages,
+      isbn: this.state.isbn,
+      _library: this.props.match.params.libraryId._id
     }
-    api.createLibrary(data)
+    api.addBook(data)
       .then(result => {
         console.log('SUCCESS!')
         this.setState({
-          name: "",
+          title: "",
+          author: "",
           picture: "",
           address: "",
+          genre: "",
           description: "",
-          message: `Your library '${this.state.name}' has been created`
+          rating: "",
+          pages: "",
+          isbn: "",
+          message: `Your book '${this.state.title}' has been created`
         })
         setTimeout(() => {
           this.setState({
@@ -66,8 +81,6 @@ export default class AddBook extends Component {
       })
       .catch(err => this.setState({ message: err.toString() }))
   }
-
-
 
   render() {
     return (
@@ -109,7 +122,7 @@ export default class AddBook extends Component {
           Pages: <Input type="number" value={this.state.pages} name="pages" onChange={this.handleInputChange} /> <br />
           ISBN: <Input type="number" value={this.state.isbn} name="isbn" onChange={this.handleInputChange} /> <br />
           Description: <Input type="textarea" value={this.state.description} name="description" cols="20" rows="5" onChange={this.handleInputChange} /> <br />
-          <Button color="primary" onClick={(e) => this.handleClick(e)}>Create Library</Button>
+          <Button color="primary" onClick={(e) => this.handleClick(e)}>Create Book</Button>
         </form>
         {this.state.message && <div className="info">
           {this.state.message}

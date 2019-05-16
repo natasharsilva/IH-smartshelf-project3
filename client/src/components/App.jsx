@@ -44,7 +44,7 @@ export default class App extends Component {
           <Route path="/libraries/:libraryId" component={LibraryDetail} />
           <Route path="/:libraryId/books" component={LibraryBooks} />
           <Route path="/add-library" component={AddLibrary} />
-          <Route path="/add-book" component={AddBook} />
+          <Route path="/:libraryId/add-book" component={AddBook} />
           <Route path="/books/:bookId" component={BookDetail} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
