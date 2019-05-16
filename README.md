@@ -7,7 +7,7 @@ In case the PORT is already in use
 $ kill $(lsof -t -i:5000)
 
 
-## Notes from Maxence
+## Notes from Maxence - DONE
 
 In `models/Book.js`:
 - currentOwner -> _owner  
@@ -62,9 +62,9 @@ You should have a `server/.env` file, with for example the following values:
 PORT=5000
 SESSION_SECRET=anyValue
 MONGODB_URI=......
-CLOUDINARY_CLOUD_NAME=......
-CLOUDINARY_API_KEY=......
-CLOUDINARY_API_SECRET=......
+CLOUDINARY_NAME=......
+CLOUDINARY_KEY=......
+CLOUDINARY_SECRET=......
 ```
 
 
@@ -156,8 +156,6 @@ README.md
 - `router.get('/')`: Route to get all users
 - `router.post('/first-user/pictures')`: Route to add a picture on one user with Cloudinary
 
-<!-- TODO: give instructions for Cloudinary -->
-<!-- TODO: give instructions for route guards -->
 
 ### `server/routes/countries.js`
 
