@@ -30,12 +30,11 @@ export default class App extends Component {
           {!api.isLoggedIn() && <NavLink to="/login">Login</NavLink>}
           {api.isLoggedIn() && <Link to="/" onClick={(e) => this.handleLogoutClick(e)}>Logout</Link>}
         <NavLink to="/secret">Secret</NavLink> */}
-
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/profile" component={Profile} />
           <Route path="/libraries" component={AddLibrary} />
-          <Route path="/libraries/:libraryId" component={LibraryDetail} />
+          <Route path="/:libraryId" component={LibraryDetail} />
           <Route path="/:libraryId/books" component={LibraryBooks} />
           <Route path="/add-library" component={AddLibrary} />
           <Route path="/add-book" component={AddBook} />
