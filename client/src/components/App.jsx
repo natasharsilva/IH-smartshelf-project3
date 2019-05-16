@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import LibraryDetail from './pages/LibraryDetail.js';
 import LibraryBooks from './pages/LibraryBooks.jsx';
 import AddLibrary from './pages/AddLibrary.jsx';
+import AddBook from './pages/AddBook.jsx';
 import BookDetail from './pages/BookDetail';
 import NavBar from './NavBar';
 import Login from './pages/Login';
@@ -40,8 +41,9 @@ export default class App extends Component {
           <Route path="/" exact component={Home} />
           <Route path="/profile" component={Profile} />
           <Route path="/libraries" exact component={AddLibrary} />
-          <Route path="/libraries/:libraryId" component={LibraryDetail} />
+          <Route path="/libraries/:libraryId" exact component={LibraryDetail} />
           <Route path="/libraries/:libraryId/books" component={LibraryBooks} />
+          <Route path="/books" exact component={AddBook} />
           <Route path="/books/:bookId" component={BookDetail} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />

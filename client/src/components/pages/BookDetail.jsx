@@ -22,11 +22,14 @@ export default class BookDetail extends Component {
     };
     this.borrowBook = this.borrowBook.bind(this);
   }
+
   borrowBook() {}
+
+  addReview() {}
 
   render() {
     return (
-      <div className="BookDetail">
+      <div>
         {!this.state.book && <div>Loading...</div>}
         {this.state.book && (
           <div className="bookCard">
@@ -58,9 +61,15 @@ export default class BookDetail extends Component {
                     {this.state.book.isbn}
                     <br />
                   </CardText>
-                  <Button onClick={this.borrowBook} className="btn btn-info">
+                  <Button onClick={this.borrowBook} outline color="info">
                     Borrow
-                  </Button>
+                  </Button><br />
+                  <Button onClick={this.addReview} outline color="info">
+                    Add a review
+                  </Button><br />
+                  <Button onClick={this.reportProblem} outline color="info">
+                    Report a problem
+                  </Button><br />
                 </CardBody>
               </Row>
             </Card>
