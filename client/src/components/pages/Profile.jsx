@@ -27,12 +27,14 @@ export default class Profile extends Component {
               <Card>
                 <CardBody>
                   <CardText className="userContainer">
-                  <img src={this.state.profileInfo.user.picture} alt="" />
-                  {this.state.profileInfo.user.email} <br />
-                  {this.state.profileInfo.user.username[0].toUpperCase()+this.state.profileInfo.user.username.substr(1)} <br />
+                    <img src={this.state.profileInfo.user.picture} alt="" />
+                    {this.state.profileInfo.user.email} <br />
+                    {this.state.profileInfo.user.username[0].toUpperCase() +
+                      this.state.profileInfo.user.username.substr(1)}{" "}
+                    <br />
                     Favorite quote
                   </CardText>
-                  <Button outline color="info" size="sm">
+                  <Button outline color="info" size="sm" tag="a">
                     Edit Profile
                   </Button>
                 </CardBody>
@@ -43,7 +45,7 @@ export default class Profile extends Component {
                   <CardText className="infoContainer">
                     {this.state.profileInfo.members.map(library => (
                       <li key={library._library._id}>
-                        {/* <img src={library._library.name.picture} alt="" /> */}
+                        <img src={library._library.picture} style={{width:'50px', height:'50px', objectFit: 'cover'}} alt="" />
                         <span>
                           <Link to={`/libraries/${library._library._id}`}>
                             {library._library.name}
@@ -52,8 +54,9 @@ export default class Profile extends Component {
                       </li>
                     ))}
                   </CardText>
+                    <Link to="/">Show more</Link>
                   <Button tag="a" outline color="info" size="sm">
-                    Show more
+                    Add library
                   </Button>
                 </CardBody>
               </Card>
