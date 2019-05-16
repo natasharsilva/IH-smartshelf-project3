@@ -177,15 +177,15 @@ editProfile(body) {
     .then(response => response.data)
     .catch(errHandler)
   },
-  createMember(libraryId) {
+  createMember(body) {
     return service
-    .post(`/member/${libraryId}`)
+    .post(`/member/`, body)
     .then(response => response.data)
     .catch(errHandler)
   },
-  deleteMember(libraryId) {
+  deleteMember(id) {
     return service
-    .delete(`/member/${libraryId}`)
+    .delete(`/member/${id}`)
     .then(response => response.data)
     .catch(errHandler)
   },

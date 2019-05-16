@@ -69,7 +69,7 @@ export default class Profile extends Component {
                     ))}
                   </CardText>
                   <Link to="/">Show more</Link>
-                  <Button href="/libraries" outline color="info" size="sm">
+                  <Button href="/add-library" outline color="info" size="sm">
                     Add library
                   </Button>
                 </CardBody>
