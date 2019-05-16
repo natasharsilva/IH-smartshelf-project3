@@ -97,7 +97,7 @@ deleteLibrary(libraryId) {
   .catch(errHandler)
 },
 
-  createLibrary(body) {
+createLibrary(body) {
   return service
   .post("/libraries", body)
   .then(res => res.data)
@@ -137,28 +137,28 @@ editProfile(body) {
 
   getBook(bookId) {
     return service
-      .get(`/${bookId}`)
+      .get(`/books/${bookId}`)
       .then(res => res.data)
       .catch(errHandler);
   },
 
   updateBook(bookId, body) {
     return service
-      .put(`/${bookId}`, body)
+      .put(`/books/${bookId}`, body)
       .then(res => res.data)
       .catch(errHandler);
   },
 
   deleteBook(bookId) {
     return service
-      .delete(`/${bookId}`)
+      .delete(`/books/${bookId}`)
       .then(res => res.data)
       .catch(errHandler);
   },
 
   addBook(body) {
     return service
-      .post(`/`, body)
+      .post(`/books`, body)
       .then(res => res.data)
       .catch(errHandler);
   },

@@ -4,6 +4,8 @@ import Home from './pages/Home';
 import LibraryDetail from './pages/LibraryDetail.js';
 import LibraryBooks from './pages/LibraryBooks.jsx';
 import AddLibrary from './pages/AddLibrary.jsx';
+import AddBook from './pages/AddBook.jsx';
+import BookDetail from './pages/BookDetail';
 import NavBar from './NavBar';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -11,7 +13,6 @@ import api from '../api';
 import Profile from './pages/Profile';
 
 export default class App extends Component {
-
 
   handleLogoutClick(e) {
     api.logout()
@@ -30,13 +31,15 @@ export default class App extends Component {
           {api.isLoggedIn() && <Link to="/" onClick={(e) => this.handleLogoutClick(e)}>Logout</Link>}
         <NavLink to="/secret">Secret</NavLink> */}
 
-        
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/profile" exact component={Profile} />
+          <Route path="/profile" component={Profile} />
+          <Route path="/libraries" component={AddLibrary} />
           <Route path="/libraries/:libraryId" component={LibraryDetail} />
           <Route path="/:libraryId/books" component={LibraryBooks} />
           <Route path="/add-library" component={AddLibrary} />
+          <Route path="/add-book" component={AddBook} />
+          <Route path="/books/:bookId" component={BookDetail} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
           <Route render={() => <h2>404</h2>} />

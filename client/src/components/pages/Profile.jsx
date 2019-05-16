@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {
   Button,
+  ButtonGroup,
   Card,
   CardBody,
   CardDeck,
@@ -27,12 +28,21 @@ export default class Profile extends Component {
               <Card>
                 <CardBody>
                   <CardText className="userContainer">
-                  <img src={this.state.profileInfo.user.picture} alt="" />
-                  {this.state.profileInfo.user.email} <br />
-                  {this.state.profileInfo.user.username[0].toUpperCase()+this.state.profileInfo.user.username.substr(1)} <br />
-                    Favorite quote
+                    <span className="userPic">
+                      <img src={this.state.profileInfo.user.picture} alt="" />
+                      <br />
+                      {this.state.profileInfo.user.email}
+                    </span>
+                    <span>
+                      <span className="userName">
+                        {this.state.profileInfo.user.username[0].toUpperCase() +
+                          this.state.profileInfo.user.username.substr(1)}
+                      </span>
+                      <br />"
+                      <em>{this.state.profileInfo.user.favoriteQuote}</em>"
+                    </span>
                   </CardText>
-                  <Button outline color="info" size="sm">
+                  <Button outline color="info" size="sm" href="/edit-profile">
                     Edit Profile
                   </Button>
                 </CardBody>
@@ -43,17 +53,24 @@ export default class Profile extends Component {
                   <CardText className="infoContainer">
                     {this.state.profileInfo.members.map(library => (
                       <li key={library._library._id}>
-                        {/* <img src={library._library.name.picture} alt="" /> */}
-                        <span>
-                          <Link to={`/libraries/${library._library._id}`}>
-                            {library._library.name}
-                          </Link>
-                        </span>
+                        <img
+                          src={library._library.picture}
+                          style={{
+                            width: "50px",
+                            height: "50px",
+                            objectFit: "cover"
+                          }}
+                          alt=""
+                        />
+                        <Link to={`/libraries/${library._library._id}`}>
+                          {library._library.name}
+                        </Link>
                       </li>
                     ))}
                   </CardText>
-                  <Button tag="a" outline color="info" size="sm">
-                    Show more
+                  <Link to="/">Show more</Link>
+                  <Button href="/libraries" outline color="info" size="sm">
+                    Add library
                   </Button>
                 </CardBody>
               </Card>
@@ -72,7 +89,7 @@ export default class Profile extends Component {
                           {book.author}
                           <br />
                           <strong>Due date: </strong> XXXX <br />
-                          <Button tag="a" outline color="info" size="sm">
+                          <Button href="/" outline color="info" size="sm">
                             Return to library
                           </Button>
                         </span>
@@ -82,6 +99,11 @@ export default class Profile extends Component {
                 </CardBody>
               </Card>
             </CardDeck>
+            <ButtonGroup vertical>
+              <Button href="/" outline color="info">Find Libraries</Button>
+              <Button href="/" outline color="info">Home</Button>
+              <Button href="/logout" outline color="info">Logout</Button>
+            </ButtonGroup>
           </div>
         )}
       </div>
