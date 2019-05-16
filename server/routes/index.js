@@ -11,8 +11,6 @@ router.get('/', (req, res, next) => {
 });
 
 
-
-
 router.put("edit-profile/:userId", uploader.single('picture'), (req, res, next) => {
   User.findOneAndUpdate(req.params.userId,{
     name: req.body.name,
@@ -27,9 +25,6 @@ router.put("edit-profile/:userId", uploader.single('picture'), (req, res, next) 
   })
   .catch(err => next(err))
 });
-
-
-
 
 
 module.exports = router;
