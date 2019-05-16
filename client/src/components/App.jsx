@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import api from '../api';
 import logo from '../logo.svg';
+import Profile from './pages/Profile';
 
 export default class App extends Component {
   constructor(props) {
@@ -28,6 +29,7 @@ export default class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Project 3</h1>
           <NavLink to="/" exact>Home</NavLink>
+          <NavLink to="/profile">Profile</NavLink>
           <NavLink to="/countries">Countries</NavLink>
           <NavLink to="/add-country">Add country</NavLink>
           {!api.isLoggedIn() && <NavLink to="/signup">Signup</NavLink>}
@@ -37,6 +39,7 @@ export default class App extends Component {
         </header>
         <Switch>
           <Route path="/" exact component={Home} />
+          <Route path="/profile" component={Profile} />
           <Route path="/countries" component={Countries} />
           <Route path="/add-country" component={AddCountry} />
           <Route path="/signup" component={Signup} />

@@ -113,7 +113,7 @@ deleteLibrary(libraryId) {
 
 // -------------------- End of Library methods -------------------------
 
-// --------------------  Profile methods -------------------------
+// --------------------  START OF PROFILE METHODS -------------------------
 
 showProfile() {
   return service
@@ -131,7 +131,7 @@ editProfile(body) {
 
 
 
-// --------------------  End ofProfile methods -------------------------
+// --------------------  END OF PROFILE METHODS -------------------------
 
   // -------------------- START OF BOOK METHODS -------------------------
 
@@ -172,7 +172,7 @@ editProfile(body) {
 
   // -------------------- END OF BOOK METHODS -------------------------
 
-  // --------------------  Picture Upload method ----------------------------------
+  // --------------------  START OF PICTURE UPLOAD METHOD --------------------
 
   addPicture(file) {
     const formData = new FormData();

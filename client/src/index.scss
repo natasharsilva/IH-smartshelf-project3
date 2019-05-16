@@ -100,3 +100,26 @@ body {
     color: $primary;
   }
 }
+
+// --------------------
+// Style for Login and Sign Up components
+
+.Login input {
+  margin-top: 5px;
+}
+
+.Login h2 {
+  margin-top: 5px;
+}
+
+.Signup input {
+  margin-top: 5px;
+}
+
+.Signup h2 {
+  margin-top: 5px;
+}
+
+a {
+  cursor: pointer
+}
