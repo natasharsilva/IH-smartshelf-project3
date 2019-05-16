@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import LibraryDetail from './pages/LibraryDetail.js';
 import LibraryBooks from './pages/LibraryBooks.jsx';
 import AddLibrary from './pages/AddLibrary.jsx';
+import AddBook from './pages/AddBook.jsx';
 import NavBar from './NavBar';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -11,10 +12,10 @@ import api from '../api';
 import Profile from './pages/Profile';
 
 export default class App extends Component {
-  constructor(props) {
-    super(props)
+  // constructor(props) {
+  //   super(props)
 
-  }
+  // }
 
   handleLogoutClick(e) {
     api.logout()
@@ -41,6 +42,7 @@ export default class App extends Component {
           <Route path="/libraries/:libraryId" component={LibraryDetail} />
           <Route path="/:libraryId/books" component={LibraryBooks} />
           <Route path="/add-library" component={AddLibrary} />
+          <Route path="/add-book" component={AddBook} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
           <Route render={() => <h2>404</h2>} />
