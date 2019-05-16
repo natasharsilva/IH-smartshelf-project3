@@ -4,12 +4,12 @@ import { Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button, Row, Col, } from 'reactstrap';
 
 
+
 export default class LibraryDetail extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      libraryInfo: null,
-      activeIndex: 0
+      libraryInfo: null
     }
   }
 
@@ -37,8 +37,29 @@ export default class LibraryDetail extends Component {
             </Col>
             </Row>
           </Card>
-        </div>}
-       
+        </div>
+      }
+          <h2>Available Books</h2>
+          {this.state.libraryInfo.books.map(booksFromLibrary => (<div key={booksFromLibrary.id}>
+            <Card>
+            <Row>
+              <Col>
+            <CardImg top width="100%" src={booksFromLibrary.picture} alt="Card image cap" />
+              </Col>
+              <Col>
+            <CardBody>
+              <CardTitle><b>{booksFromLibrary.name}</b></CardTitle>
+              <CardSubtitle>{booksFromLibrary.author}</CardSubtitle>
+              <CardText>{booksFromLibrary.description}</CardText>
+              <Button className="btn btn-info">Join</Button>
+            </CardBody>
+            </Col>
+            </Row>
+          </Card>
+          
+          
+          </div>))}
+
       </div>
 
     );
@@ -48,11 +69,12 @@ export default class LibraryDetail extends Component {
     console.log("SETSTATE",this.props.match.params.libraryId)
 
     api.getLibrary(this.props.match.params.libraryId)
-      .then(response => {
-        this.setState({
-          libraryInfo: response
-        })
+    .then(response => {
+      this.setState({
+        libraryInfo: response
       })
-      .catch(err => console.log(err))
+      
+    })
+    .catch(err => console.log(err))
   }
 }

@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
-import LibraryDetail from './pages/LibraryDetail.js';
+import LibraryDetail from './pages/LibraryDetail';
 import NavBar from './NavBar';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import api from '../api';
 import logo from '../logo.svg';
-
 
 export default class App extends Component {
   constructor(props) {
