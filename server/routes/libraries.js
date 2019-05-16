@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const Library = require("../models/Library")
 const Member = require("../models/Member")
+const Book = require("../models/Book")
+
 const uploader = require("../configs/cloudinary")
 const { isLoggedIn } = require('../middlewares')
 
@@ -10,9 +12,15 @@ const { isLoggedIn } = require('../middlewares')
 // ------------ Get library details by Id --- Library Homepage / 
 // TODO: send an object with the library and the books (and delete the route GET "library-books/:libraryId")
 router.get("/:libraryId", (req, res, next) => {
-  Library.findById(req.params.libraryId)
-  .then(response => {
-    res.json(response);
+  Promise.all([
+    Library.findById(req.params.libraryId),
+    Book.find({ _library: req.params.libraryId })
+  ])
+  .then(([library, book]) => {
+    res.json({
+      library, 
+      book
+    });
   })
   .catch(err => next(err))
 });
@@ -89,24 +97,7 @@ router.post('/', isLoggedIn, uploader.single('picture'), (req, res, next) => {
     })
   })
 //--------------------------------------------------
-// Route to display books 
-router.get("library-books/:libraryId", (req, res, next) => {
-  Books.find({
-    _library: req.params.id
-  })
-  .then(response => {
-    res.json(response);
-  })
-  .catch(err => next(err))
-});
 
-// router.get("/library-books/:libraryId", (req,res,next) => {
-//   Library.findById(req.params.libraryId)
-//   .then(response => {
-//     res.json(response);
-//   })
-//   .catch(err => next(err))
-// });
 
 
 module.exports = router;
