@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 import LibraryDetail from './pages/LibraryDetail.js';
 import LibraryBooks from './pages/LibraryBooks.jsx';
+import AddLibrary from './pages/AddLibrary.jsx';
 import NavBar from './NavBar';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -40,6 +41,7 @@ export default class App extends Component {
           <Route path="/" exact component={Home} />
           <Route path="/libraries/:libraryId" component={LibraryDetail} />
           <Route path="/:libraryId/books" component={LibraryBooks} />
+          <Route path="/add-library" component={AddLibrary} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
           <Route render={() => <h2>404</h2>} />
