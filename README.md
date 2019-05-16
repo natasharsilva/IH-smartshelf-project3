@@ -156,8 +156,6 @@ README.md
 - `router.get('/')`: Route to get all users
 - `router.post('/first-user/pictures')`: Route to add a picture on one user with Cloudinary
 
-<!-- TODO: give instructions for Cloudinary -->
-<!-- TODO: give instructions for route guards -->
 
 ### `server/routes/countries.js`
 
