@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {
   Button,
+  ButtonGroup,
   Card,
   CardBody,
   CardDeck,
@@ -41,7 +42,7 @@ export default class Profile extends Component {
                       <em>{this.state.profileInfo.user.favoriteQuote}</em>"
                     </span>
                   </CardText>
-                  <Button outline color="info" size="sm" tag="a">
+                  <Button outline color="info" size="sm" href="/edit-profile">
                     Edit Profile
                   </Button>
                 </CardBody>
@@ -68,7 +69,7 @@ export default class Profile extends Component {
                     ))}
                   </CardText>
                   <Link to="/">Show more</Link>
-                  <Button tag="a" outline color="info" size="sm">
+                  <Button href="/add-library" outline color="info" size="sm">
                     Add library
                   </Button>
                 </CardBody>
@@ -88,7 +89,7 @@ export default class Profile extends Component {
                           {book.author}
                           <br />
                           <strong>Due date: </strong> XXXX <br />
-                          <Button tag="a" outline color="info" size="sm">
+                          <Button href="/" outline color="info" size="sm">
                             Return to library
                           </Button>
                         </span>
@@ -98,6 +99,11 @@ export default class Profile extends Component {
                 </CardBody>
               </Card>
             </CardDeck>
+            <ButtonGroup vertical>
+              <Button href="/" outline color="info">Find Libraries</Button>
+              <Button href="/" outline color="info">Home</Button>
+              <Button href="/logout" outline color="info">Logout</Button>
+            </ButtonGroup>
           </div>
         )}
       </div>
