@@ -12,10 +12,8 @@ const librarySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  picture: String,
-  description: {
-    type: String,
-  },
+  picture: { type: String, default: "/images/defaultProfile.png" },
+  description: String,
 }, {
   timestamps: {
     createdAt: 'created_at',
