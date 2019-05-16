@@ -11,7 +11,15 @@ export default class LibraryBooks extends Component {
             book: {}
           },
           member:[],
+          search: ""
         }
+        this.changeSearch = this.changeSearch.bind(this)
+      }
+
+      changeSearch(e){
+        this.setState({
+          search: e.target.value
+        })
       }
 
   render() {
@@ -23,13 +31,15 @@ export default class LibraryBooks extends Component {
         <Button color="primary">Go Back to My Library</Button>
       <h1>Library Name: {this.state.library.name}</h1>
         <h2>List of Books / Book Details</h2>
-        <input type="text" className="input" placeholder="Search..." />
+        <p><input type="text" value={this.state.search} onChange={this.changeSearch} /></p>
         <Button color="primary">ADD BOOK</Button><br />
          
            
            {/* <h3>{this.state.boo}</h3> */}
            <ul>
-        {this.state.book.map(bookDetail => 
+        {this.state.book
+          .filter(bookDetail => bookDetail.title.toUpperCase().includes(this.state.search.toUpperCase()))
+        .map(bookDetail => 
         <li key={bookDetail._id}>
           Title:{bookDetail.title}
           </li>)}

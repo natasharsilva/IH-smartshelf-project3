@@ -38,8 +38,8 @@ export default class App extends Component {
         
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/librares/:libraryId" component={LibraryDetail} />
-          <Route path="/libraries/:libraryId/books" component={LibraryBooks} />
+          <Route path="/libraries/:libraryId" component={LibraryDetail} />
+          <Route path="/:libraryId/books" component={LibraryBooks} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
           <Route render={() => <h2>404</h2>} />
