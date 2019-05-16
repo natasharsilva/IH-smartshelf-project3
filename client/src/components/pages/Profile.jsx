@@ -69,7 +69,7 @@ export default class Profile extends Component {
                     ))}
                   </CardText>
                   <Link to="/">Show more</Link>
-                  <Button href="/libraries" outline color="info" size="sm">
+                  <Button href="/add-library" outline color="info" size="sm">
                     Add library
                   </Button>
                 </CardBody>
@@ -77,7 +77,9 @@ export default class Profile extends Component {
               <Card>
                 <CardBody>
                   <CardTitle tag="h3">Books</CardTitle>
-                  <CardText className="infoContainer">
+                  
+                  {!this.state.profileInfo.books && <CardText>No books yet :(</CardText>}
+                  {this.state.profileInfo.books && <CardText className="infoContainer">
                     {this.state.profileInfo.books.map(book => (
                       <li key={book._id}>
                         <img src={book.picture} alt="" />
@@ -95,7 +97,7 @@ export default class Profile extends Component {
                         </span>
                       </li>
                     ))}
-                  </CardText>
+                  </CardText>}
                 </CardBody>
               </Card>
             </CardDeck>

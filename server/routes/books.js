@@ -1,8 +1,8 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const axios = require("axios");
-const Book = require("../models/Book");
-const uploader = require("../configs/cloudinary");
+const axios = require('axios');
+const Book = require('../models/Book');
+const uploader = require('../configs/cloudinary');
 const { isLoggedIn } = require('../middlewares')
 
 // when testing use http://localhost:5000/api/books
