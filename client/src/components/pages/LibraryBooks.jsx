@@ -24,14 +24,45 @@ export default class LibraryBooks extends Component {
     });
   }
 
+  // deleteBook(e) {
+  //   e.preventDefault()
+  //   // console.log("this.props.match.params.libraryId",this.props.match.params.libraryId)
+    
+  //   api.deleteBook(this.state.book._id)
+    
+  //     .then(result => {
+  //       console.log('SUCCESS!')
+  //       console.log("result" , result)
+  //       this.setState({
+  //         title: "",
+  //         author: "",
+  //         picture: "",
+  //         genre: "",
+  //         description: "",
+  //         rating: "",
+  //         pages: "",
+  //         language: "",
+  //         isbn: "",
+  //         _library:"",
+  //         message: `Your book '${this.state.title}' has been deleted`
+  //       })
+  //       setTimeout(() => {
+  //         this.setState({
+  //           message: null
+  //         })
+  //       }, 2000)
+  //     })
+  //     .catch(err => this.setState({ message: err.toString() }))
+  // }
+
   render() {
     return (
       <div className="LibraryBooks">
-        {!this.state.book && <div>Loading...</div>}
-        {this.state.book && (
+        {!this.state.book || !this.state.library && <div>Loading... Make sure you're inside a library!</div>}
+        {this.state.book && (<div>
           <div>
-            <Button color="primary">Go Back to My Library</Button>
-            <h1>{this.state.library.name}</h1>
+            <Button color="primary" href={`/libraries/${this.state.library}`}>Go Back to {this.state.library}</Button>
+            <h1>{this.state.library}</h1>
             <h2>List of Books / Book Details</h2>
             <p>
               <input
@@ -40,7 +71,7 @@ export default class LibraryBooks extends Component {
                 onChange={this.changeSearch}
               />
             </p>
-            <Button color="primary">ADD BOOK</Button>
+            <Button href={`/${this.state.library}/add-book`} color="primary">ADD BOOK</Button>
             <br />
 
             {/* <h3>{this.state.boo}</h3> */}
@@ -61,7 +92,7 @@ export default class LibraryBooks extends Component {
                         <CardTitle>Author:{bookDetail.author}</CardTitle>
                         <CardSubtitle>Genre:{bookDetail.genre}</CardSubtitle>
                         <CardText>{bookDetail.description}</CardText>
-                        <Button color="danger">Delete</Button>
+                        <Button color="danger" onClick={(e) => this.deleteBook(e)}>Delete</Button>
                       </CardBody>
                     </Card>
                   </div>
@@ -69,8 +100,8 @@ export default class LibraryBooks extends Component {
                   </li>
                 ))}
             </ul>
-          </div>
-        )}
+          </div> 
+          </div>)}
       </div>
     );
   }

@@ -15,7 +15,8 @@ export default class AddBook extends Component {
       pages: "",
       isbn: "",
       message: null,
-      modal: false
+      modal: false,
+      _library: this.props.match.params.libraryId
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleFileChange = this.handleFileChange.bind(this)
@@ -49,11 +50,11 @@ export default class AddBook extends Component {
       title: this.state.title,
       author: this.state.author,
       picture: this.state.picture,
-      address: this.state.address,
       genre: this.state.genre,
       description: this.state.description,
       rating: this.state.rating,
       pages: this.state.pages,
+      language: this.state.language,
       isbn: this.state.isbn,
       _library: this.props.match.params.libraryId
     }
@@ -70,6 +71,7 @@ export default class AddBook extends Component {
           description: result.response.description,
           rating: result.response.rating,
           pages: result.response.pages,
+          language: result.response.language,
           isbn: result.response.isbn,
           _library:"",
           message: `Your book '${this.state.title}' has been created`
@@ -90,11 +92,11 @@ export default class AddBook extends Component {
       title: this.state.title,
       author: this.state.author,
       picture: this.state.picture,
-      address: this.state.address,
       genre: this.state.genre,
       description: this.state.description,
       rating: this.state.rating,
       pages: this.state.pages,
+      language: this.state.language,
       isbn: this.state.isbn,
       _library: this.props.match.params.libraryId._id
     }
@@ -105,11 +107,11 @@ export default class AddBook extends Component {
           title: "",
           author: "",
           picture: "",
-          address: "",
           genre: "",
           description: "",
           rating: "",
           pages: "",
+          language: "",
           isbn: "",
           _library:"",
           message: `Your book '${this.state.title}' has been created`
@@ -128,6 +130,8 @@ export default class AddBook extends Component {
   render() {
     return (
       <div className="AddBook">
+      {!this.state._library && <div>Loading... This is probably not a valid Library!  </div>}
+        {this.state._library && (<div className="AddBook">
         <h2>Add Book</h2>
         <h3>Use ISBN to help us find the information about your book</h3>
         {/* <p className="small" color="primary">What is ISBN?</p> */}
@@ -166,6 +170,7 @@ export default class AddBook extends Component {
           Picture: <Input type="file" value={this.state.picture} name="picture" onChange={this.handleFileChange} /> <br />
           Rating: <Input type="number" value={this.state.rating} name="rating" onChange={this.handleInputChange} /> <br />
           Pages: <Input type="number" value={this.state.pages} name="pages" onChange={this.handleInputChange} /> <br />
+          Language: <Input type="number" value={this.state.language} name="language" onChange={this.handleInputChange} /> <br />
           ISBN: <Input type="number" value={this.state.isbn} name="isbn" onChange={this.handleInputChange} /> <br />
           Description: <Input type="textarea" value={this.state.description} name="description" cols="20" rows="5" onChange={this.handleInputChange} /> <br />
           <Button color="primary" onClick={(e) => this.handleClickWithForm(e)}>Create Book</Button>
@@ -173,6 +178,8 @@ export default class AddBook extends Component {
         {this.state.message && <div className="info">
           {this.state.message}
         </div>}
+  
+      </div>)}
       </div>
     );
   }
