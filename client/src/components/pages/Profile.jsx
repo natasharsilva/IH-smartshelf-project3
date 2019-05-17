@@ -10,14 +10,23 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import api from "../../api";
+import EditProfile from "../EditProfile";
 
 export default class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      profileInfo: null
+      profileInfo: null,
+      showEditForm: false
     };
   }
+  showEditForm() {
+    this.setState({
+      showEditForm: !this.state.showEditForm
+    })
+   
+    }
+
   render() {
     return (
       <div className="profilePage">
@@ -42,9 +51,14 @@ export default class Profile extends Component {
                       <em>{this.state.profileInfo.user.favoriteQuote}</em>"
                     </span>
                   </CardText>
-                  <Button outline color="info" size="sm" href="/edit-profile">
-                    Edit Profile
-                  </Button>
+                  {this.state.showEditForm ? 
+                  <EditProfile /> 
+                  : 
+                  <Button onClick={(e) => this.showEditForm(e)}outline color="info" size="sm">
+        Edit Profile
+      </Button>}
+
+
                 </CardBody>
               </Card>
               <Card>
