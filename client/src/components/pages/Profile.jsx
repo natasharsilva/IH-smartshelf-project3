@@ -10,25 +10,21 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import api from "../../api";
+import EditProfile from "../EditProfile";
 
 export default class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      response: {
-        profileInfo: null
-      },
-      itemsToShow: 2,
-      expanded: false
+      profileInfo: null,
+      showEditForm: false
     };
-    this.showMore = this.showMore.bind(this);
+    // this.showMore = this.showMore.bind(this);
   }
-
-  showMore() {
-    console.log("NOTICE MEEEEEE", this.state.book.length);
-    this.state.itemsToShow === 2
-      ? this.setState({ itemsToShow: this.state.book.length, expanded: true })
-      : this.setState({ itemsToShow: 2, expanded: false });
+  showEditForm() {
+    this.setState({
+      showEditForm: !this.state.showEditForm
+    });
   }
 
   render() {
@@ -52,13 +48,13 @@ export default class Profile extends Component {
                           this.state.profileInfo.user.username.substr(1)}
                       </span>
                       <br />
-                      {this.state.profileInfo.user.favoriteQuote && <em>"{this.state.profileInfo.user.favoriteQuote}"</em>}
+                      {this.state.profileInfo.user.favoriteQuote && (
+                        <em>"{this.state.profileInfo.user.favoriteQuote}"</em>
+                      )}
                     </span>
                   </CardText>
-                  <Button outline color="info" size="sm" href="/edit-profile">
-                    Edit Profile
-                  </Button>
                 </CardBody>
+                <EditProfile />
               </Card>
               <Card>
                 <CardBody>
@@ -80,14 +76,20 @@ export default class Profile extends Component {
                         </li>
                       ))}
                   </CardText>
-                  {this.state.profileInfo.members.length > 2 &&
-                  <Button onClick={this.showMore} outline color="info" size="sm">
-                    {this.state.expanded ? (
-                      <span>Show less</span>
-                    ) : (
-                      <span>Show more</span>
-                    )}
-                  </Button>}
+                  {this.state.profileInfo.members.length > 2 && (
+                    <Button
+                      onClick={this.showMore}
+                      outline
+                      color="info"
+                      size="sm"
+                    >
+                      {this.state.expanded ? (
+                        <span>Show less</span>
+                      ) : (
+                        <span>Show more</span>
+                      )}
+                    </Button>
+                  )}
                   <Button href="/add-library" outline color="info" size="sm">
                     Add library
                   </Button>
@@ -125,14 +127,20 @@ export default class Profile extends Component {
                         </li>
                       ))}
                   </CardText>
-                  {this.state.profileInfo.members.length > 2 &&
-                  <Button onClick={this.showMore} outline color="info" size="sm">
-                    {this.state.expanded ? (
-                      <span>Show less</span>
-                    ) : (
-                      <span>Show more</span>
-                    )}
-                  </Button>}
+                  {this.state.profileInfo.members.length > 2 && (
+                    <Button
+                      onClick={this.showMore}
+                      outline
+                      color="info"
+                      size="sm"
+                    >
+                      {this.state.expanded ? (
+                        <span>Show less</span>
+                      ) : (
+                        <span>Show more</span>
+                      )}
+                    </Button>
+                  )}
                 </CardBody>
               </Card>
             </CardDeck>
@@ -154,7 +162,7 @@ export default class Profile extends Component {
     api
       .showProfile()
       .then(response => {
-        console.log('HEEEEY',response)
+        console.log("HEEEEY", response);
         this.setState({
           profileInfo: response
         });

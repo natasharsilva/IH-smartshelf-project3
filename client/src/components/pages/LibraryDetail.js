@@ -92,7 +92,8 @@ export default class LibraryDetail extends Component {
           <Button className="btn btn-primary" onClick={this.showMore}>
           {this.state.expanded ? 
           (<span>Show less</span>) : (<span>Show more</span>)
-          }</Button>
+          }</Button>.
+          <Button tag={Nlink} to={`/:${this.props.match.params.libraryId}/books`}> See all Books</Button>
           
 
           <h3>Feed</h3>

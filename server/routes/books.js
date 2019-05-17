@@ -26,7 +26,8 @@ router.put("/:bookId", uploader.single("picture"), (req, res, next) => {
     picture: req.file && req.file.secure_url,
     description: req.body.description,
     rating: req.body.rating,
-    pages: req.body.pages
+    pages: req.body.pages,
+    language: req.body.language
   })
     .then(response => {
       res.json({
@@ -68,6 +69,7 @@ router.post("/", isLoggedIn, (req, res, next) => {
   axios
     .get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${req.body.isbn}`)
     .then(response => {
+      console.log("response Language--->" , response.data.items[0].volumeInfo.language)
       Book.create({
         title: response.data.items[0].volumeInfo.title,
         author: response.data.items[0].volumeInfo.authors[0],
@@ -80,8 +82,8 @@ router.post("/", isLoggedIn, (req, res, next) => {
         description: response.data.items[0].volumeInfo.description,
         rating: response.data.items[0].volumeInfo.averageRating,
         pages: response.data.items[0].volumeInfo.pageCount,
-        isbn:
-          response.data.items[0].volumeInfo.industryIdentifiers[1].identifier,
+        language: response.data.items[0].volumeInfo.language,
+        isbn:response.data.items[0].volumeInfo.industryIdentifiers[1].identifier,
         _createdBy: req.user._id,
         _library: req.body._library
       }).then(response => {
@@ -110,6 +112,7 @@ router.post("/form",isLoggedIn, uploader.single("picture"), (req, res, next) => 
     description: req.body.description,
     rating: req.body.rating,
     pages: req.body.pages,
+    language: req.body.language,
     isbn: req.body.isbn,
     _createdBy: req.user._id,
     _library: req.body._library

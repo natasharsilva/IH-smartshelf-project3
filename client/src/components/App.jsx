@@ -21,15 +21,7 @@ export default class App extends Component {
     return (
       <div className="App">
       <NavBar />
-          {/* <h1 className="App-title">Project 3</h1> */}
-        
-          {/* <NavLink to="/" exact>Home</NavLink>
-          <NavLink to="/countries">Countries</NavLink>
-          <NavLink to="/add-country">Add country</NavLink>
-          {!api.isLoggedIn() && <NavLink to="/signup">Signup</NavLink>}
-          {!api.isLoggedIn() && <NavLink to="/login">Login</NavLink>}
-          {api.isLoggedIn() && <Link to="/" onClick={(e) => this.handleLogoutClick(e)}>Logout</Link>}
-        <NavLink to="/secret">Secret</NavLink> */}
+    
         <Switch>
           <Route path="/" exact component={Home} />
           {api.isLoggedIn() ? <Route path="/profile" component={Profile} /> : <Route path="/profile" component={Login} />}
