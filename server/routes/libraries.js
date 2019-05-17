@@ -32,6 +32,8 @@ router.put("/:libraryId", isLoggedIn, uploader.single('picture'), (req, res, nex
     name: req.body.name,
     picture: req.file && req.file.secure_url,  
     address: req.body.address,
+    description: req.body.description,
+
   }, { new: true })
   .then(response => {
     res.json(response);

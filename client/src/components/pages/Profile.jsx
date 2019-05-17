@@ -55,8 +55,8 @@ export default class Profile extends Component {
 
 
                 </CardBody>
-              </Card>
                   <EditProfile /> 
+              </Card>
               <Card>
                 <CardBody>
                   <CardTitle tag="h3">Libraries</CardTitle>

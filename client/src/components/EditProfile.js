@@ -1,13 +1,7 @@
 import React from "react";
 import {
-  Col,
-  Row,
   Button,
-  Form,
-  FormGroup,
-  Label,
   Input,
-  FormText
 } from "reactstrap";
 import api from "../api";
 
@@ -120,7 +114,7 @@ export default class EditProfile extends React.Component {
           onChange={this.handleInputChange}
         />{" "}
         <br />
-        <Button color="primary" onClick={() => this.handleFormSubmit()}>
+        <Button outline color="info" onClick={() => this.handleFormSubmit()}>
           Edit Profile
         </Button>
       </form>}
