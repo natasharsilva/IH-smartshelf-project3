@@ -14,7 +14,6 @@ export default class AddBook extends Component {
       rating: "",
       pages: "",
       isbn: "",
-      isbn: "",
       message: null,
       modal: false
     }
@@ -45,7 +44,48 @@ export default class AddBook extends Component {
 
   handleClick(event) {
     event.preventDefault()
-    console.log(this.state.name, this.state.description)
+    console.log("this.props.match.params.libraryId",this.props.match.params.libraryId)
+    let data = {
+      title: this.state.title,
+      author: this.state.author,
+      picture: this.state.picture,
+      address: this.state.address,
+      genre: this.state.genre,
+      description: this.state.description,
+      rating: this.state.rating,
+      pages: this.state.pages,
+      isbn: this.state.isbn,
+      _library: this.props.match.params.libraryId
+    }
+    api.addBook(data)
+    
+      .then(result => {
+        console.log('SUCCESS!')
+        console.log("result" , result)
+        this.setState({
+          title: result.response.title,
+          author: result.response.author,
+          picture: "",
+          genre: result.response.genre,
+          description: result.response.description,
+          rating: result.response.rating,
+          pages: result.response.pages,
+          isbn: result.response.isbn,
+          _library:"",
+          message: `Your book '${this.state.title}' has been created`
+        })
+        setTimeout(() => {
+          this.setState({
+            message: null
+          })
+        }, 2000)
+      })
+      .catch(err => this.setState({ message: err.toString() }))
+  }
+
+  handleClickWithForm(event) {
+    event.preventDefault()
+    // console.log("this.props.match.params.libraryId",this.props.match.params.libraryId)
     let data = {
       title: this.state.title,
       author: this.state.author,
@@ -58,7 +98,7 @@ export default class AddBook extends Component {
       isbn: this.state.isbn,
       _library: this.props.match.params.libraryId._id
     }
-    api.addBook(data)
+    api.addBookWithForm(data)
       .then(result => {
         console.log('SUCCESS!')
         this.setState({
@@ -71,6 +111,7 @@ export default class AddBook extends Component {
           rating: "",
           pages: "",
           isbn: "",
+          _library:"",
           message: `Your book '${this.state.title}' has been created`
         })
         setTimeout(() => {
@@ -81,6 +122,8 @@ export default class AddBook extends Component {
       })
       .catch(err => this.setState({ message: err.toString() }))
   }
+
+
 
   render() {
     return (
@@ -93,8 +136,11 @@ export default class AddBook extends Component {
         
       <form>
           ISBN: <Input type="number" value={this.state.isbn} name="isbn" onChange={this.handleInputChange} /> <br />
-          <Button color="primary" onClick={(e) => this.handleClick(e)}>Search for your book</Button> <br />
+          <Button color="primary" onClick={(e) => this.handleClick(e)}>Create your book</Button> <br />
         </form>
+        {this.state.message && <div className="info">
+          {this.state.message}
+        </div>}
         <br />
         <div>
         <Button color="primary" onClick={this.toggle}>What is ISBN?</Button>
@@ -122,7 +168,7 @@ export default class AddBook extends Component {
           Pages: <Input type="number" value={this.state.pages} name="pages" onChange={this.handleInputChange} /> <br />
           ISBN: <Input type="number" value={this.state.isbn} name="isbn" onChange={this.handleInputChange} /> <br />
           Description: <Input type="textarea" value={this.state.description} name="description" cols="20" rows="5" onChange={this.handleInputChange} /> <br />
-          <Button color="primary" onClick={(e) => this.handleClick(e)}>Create Book</Button>
+          <Button color="primary" onClick={(e) => this.handleClickWithForm(e)}>Create Book</Button>
         </form>
         {this.state.message && <div className="info">
           {this.state.message}
