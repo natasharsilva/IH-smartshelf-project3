@@ -26,7 +26,7 @@ router.get('/profile', isLoggedIn, (req, res, next) => {
 router.put("/profile", isLoggedIn, uploader.single("picture"), (req, res, next) => {
     const {
       username,
-      address,
+      email,
       phoneNumber,
       favoriteBooks,
       favoriteQuote
@@ -34,7 +34,7 @@ router.put("/profile", isLoggedIn, uploader.single("picture"), (req, res, next) 
 
     let updatedData = {
       username,
-      address,
+      email,
       phoneNumber,
       favoriteBooks,
       favoriteQuote
@@ -43,7 +43,7 @@ router.put("/profile", isLoggedIn, uploader.single("picture"), (req, res, next) 
 
     User.findOneAndUpdate(req.user._id, updatedData, { new: true })
       .then(response => {
-        res.json(updatedData, response);
+        res.json(response);
       })
       .catch(err => next(err));
   }

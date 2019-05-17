@@ -51,16 +51,12 @@ export default class Profile extends Component {
                       <em>{this.state.profileInfo.user.favoriteQuote}</em>"
                     </span>
                   </CardText>
-                  {this.state.showEditForm ? 
-                  <EditProfile /> 
-                  : 
-                  <Button onClick={(e) => this.showEditForm(e)}outline color="info" size="sm">
-        Edit Profile
-      </Button>}
+               
 
 
                 </CardBody>
               </Card>
+                  <EditProfile /> 
               <Card>
                 <CardBody>
                   <CardTitle tag="h3">Libraries</CardTitle>

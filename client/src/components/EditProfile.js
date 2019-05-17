@@ -20,7 +20,9 @@ export default class EditProfile extends React.Component {
       picture: "",
       phoneNumber: "",
       favoriteBooks: "",
-      favoriteQuote: ""
+      favoriteQuote: "",
+      showEditForm: true,
+
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -41,12 +43,13 @@ export default class EditProfile extends React.Component {
       favoriteBooks: this.state.favoriteBooks,
       favoriteQuote: this.state.favoriteQuote
     };
-    api
-      .editProfile(data)
+    api.editProfile(data)
       .then(result => {
         console.log("DID IT WORK???", result);
         this.setState({
-          message: `Your profile was updated!`
+          message: `Your profile was updated!`,
+          showEditForm: !this.state.showEditForm
+
         });
         setTimeout(() => {
           this.setState({
@@ -56,9 +59,21 @@ export default class EditProfile extends React.Component {
       })
       .catch(err => this.setState({ message: err.toString() }));
   };
-
+  showEditForm() {
+    this.setState({
+      showEditForm: !this.state.showEditForm
+    })
+   
+    }
   render() {
     return (
+      <div className="editForm">
+                        {this.state.showEditForm ?    
+              <Button onClick={(e) => this.showEditForm(e)}outline color="info" size="sm">
+        Edit Profile
+      </Button>
+      :
+
       <form>
         Email:{" "}
         <Input
@@ -108,7 +123,8 @@ export default class EditProfile extends React.Component {
         <Button color="primary" onClick={() => this.handleFormSubmit()}>
           Edit Profile
         </Button>
-      </form>
+      </form>}
+      </div>
     );
   }
 }
