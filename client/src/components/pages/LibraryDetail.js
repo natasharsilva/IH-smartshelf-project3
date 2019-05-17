@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import api from '../../api';
 import { Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button, Row, Col,Alert } from 'reactstrap';
+  CardTitle, CardSubtitle, Button, Row, Col, Alert } from 'reactstrap';
   import {NavLink as Nlink} from 'react-router-dom';
 
 export default class LibraryDetail extends Component {
@@ -20,8 +20,7 @@ export default class LibraryDetail extends Component {
 
   handleClick(event) {
     event.preventDefault()
-    let libraryId ={ _library: this.props.match.params.libraryId._id}
-    api.createMember(libraryId)
+    api.createMember(this.props.match.params.libraryId)
       .then(result => {
         console.log("DID IT WORK???", result)
         this.setState({
@@ -46,7 +45,6 @@ export default class LibraryDetail extends Component {
   }
 
   render() {
-
     return (
       <div className="LibraryDetail">
         {!this.state.library && <div>Loading...</div>}
@@ -134,11 +132,8 @@ export default class LibraryDetail extends Component {
     );
   }
   componentDidMount() {
-    console.log("SETSTATE",this.props.match.params.libraryId)
     api.getLibrary(this.props.match.params.libraryId)
-    
     .then(response => {
-      console.log('I AM THE RESPONSE', response)
       this.setState({
         library: response.library,
         book: response.book
