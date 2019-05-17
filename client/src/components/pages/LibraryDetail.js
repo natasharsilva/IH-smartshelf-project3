@@ -20,7 +20,7 @@ export default class LibraryDetail extends Component {
 
   handleClick(event) {
     event.preventDefault()
-    let libraryId ={ _library: this.props.match.params.libraryId._id    }
+    let libraryId ={ _library: this.props.match.params.libraryId._id}
     api.createMember(libraryId)
       .then(result => {
         console.log("DID IT WORK???", result)
@@ -35,6 +35,7 @@ export default class LibraryDetail extends Component {
       })
       .catch(err => this.setState({ message: err.toString() }))
   }
+
   showMore() {
     console.log("NOTICE MEEEEEE",this.state.book.length)
     this.state.itemsToShow === 2 ? (
@@ -71,7 +72,7 @@ export default class LibraryDetail extends Component {
       }
           <h3>Available Books</h3>
         {!this.state.book && <div>Loading...</div>}
-        {this.state.book && this.state.book.slice(0,this.state.itemsToShow).map((booksFromLibrary,i) => (<div key={booksFromLibrary.id}>
+        {this.state.book && this.state.book.slice(0,this.state.itemsToShow).map((booksFromLibrary,i) => (<div key={booksFromLibrary._id}>
         
             <Card>
             <Row>
@@ -93,7 +94,7 @@ export default class LibraryDetail extends Component {
           <Button className="btn btn-primary" onClick={this.showMore}>
           {this.state.expanded ? 
           (<span>Show less</span>) : (<span>Show more</span>)
-          }</Button>.
+          }</Button>
           
 
           <h3>Feed</h3>
@@ -101,7 +102,7 @@ export default class LibraryDetail extends Component {
               AND SORT BY RECENT, MAYBE SORT BY TIMESTAMPS AND SHORTEN THE LENGTH ?? */} 
               {!this.state.book && <div>Loading...</div>}
         {this.state.book && this.state.book.map(booksFromLibrary => (
-        <div className="activityFeed" key={booksFromLibrary.id}>
+        <div className="activityFeed" key={booksFromLibrary._id}>
         {this.state.book.status === "Unavailable" && 
          <Alert color="danger">
          {booksFromLibrary.name} is now available in the library
@@ -137,6 +138,7 @@ export default class LibraryDetail extends Component {
     api.getLibrary(this.props.match.params.libraryId)
     
     .then(response => {
+      console.log('I AM THE RESPONSE', response)
       this.setState({
         library: response.library,
         book: response.book

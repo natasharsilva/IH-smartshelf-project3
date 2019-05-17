@@ -13,10 +13,11 @@ router.get("/:id", (req, res, next) => {
   })
   .catch(err => next(err))
 });
+
 // ------------ Add a new member ------------------
 router.post("/", isLoggedIn, (req, res, next) => {
   Member.create({
-    _library: req.body._library,
+    _library,
      _user: req.user._id
   })
   .then(response => {
