@@ -13,10 +13,14 @@ export default class LibraryDetail extends Component {
     this.state = {
       response: {
         library: {},
-        book: {}
+        book: [],
+         },
+      itemsToShow: 2,
+      expanded: false
+        }
+        this.showMore = this.showMore.bind(this);
       }
-    }
-  }
+
   handleClick(event) {
     event.preventDefault()
     let libraryId ={ _library: this.props.match.params.libraryId._id    }
@@ -33,6 +37,14 @@ export default class LibraryDetail extends Component {
         }, 2000)
       })
       .catch(err => this.setState({ message: err.toString() }))
+  }
+  showMore() {
+    console.log("NOTICE MEEEEEE",this.state.book.length)
+    this.state.itemsToShow === 2 ? (
+      this.setState({ itemsToShow: this.state.book.length, expanded: true })
+    ) : (
+      this.setState({ itemsToShow: 2, expanded: false })
+    )
   }
 
   render() {
@@ -62,7 +74,8 @@ export default class LibraryDetail extends Component {
       }
           <h3>Available Books</h3>
         {!this.state.book && <div>Loading...</div>}
-        {this.state.book && this.state.book.map(booksFromLibrary => (<div key={booksFromLibrary.id}>
+        {this.state.book && this.state.book.slice(0,this.state.itemsToShow).map((booksFromLibrary,i) => (<div key={booksFromLibrary.id}>
+        
             <Card>
             <Row>
               <Col>
@@ -78,7 +91,13 @@ export default class LibraryDetail extends Component {
             </Col>
             </Row>
           </Card>
+
           </div>))}
+          <Button className="btn btn-primary" onClick={this.showMore}>
+          {this.state.expanded ? 
+          (<span>Show less</span>) : (<span>Show more</span>)
+          }</Button>.
+          
 
           <h3>Feed</h3>
               {/* comments & notifications - NEED TO SEE HOW TO SHOW ONLY A FEW 
@@ -117,7 +136,6 @@ export default class LibraryDetail extends Component {
       </div>
     );
   }
-  
   componentDidMount() {
     console.log("SETSTATE",this.props.match.params.libraryId)
     api.getLibrary(this.props.match.params.libraryId)
