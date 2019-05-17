@@ -18,6 +18,16 @@ export default class Example extends React.Component {
       isOpen: !this.state.isOpen
     });
   }
+
+  handleLogoutClick(e) {
+    api.logout()
+  }
+
+  toggleNavbar() {
+    this.setState({
+      collapsed: !this.state.collapsed
+    });
+  }
   render() {
     return (
       <div>
