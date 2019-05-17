@@ -23,22 +23,22 @@ export default {
   // This method is synchronous and returns true or false
   // To know if the user is connected, we just check if we have a value for localStorage.getItem('user')
   isLoggedIn() {
-    return localStorage.getItem("user") != null;
+    return localStorage.getItem('user') != null;
   },
 
   // This method returns the user from the localStorage
   // Be careful, the value is the one when the user logged in for the last time
   getLocalStorageUser() {
-    return JSON.parse(localStorage.getItem("user"));
+    return JSON.parse(localStorage.getItem('user'));
   },
 
   // This method signs up and logs in the user
   signup(userInfo) {
     return service
-      .post("/signup", userInfo)
+      .post('/signup', userInfo)
       .then(res => {
         // If we have localStorage.getItem('user') saved, the application will consider we are loggedin
-        localStorage.setItem("user", JSON.stringify(res.data));
+        localStorage.setItem('user', JSON.stringify(res.data));
         return res.data;
       })
       .catch(errHandler);
@@ -46,21 +46,21 @@ export default {
 
   login(email, password) {
     return service
-      .post("/login", {
+      .post('/login', {
         email,
         password
       })
       .then(res => {
         // If we have localStorage.getItem('user') saved, the application will consider we are loggedin
-        localStorage.setItem("user", JSON.stringify(res.data));
+        localStorage.setItem('user', JSON.stringify(res.data));
         return res.data;
       })
       .catch(errHandler);
   },
 
   logout() {
-    localStorage.removeItem("user");
-    return service.get("/logout");
+    localStorage.removeItem('user');
+    return service.get('/logout');
   },
   // End of AUTH methods ------------------------------------------------------
 
@@ -117,14 +117,14 @@ createLibrary(body) {
 
 showProfile() {
   return service
-  .get("/profile")
+  .get('/profile')
   .then(response => response.data)
   .catch(errHandler)
 },
 
 editProfile(body) {
   return service
-  .put("/profile", body)
+  .put('/profile', body)
   .then(response => response.data)
   .catch(errHandler)
 },
@@ -173,19 +173,19 @@ editProfile(body) {
   // -------------------- END OF BOOK METHODS -------------------------
   getMember(id) {
     return service
-    .get(`/member/${id}`)
+    .get(`/members/${id}`)
     .then(response => response.data)
     .catch(errHandler)
   },
   createMember(body) {
     return service
-    .post(`/member/`, body)
+    .post("/members", body)
     .then(response => response.data)
     .catch(errHandler)
   },
   deleteMember(id) {
     return service
-    .delete(`/member/${id}`)
+    .delete(`/members/${id}`)
     .then(response => response.data)
     .catch(errHandler)
   },

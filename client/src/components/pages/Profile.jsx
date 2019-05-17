@@ -50,43 +50,41 @@ export default class Profile extends Component {
               <Card>
                 <CardBody>
                   <CardTitle tag="h3">Libraries</CardTitle>
-                  {this.state.profileInfo.members.length < 1 && (
-                    <CardText>No libraries yet :(</CardText>
-                  )}
+                  <CardText className="infoContainer">
+                  {this.state.profileInfo.members.length < 1 && 
+                    <span>You are not part of any libraries yet!<br /> Create one or find libraries near you</span>
+                  }
                   {this.state.profileInfo.members &&
-                    this.state.profileInfo.members.map(library => (
-                      <CardText className="infoContainer">
-                        <li key={library._library._id}>
+                    this.state.profileInfo.members.map((library, i) => (
+                      <li key={library._library._id}>
                           <img
                             src={library._library.picture}
-                            style={{
-                              width: "50px",
-                              height: "50px",
-                              objectFit: "cover"
-                            }}
                             alt=""
                           />
                           <Link to={`/libraries/${library._library._id}`}>
                             {library._library.name}
                           </Link>
-                        </li>{" "}
-                      </CardText>
+                      </li>
                     ))}
+                  </CardText>
                   <Link to="/">Show more</Link>
                   <Button href="/add-library" outline color="info" size="sm">
                     Add library
+                  </Button>
+                  <Button href="/" outline color="info" size="sm">
+                    Find libraries
                   </Button>
                 </CardBody>
               </Card>
               <Card>
                 <CardBody>
                   <CardTitle tag="h3">Books</CardTitle>
-                  {this.state.profileInfo.books.length < 1 && (
-                    <CardText>No books yet :(</CardText>
-                  )}
-                  {this.state.profileInfo.books && (
-                    <CardText className="infoContainer">
-                      {this.state.profileInfo.books.map(book => (
+                  <CardText className="infoContainer">
+                  {this.state.profileInfo.books.length < 1 && 
+                    <span>You haven't borrowed books yet!<br /> Check your libraries to start reading</span>
+                  }
+                  {this.state.profileInfo.books && 
+                      this.state.profileInfo.books.map(book => (
                         <li key={book._id}>
                           <img src={book.picture} alt="" />
                           <span>
@@ -103,15 +101,12 @@ export default class Profile extends Component {
                           </span>
                         </li>
                       ))}
-                    </CardText>
-                  )}
+                  </CardText>
+                  <Link to="/">Show more</Link>
                 </CardBody>
               </Card>
             </CardDeck>
             <ButtonGroup vertical>
-              <Button href="/" outline color="info">
-                Find Libraries
-              </Button>
               <Button href="/" outline color="info">
                 Home
               </Button>

@@ -1,8 +1,14 @@
-import React from 'react';
-import { Collapse,Navbar,NavbarToggler,Nav,NavItem,NavLink } from 'reactstrap';
+import React from "react";
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  Nav,
+  NavItem,
+  NavLink
+} from "reactstrap";
 import api from "../api";
-import {NavLink as Nlink} from 'react-router-dom';
-
+import { NavLink as Nlink } from "react-router-dom";
 
 export default class Example extends React.Component {
   constructor(props) {
@@ -20,7 +26,7 @@ export default class Example extends React.Component {
   }
 
   handleLogoutClick(e) {
-    api.logout()
+    api.logout();
   }
 
   toggleNavbar() {
@@ -37,12 +43,19 @@ export default class Example extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink tag={Nlink} to="/">Home</NavLink>
+                <NavLink tag={Nlink} to="/">
+                  Home
+                </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink tag={Nlink} to="/profile">Profile</NavLink>
+                {api.isLoggedIn() && (
+                  <NavLink tag={Nlink} to="/profile">
+                    Profile
+                  </NavLink>
+                )}
               </NavItem>
               <NavItem>
+
                 <NavLink tag={Nlink} to="/add-library">Add Library</NavLink>
               </NavItem>
               <NavItem>
@@ -59,17 +72,30 @@ export default class Example extends React.Component {
               </NavItem>
               <NavItem>
           {!api.isLoggedIn() && <NavLink tag={Nlink} to="/login">Login</NavLink>}
+
               </NavItem>
               <NavItem>
-              {!api.isLoggedIn() && <NavLink tag={Nlink} to="/signup">Signup</NavLink>}
+                {!api.isLoggedIn() && (
+                  <NavLink tag={Nlink} to="/signup">
+                    Signup
+                  </NavLink>
+                )}
               </NavItem>
               <NavItem>
-          {api.isLoggedIn() && <NavLink tag={Nlink} to="/" onClick={(e) => this.handleLogoutClick(e)}>Logout</NavLink>}
+                {api.isLoggedIn() && (
+                  <NavLink
+                    tag={Nlink}
+                    to="/"
+                    onClick={e => this.handleLogoutClick(e)}
+                  >
+                    Logout
+                  </NavLink>
+                )}
               </NavItem>
             </Nav>
           </Collapse>
         </Navbar>
       </div>
-
-    )}
+    );
   }
+}

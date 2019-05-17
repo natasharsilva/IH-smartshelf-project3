@@ -4,28 +4,44 @@ import { Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button, Row, Col,Alert } from 'reactstrap';
   import {NavLink as Nlink} from 'react-router-dom';
 
-
-
-
 export default class LibraryDetail extends Component {
   constructor(props) {
     super(props)
     this.state = {
       response: {
         library: {},
-        book: {}
+        book: [],
+         },
+      itemsToShow: 2,
+      expanded: false
+        }
+        this.showMore = this.showMore.bind(this);
       }
-    }
-    this.joinLibrary = this.joinLibrary.bind(this)
-  }
 
-  joinLibrary() {
-    let libraryId ={ _library: this.state.library._id}
+  handleClick(event) {
+    event.preventDefault()
+    let libraryId ={ _library: this.props.match.params.libraryId._id    }
     api.createMember(libraryId)
-    .then(response => {
-      console.log("response------->",response)
-    })
-    .catch(err => console.log(err))
+      .then(result => {
+        console.log("DID IT WORK???", result)
+        this.setState({
+          message: `Your book '${this.state.title}' has been created`
+        })
+        setTimeout(() => {
+          this.setState({
+            message: null
+          })
+        }, 2000)
+      })
+      .catch(err => this.setState({ message: err.toString() }))
+  }
+  showMore() {
+    console.log("NOTICE MEEEEEE",this.state.book.length)
+    this.state.itemsToShow === 2 ? (
+      this.setState({ itemsToShow: this.state.book.length, expanded: true })
+    ) : (
+      this.setState({ itemsToShow: 2, expanded: false })
+    )
   }
 
   render() {
@@ -46,7 +62,7 @@ export default class LibraryDetail extends Component {
               <CardTitle><b>{this.state.library.name}</b></CardTitle>
               <CardSubtitle>{this.state.library.address}</CardSubtitle>
               <CardText>{this.state.library.description}</CardText>
-              <Button onClick={this.joinLibrary}className="btn btn-info">Join</Button>
+              <Button onClick={(e) => this.handleClick(e)}className="btn btn-info">Join</Button>
             </CardBody>
             </Col>
             </Row>
@@ -55,7 +71,8 @@ export default class LibraryDetail extends Component {
       }
           <h3>Available Books</h3>
         {!this.state.book && <div>Loading...</div>}
-        {this.state.book && this.state.book.map(booksFromLibrary => (<div key={booksFromLibrary.id}>
+        {this.state.book && this.state.book.slice(0,this.state.itemsToShow).map((booksFromLibrary,i) => (<div key={booksFromLibrary.id}>
+        
             <Card>
             <Row>
               <Col>
@@ -71,23 +88,30 @@ export default class LibraryDetail extends Component {
             </Col>
             </Row>
           </Card>
+
           </div>))}
+          <Button className="btn btn-primary" onClick={this.showMore}>
+          {this.state.expanded ? 
+          (<span>Show less</span>) : (<span>Show more</span>)
+          }</Button>.
+          
 
           <h3>Feed</h3>
               {/* comments & notifications - NEED TO SEE HOW TO SHOW ONLY A FEW 
-              AND SORT BY RECENT, MAYBE SORT BY TIMESTAMPS AND SHORTEN THE LENGHT ?? */} 
+              AND SORT BY RECENT, MAYBE SORT BY TIMESTAMPS AND SHORTEN THE LENGTH ?? */} 
               {!this.state.book && <div>Loading...</div>}
         {this.state.book && this.state.book.map(booksFromLibrary => (
-        
         <div className="activityFeed" key={booksFromLibrary.id}>
         {this.state.book.status === "Unavailable" && 
          <Alert color="danger">
          {booksFromLibrary.name} is now available in the library
         </Alert>}
+
        {this.state.book.status === "Available" && 
          <Alert color="primary">
          {booksFromLibrary.name} was taken from the library by {booksFromLibrary._currentOwner}
         </Alert>}
+
               <Card>
             <Row>
               <Col>
@@ -103,11 +127,11 @@ export default class LibraryDetail extends Component {
             </Col>
             </Row>
           </Card>
-        </div>))}
+        </div>))
+      }
       </div>
     );
   }
-  
   componentDidMount() {
     console.log("SETSTATE",this.props.match.params.libraryId)
     api.getLibrary(this.props.match.params.libraryId)
