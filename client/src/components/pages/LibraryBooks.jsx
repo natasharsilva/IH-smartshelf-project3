@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import { Button } from "reactstrap";
+import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button } from 'reactstrap';
 import api from "../../api";
+
+
 
 export default class LibraryBooks extends Component {
   constructor(props) {
@@ -29,7 +31,7 @@ export default class LibraryBooks extends Component {
         {this.state.book && (
           <div>
             <Button color="primary">Go Back to My Library</Button>
-            <h1>Library Name: {this.state.library.name}</h1>
+            <h1>{this.state.library.name}</h1>
             <h2>List of Books / Book Details</h2>
             <p>
               <input
@@ -50,7 +52,21 @@ export default class LibraryBooks extends Component {
                     .includes(this.state.search.toUpperCase())
                 )
                 .map(bookDetail => (
-                  <li key={bookDetail._id}>Title:{bookDetail.title}</li>
+                  <li key={bookDetail._id}>
+                  <div>
+                    <Card>
+                      <CardImg top width="100%" src={bookDetail.picture} alt={`"${bookDetail.title}-cover"`} />
+                      <CardBody>
+                        <CardTitle>Title:{bookDetail.title}</CardTitle>
+                        <CardTitle>Author:{bookDetail.author}</CardTitle>
+                        <CardSubtitle>Genre:{bookDetail.genre}</CardSubtitle>
+                        <CardText>{bookDetail.description}</CardText>
+                        <Button color="danger">Delete</Button>
+                      </CardBody>
+                    </Card>
+                  </div>
+                  <br />
+                  </li>
                 ))}
             </ul>
           </div>
