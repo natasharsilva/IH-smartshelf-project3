@@ -173,19 +173,19 @@ editProfile(body) {
   // -------------------- END OF BOOK METHODS -------------------------
   getMember(id) {
     return service
-    .get(`/member/${id}`)
+    .get(`/members/${id}`)
     .then(response => response.data)
     .catch(errHandler)
   },
   createMember(body) {
     return service
-    .post("/member", body)
+    .post("/members", body)
     .then(response => response.data)
     .catch(errHandler)
   },
   deleteMember(id) {
     return service
-    .delete(`/member/${id}`)
+    .delete(`/members/${id}`)
     .then(response => response.data)
     .catch(errHandler)
   },

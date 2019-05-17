@@ -22,7 +22,7 @@ export default class LibraryDetail extends Component {
     let libraryId ={ _library: this.props.match.params.libraryId._id    }
     api.createMember(libraryId)
       .then(result => {
-        console.log("DID IT WORK", result)
+        console.log("DID IT WORK???", result)
         this.setState({
           message: `Your book '${this.state.title}' has been created`
         })
