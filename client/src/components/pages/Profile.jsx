@@ -50,25 +50,28 @@ export default class Profile extends Component {
               <Card>
                 <CardBody>
                   <CardTitle tag="h3">Libraries</CardTitle>
-                  <CardText className="infoContainer">
-                  {this.state.profileInfo.members < 1 && <CardText>No libraries yet :(</CardText>}
-                    {this.state.profileInfo.members.map(library => (
-                      <li key={library._library._id}>
-                        <img
-                          src={library._library.picture}
-                          style={{
-                            width: "50px",
-                            height: "50px",
-                            objectFit: "cover"
-                          }}
-                          alt=""
-                        />
-                        <Link to={`/libraries/${library._library._id}`}>
-                          {library._library.name}
-                        </Link>
-                      </li>
+                  {this.state.profileInfo.members.length < 1 && (
+                    <CardText>No libraries yet :(</CardText>
+                  )}
+                  {this.state.profileInfo.members &&
+                    this.state.profileInfo.members.map(library => (
+                      <CardText className="infoContainer">
+                        <li key={library._library._id}>
+                          <img
+                            src={library._library.picture}
+                            style={{
+                              width: "50px",
+                              height: "50px",
+                              objectFit: "cover"
+                            }}
+                            alt=""
+                          />
+                          <Link to={`/libraries/${library._library._id}`}>
+                            {library._library.name}
+                          </Link>
+                        </li>{" "}
+                      </CardText>
                     ))}
-                  </CardText>
                   <Link to="/">Show more</Link>
                   <Button href="/add-library" outline color="info" size="sm">
                     Add library
@@ -78,33 +81,43 @@ export default class Profile extends Component {
               <Card>
                 <CardBody>
                   <CardTitle tag="h3">Books</CardTitle>
-                  {this.state.profileInfo.books.length < 1 && <CardText>No books yet :(</CardText>}
-                  {this.state.profileInfo.books && <CardText className="infoContainer">
-                    {this.state.profileInfo.books.map(book => (
-                      <li key={book._id}>
-                        <img src={book.picture} alt="" />
-                        <span>
-                          <strong>Title: </strong>
-                          {book.title}
-                          <br />
-                          <strong>Author: </strong>
-                          {book.author}
-                          <br />
-                          <strong>Due date: </strong> XXXX <br />
-                          <Button href="/" outline color="info" size="sm">
-                            Return to library
-                          </Button>
-                        </span>
-                      </li>
-                    ))}
-                  </CardText>}
+                  {this.state.profileInfo.books.length < 1 && (
+                    <CardText>No books yet :(</CardText>
+                  )}
+                  {this.state.profileInfo.books && (
+                    <CardText className="infoContainer">
+                      {this.state.profileInfo.books.map(book => (
+                        <li key={book._id}>
+                          <img src={book.picture} alt="" />
+                          <span>
+                            <strong>Title: </strong>
+                            {book.title}
+                            <br />
+                            <strong>Author: </strong>
+                            {book.author}
+                            <br />
+                            <strong>Due date: </strong> XXXX <br />
+                            <Button href="/" outline color="info" size="sm">
+                              Return to library
+                            </Button>
+                          </span>
+                        </li>
+                      ))}
+                    </CardText>
+                  )}
                 </CardBody>
               </Card>
             </CardDeck>
             <ButtonGroup vertical>
-              <Button href="/" outline color="info">Find Libraries</Button>
-              <Button href="/" outline color="info">Home</Button>
-              <Button href="/logout" outline color="info">Logout</Button>
+              <Button href="/" outline color="info">
+                Find Libraries
+              </Button>
+              <Button href="/" outline color="info">
+                Home
+              </Button>
+              <Button href="/logout" outline color="info">
+                Logout
+              </Button>
             </ButtonGroup>
           </div>
         )}
