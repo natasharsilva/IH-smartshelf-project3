@@ -24,7 +24,7 @@ export default class App extends Component {
     
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/profile" component={Profile} />
+          {api.isLoggedIn() ? <Route path="/profile" component={Profile} /> : <Route path="/profile" component={Login} />}
           <Route path="/add-library" component={AddLibrary} />
           <Route path="/libraries/:libraryId" component={LibraryDetail} />
           <Route path="/:libraryId/books" component={LibraryBooks} />

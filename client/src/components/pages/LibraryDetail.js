@@ -4,9 +4,6 @@ import { Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button, Row, Col,Alert } from 'reactstrap';
   import {NavLink as Nlink} from 'react-router-dom';
 
-
-
-
 export default class LibraryDetail extends Component {
   constructor(props) {
     super(props)
@@ -102,10 +99,9 @@ export default class LibraryDetail extends Component {
 
           <h3>Feed</h3>
               {/* comments & notifications - NEED TO SEE HOW TO SHOW ONLY A FEW 
-              AND SORT BY RECENT, MAYBE SORT BY TIMESTAMPS AND SHORTEN THE LENGHT ?? */} 
+              AND SORT BY RECENT, MAYBE SORT BY TIMESTAMPS AND SHORTEN THE LENGTH ?? */} 
               {!this.state.book && <div>Loading...</div>}
         {this.state.book && this.state.book.map(booksFromLibrary => (
-        
         <div className="activityFeed" key={booksFromLibrary.id}>
         {this.state.book.status === "Unavailable" && 
          <Alert color="danger">
