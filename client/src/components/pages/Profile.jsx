@@ -51,6 +51,7 @@ export default class Profile extends Component {
                 <CardBody>
                   <CardTitle tag="h3">Libraries</CardTitle>
                   <CardText className="infoContainer">
+                  {this.state.profileInfo.members < 1 && <CardText>No libraries yet :(</CardText>}
                     {this.state.profileInfo.members.map(library => (
                       <li key={library._library._id}>
                         <img
@@ -77,8 +78,7 @@ export default class Profile extends Component {
               <Card>
                 <CardBody>
                   <CardTitle tag="h3">Books</CardTitle>
-                  
-                  {!this.state.profileInfo.books && <CardText>No books yet :(</CardText>}
+                  {this.state.profileInfo.books.length < 1 && <CardText>No books yet :(</CardText>}
                   {this.state.profileInfo.books && <CardText className="infoContainer">
                     {this.state.profileInfo.books.map(book => (
                       <li key={book._id}>
