@@ -15,7 +15,10 @@ router.get("/:id", (req, res, next) => {
 });
 // ------------ Add a new member ------------------
 router.post("/", isLoggedIn, (req, res, next) => {
-  Member.create({_library: req.body.libraryId, _user: req.user._id})
+  Member.create({
+    _library: req.body._library,
+     _user: req.user._id
+  })
   .then(response => {
     res.json(response);
   })

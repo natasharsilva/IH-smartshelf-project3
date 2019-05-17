@@ -179,7 +179,7 @@ editProfile(body) {
   },
   createMember(body) {
     return service
-    .post(`/member/`, body)
+    .post("/member", body)
     .then(response => response.data)
     .catch(errHandler)
   },

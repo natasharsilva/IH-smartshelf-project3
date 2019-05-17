@@ -16,16 +16,23 @@ export default class LibraryDetail extends Component {
         book: {}
       }
     }
-    this.joinLibrary = this.joinLibrary.bind(this)
   }
-
-  joinLibrary() {
-    let libraryId ={ _library: this.state.library._id}
+  handleClick(event) {
+    event.preventDefault()
+    let libraryId ={ _library: this.props.match.params.libraryId._id    }
     api.createMember(libraryId)
-    .then(response => {
-      console.log("response------->",response)
-    })
-    .catch(err => console.log(err))
+      .then(result => {
+        console.log("DID IT WORK", result)
+        this.setState({
+          message: `Your book '${this.state.title}' has been created`
+        })
+        setTimeout(() => {
+          this.setState({
+            message: null
+          })
+        }, 2000)
+      })
+      .catch(err => this.setState({ message: err.toString() }))
   }
 
   render() {
@@ -46,7 +53,7 @@ export default class LibraryDetail extends Component {
               <CardTitle><b>{this.state.library.name}</b></CardTitle>
               <CardSubtitle>{this.state.library.address}</CardSubtitle>
               <CardText>{this.state.library.description}</CardText>
-              <Button onClick={this.joinLibrary}className="btn btn-info">Join</Button>
+              <Button onClick={(e) => this.handleClick(e)}className="btn btn-info">Join</Button>
             </CardBody>
             </Col>
             </Row>
@@ -84,10 +91,12 @@ export default class LibraryDetail extends Component {
          <Alert color="danger">
          {booksFromLibrary.name} is now available in the library
         </Alert>}
+
        {this.state.book.status === "Available" && 
          <Alert color="primary">
          {booksFromLibrary.name} was taken from the library by {booksFromLibrary._currentOwner}
         </Alert>}
+
               <Card>
             <Row>
               <Col>
@@ -103,7 +112,8 @@ export default class LibraryDetail extends Component {
             </Col>
             </Row>
           </Card>
-        </div>))}
+        </div>))
+      }
       </div>
     );
   }
