@@ -52,7 +52,7 @@ export default class Profile extends Component {
                   <CardTitle tag="h3">Libraries</CardTitle>
                   <CardText className="infoContainer">
                   {this.state.profileInfo.members.length < 1 && 
-                    <span>No libraries yet :(</span>
+                    <span>You are not part of any libraries yet!<br /> Create one or find libraries near you</span>
                   }
                   {this.state.profileInfo.members &&
                     this.state.profileInfo.members.map((library, i) => (
@@ -71,6 +71,9 @@ export default class Profile extends Component {
                   <Button href="/add-library" outline color="info" size="sm">
                     Add library
                   </Button>
+                  <Button href="/" outline color="info" size="sm">
+                    Find libraries
+                  </Button>
                 </CardBody>
               </Card>
               <Card>
@@ -78,7 +81,7 @@ export default class Profile extends Component {
                   <CardTitle tag="h3">Books</CardTitle>
                   <CardText className="infoContainer">
                   {this.state.profileInfo.books.length < 1 && 
-                    <span>No books yet :(</span>
+                    <span>You haven't borrowed books yet!<br /> Check your libraries to start reading</span>
                   }
                   {this.state.profileInfo.books && 
                       this.state.profileInfo.books.map(book => (
@@ -104,9 +107,6 @@ export default class Profile extends Component {
               </Card>
             </CardDeck>
             <ButtonGroup vertical>
-              <Button href="/" outline color="info">
-                Find Libraries
-              </Button>
               <Button href="/" outline color="info">
                 Home
               </Button>
