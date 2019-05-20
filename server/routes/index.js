@@ -13,7 +13,7 @@ router.get('/profile', isLoggedIn, (req, res, next) => {
   Promise.all([
     User.findById(req.user._id),
     Member.find({ _user: req.user._id }).populate("_library"),
-    Book.find({ _currentOwner: req.user._id })
+    Book.find({ _currentOwner: req.user._id})
   ]).then(([user, members, books]) => {
     res.json({
       user,
