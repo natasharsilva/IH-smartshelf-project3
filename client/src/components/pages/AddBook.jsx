@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Button, Input , Modal, ModalHeader, ModalBody, ModalFooter  } from 'reactstrap';
+import { Button, Input , Modal, ModalHeader, ModalBody } from 'reactstrap';
 import api from '../../api';
+import axios from 'axios';
 
 
 export default class AddBook extends Component {
@@ -10,11 +11,14 @@ export default class AddBook extends Component {
       title: "",
       author: "",
       genre: "",
+      picture:null,
       description: "",
       rating: "",
       pages: "",
       isbn: "",
+      language:"",
       message: null,
+      isbn_message:null,
       modal: false,
       _library: this.props.match.params.libraryId
     }
@@ -23,9 +27,9 @@ export default class AddBook extends Component {
     this.toggle = this.toggle.bind(this);
   }
 
-  handleInputChange(event) {
+  handleInputChange(e) {
     this.setState({
-      [event.target.name]: event.target.value
+      [e.target.name]: e.target.value
     })
   }
 
@@ -35,85 +39,53 @@ export default class AddBook extends Component {
     }));
   }
 
-  handleFileChange(event) {
-    console.log("The file added by the user is: ", event.target.files[0])
+  handleFileChange(e) {
+    console.log("The file added by the user is: ", e.target.files[0])
     this.setState({
-      picture: event.target.files[0]
+      picture: e.target.files[0]
     })
   }
 
+  getInfoFromApi(e){
+    axios.get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${this.state.isbn}`)
+    .then(response => {
+      console.log("response--->" , response.data.items[0].volumeInfo)
+      console.log("this.state.picture--->" , this.state.picture)
+      this.setState({
+        title: response.data.items[0].volumeInfo.title,
+        author: response.data.items[0].volumeInfo.authors[0],
+        genre: response.data.items[0].volumeInfo.categories
+          ? response.data.items[0].volumeInfo.categories[0]
+          : "Provide a genre",
+        picture: response.data.items[0].volumeInfo.imageLinks[0],
+        description: response.data.items[0].volumeInfo.description,
+        rating: response.data.items[0].volumeInfo.averageRating,
+        pages: response.data.items[0].volumeInfo.pageCount,
+        language: response.data.items[0].volumeInfo.language,
+        isbn:response.data.items[0].volumeInfo.industryIdentifiers[1].identifier,
+        isbn_message:`Ỳour book's name is ${response.data.items[0].volumeInfo.title}. If this information is worng, fill below the form with the correct information`,
+        _library: this.props.match.params.libraryId})
+  })}
 
-  handleClick(event) {
-    event.preventDefault()
-    console.log("this.props.match.params.libraryId",this.props.match.params.libraryId)
-    let data = {
-      title: this.state.title,
-      author: this.state.author,
-      picture: this.state.picture,
-      genre: this.state.genre,
-      description: this.state.description,
-      rating: this.state.rating,
-      pages: this.state.pages,
-      language: this.state.language,
-      isbn: this.state.isbn,
-      _library: this.props.match.params.libraryId
-    }
-    api.addBook(data)
-    
-      .then(result => {
-        console.log('SUCCESS!')
-        console.log("result" , result)
-        this.setState({
-          title: result.response.title,
-          author: result.response.author,
-          picture: "",
-          genre: result.response.genre,
-          description: result.response.description,
-          rating: result.response.rating,
-          pages: result.response.pages,
-          language: result.response.language,
-          isbn: result.response.isbn,
-          _library:"",
-          message: `Your book '${this.state.title}' has been created`
-        })
-        setTimeout(() => {
-          this.setState({
-            message: null
-          })
-        }, 2000)
-      })
-      .catch(err => this.setState({ message: err.toString() }))
-  }
-
-  handleClickWithForm(event) {
-    event.preventDefault()
+  addBookAndRedirectToLibraryPage(e){
     // console.log("this.props.match.params.libraryId",this.props.match.params.libraryId)
-    let data = {
-      title: this.state.title,
-      author: this.state.author,
-      picture: this.state.picture,
-      genre: this.state.genre,
-      description: this.state.description,
-      rating: this.state.rating,
-      pages: this.state.pages,
-      language: this.state.language,
-      isbn: this.state.isbn,
-      _library: this.props.match.params.libraryId._id
-    }
-    api.addBookWithForm(data)
+    const uploadData = new FormData()
+    uploadData.append("title", this.state.title)
+    uploadData.append("author", this.state.author)
+    uploadData.append("picture", this.state.picture)
+    uploadData.append("genre", this.state.genre)
+    uploadData.append("description", this.state.description)
+    uploadData.append("rating", this.state.rating)
+    uploadData.append("pages", this.state.pages)
+    uploadData.append("language", this.state.language)
+    uploadData.append("isbn", this.state.isbn)
+    uploadData.append("_library", this.props.match.params.libraryId)
+    console.log("uploadData------->",uploadData)
+    
+    api.addBookWithForm(uploadData)
       .then(result => {
-        console.log('SUCCESS!')
+        console.log('result--->',result)
         this.setState({
-          title: "",
-          author: "",
-          picture: "",
-          genre: "",
-          description: "",
-          rating: "",
-          pages: "",
-          language: "",
-          isbn: "",
-          _library:"",
           message: `Your book '${this.state.title}' has been created`
         })
         setTimeout(() => {
@@ -123,6 +95,7 @@ export default class AddBook extends Component {
         }, 2000)
       })
       .catch(err => this.setState({ message: err.toString() }))
+
   }
 
 
@@ -140,10 +113,10 @@ export default class AddBook extends Component {
         
       <form>
           ISBN: <Input type="number" value={this.state.isbn} name="isbn" onChange={this.handleInputChange} /> <br />
-          <Button color="primary" onClick={(e) => this.handleClick(e)}>Create your book</Button> <br />
+          <Button color="primary" onClick={(e) => this.getInfoFromApi(e)}>Check your book's info</Button> <br />
         </form>
-        {this.state.message && <div className="info">
-          {this.state.message}
+        {this.state.isbn_message && <div className="info">
+          {this.state.isbn_message}
         </div>}
         <br />
         <div>
@@ -167,13 +140,15 @@ export default class AddBook extends Component {
           Title: <Input type="text" value={this.state.title} name="title" onChange={this.handleInputChange} /> <br />
           Author: <Input type="text" value={this.state.author} name="author" onChange={this.handleInputChange} /> <br />
           Genre: <Input type="text" value={this.state.genre} name="genre" onChange={this.handleInputChange} /> <br />
-          Picture: <Input type="file" value={this.state.picture} name="picture" onChange={this.handleFileChange} /> <br />
+          Picture: 
+          <img src={this.state.picture} alt="" /><br />
+          <Input type="file" value={this.state.picture} name="picture" onChange={this.handleFileChange} /> <br />
           Rating: <Input type="number" value={this.state.rating} name="rating" onChange={this.handleInputChange} /> <br />
           Pages: <Input type="number" value={this.state.pages} name="pages" onChange={this.handleInputChange} /> <br />
-          Language: <Input type="number" value={this.state.language} name="language" onChange={this.handleInputChange} /> <br />
+          Language: <Input type="text" value={this.state.language} name="language" onChange={this.handleInputChange} /> <br />
           ISBN: <Input type="number" value={this.state.isbn} name="isbn" onChange={this.handleInputChange} /> <br />
           Description: <Input type="textarea" value={this.state.description} name="description" cols="20" rows="5" onChange={this.handleInputChange} /> <br />
-          <Button color="primary" onClick={(e) => this.handleClickWithForm(e)}>Create Book</Button>
+          <Button color="primary" onClick={(e) => this.addBookAndRedirectToLibraryPage(e)}>Create Book</Button>
         </form>
         {this.state.message && <div className="info">
           {this.state.message}

@@ -157,16 +157,16 @@ editProfile(body) {
       .catch(errHandler);
   },
 
-  addBook(body) {
-    return service
-      .post(`/books`, body)
-      .then(res => res.data)
-      .catch(errHandler);
-  },
+  // addBook(body) {
+  //   return service
+  //     .post(`/books`, body)
+  //     .then(res => res.data)
+  //     .catch(errHandler);
+  // },
 
   addBookWithForm(body) {
     return service
-      .post(`/form`, body)
+      .post(`/books/`, body)
       .then(res => res.data)
       .catch(errHandler);
   },
