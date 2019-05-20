@@ -58,7 +58,7 @@ export default class LibraryBooks extends Component {
   render() {
     return (
       <div className="LibraryBooks">
-        {!this.state.book || !this.state.library && <div>Loading... Make sure you're inside a library!</div>}
+        {(!this.state.book || !this.state.library) && <div>Loading... Make sure you're inside a library!</div>}
         {this.state.book && (<div>
           <div>
             <Button color="primary" href={`/libraries/${this.state.library}`}>Go Back to {this.state.library}</Button>
