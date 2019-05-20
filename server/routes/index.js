@@ -39,6 +39,7 @@ router.put("/profile", isLoggedIn, uploader.single("picture"), (req, res, next) 
     };
     if (req.file) updatedData.picture = req.file.secure_url;
 
+
     User.findOneAndUpdate({_id: req.user._id}, updatedData, { new: true })
       .then(response => {
         res.json(response);

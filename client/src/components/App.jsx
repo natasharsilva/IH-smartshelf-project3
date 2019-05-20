@@ -22,14 +22,13 @@ export default class App extends Component {
     return (
       <div className="App">
       <NavBar />
-    
         <Switch>
           <Route path="/" exact component={Home} />
           {api.isLoggedIn() ? <Route path="/profile" component={Profile} /> : <Route path="/profile" component={Login} />}
-          <Route path="/add-library" component={AddLibrary} />
+         {api.isLoggedIn() && <Route path="/add-library" component={AddLibrary} />}
           <Route path="/libraries/:libraryId" component={LibraryDetail} />
           <Route path="/:libraryId/books" component={LibraryBooks} />
-          <Route path="/:libraryId/add-book" component={AddBook} />
+          {api.isLoggedIn() && <Route path="/:libraryId/add-book" component={AddBook} />}
           <Route path="/books/:bookId" component={BookDetail} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
@@ -40,4 +39,5 @@ export default class App extends Component {
       </div>
     );
   }
+  
 }
