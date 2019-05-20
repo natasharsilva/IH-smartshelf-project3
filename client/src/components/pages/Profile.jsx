@@ -35,10 +35,12 @@ export default class Profile extends Component {
     })
     .catch(err => console.log(err));
 }
-  returnBook(event, bookId) {
-    event.preventDefault();
-    api.updateBook(bookId, {
-      status: 'Available'
+  returnBook(e, book) {
+		console.log("TCL: Profile -> returnBook -> key", book._id)
+    e.preventDefault();
+    api.updateBook(book._id, {
+      status: 'Available',
+      _currentOwner: '000000000000000000000000'
     })
     .then(result => {
       console.log("DID IT WORK???", result)
@@ -141,7 +143,7 @@ export default class Profile extends Component {
                             {book.author}
                             <br />
                             <strong>Due date: </strong> XXXX <br />
-                            <Button onClick={(e, bookId) => this.returnBook(e, bookId)} key={book._id} outline color="info" size="sm">
+                            <Button onClick={e => this.returnBook(e, book)} key={book._id} outline color="info" size="sm">
                               Return to library
                             </Button>
                           </span>
