@@ -9,6 +9,7 @@ import BookDetail from './pages/BookDetail';
 import NavBar from './NavBar';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Map from './pages/Map.js';
 import api from '../api';
 import Profile from './pages/Profile';
 
@@ -32,6 +33,8 @@ export default class App extends Component {
           <Route path="/books/:bookId" component={BookDetail} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
+          <Route path="/map" component={Map} />
+
           <Route render={() => <h2>404</h2>} />
         </Switch>
       </div>
