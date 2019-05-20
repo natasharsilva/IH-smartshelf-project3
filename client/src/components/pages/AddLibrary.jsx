@@ -7,13 +7,14 @@ export default class AddLibrary extends Component {
     super(props);
     this.state = {
       name: "",
-      picture: "",
+      picture: null,
       address: "",
       description: "",
       message: null
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleFileChange = this.handleFileChange.bind(this);
+    //this.addLibraryAndRedirectToProfile = this.addLibraryAndRedirectToProfile.bind(this);
   }
 
   handleInputChange(event) {
@@ -23,39 +24,53 @@ export default class AddLibrary extends Component {
   }
 
   handleFileChange(event) {
+    //  event.preventDefault();
     console.log("The file added by the user is: ", event.target.files[0]);
     this.setState({
       picture: event.target.files[0]
     });
   }
 
-  handleClick(event) {
-    event.preventDefault();
-    console.log(this.state.name, this.state.description);
-    let data = {
-      name: this.state.name,
-      picture: this.state.picture,
-      address: this.state.address,
-      description: this.state.description
-    };
-    api
-      .createLibrary(data)
-      .then(result => {
-        console.log("SUCCESS!");
+  addLibraryAndRedirectToProfile(e){
+    // To send information with "form-data" (like in Postman)
+    const uploadData = new FormData()
+    uploadData.append("name", this.state.name)
+    uploadData.append("picture", this.state.picture)
+    uploadData.append("address", this.state.address)
+    uploadData.append("description", this.state.description)
+
+    api.createLibrary(uploadData)
+    .then(createdLibrary => {
+      console.log("SUCCESS!");
+      // this.setState({
+      //   name: "",
+      //   picture: "",
+      //   address: "",
+      //   description: "",
+      //   message: `Your library '${this.state.name}' has been created`
+      // });
+      this.props.history.push('/profile')
+      setTimeout(() => {
         this.setState({
-          name: "",
-          picture: "",
-          address: "",
-          description: "",
-          message: `Your library '${this.state.name}' has been created`
+          message: null
         });
-        setTimeout(() => {
-          this.setState({
-            message: null
-          });
-        }, 2000);
-      })
-      .catch(err => this.setState({ message: err.toString() }));
+      }, 2000);
+    })
+    .catch(err => this.setState({ message: err.toString() }));
+
+  }
+
+  handleClick(event) {
+    // event.preventDefault();
+    // console.log(this.state.name, this.state.description);
+    // let data = {
+    //   name: this.state.name,
+    //   picture: this.state.picture,
+    //   address: this.state.address,
+    //   description: this.state.description
+    // };
+    // api.createLibrary(data)
+      
   }
 
   render() {
@@ -74,7 +89,7 @@ export default class AddLibrary extends Component {
           Picture:{" "}
           <Input
             type="file"
-            value={this.state.picture}
+            // value={this.state.picture}
             name="picture"
             onChange={this.handleFileChange}
           />{" "}
@@ -97,7 +112,7 @@ export default class AddLibrary extends Component {
             onChange={this.handleInputChange}
           />{" "}
           <br />
-          <Button color="primary" onClick={e => this.handleClick(e)}>
+          <Button color="primary" onClick={e => this.addLibraryAndRedirectToProfile(e)}>
             Create Library
           </Button>
         </form>

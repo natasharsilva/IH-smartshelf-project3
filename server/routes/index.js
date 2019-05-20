@@ -26,7 +26,6 @@ router.get('/profile', isLoggedIn, (req, res, next) => {
 router.put("/profile", isLoggedIn, uploader.single("picture"), (req, res, next) => {
     const {
       username,
-      email,
       phoneNumber,
       favoriteBooks,
       favoriteQuote
@@ -34,7 +33,6 @@ router.put("/profile", isLoggedIn, uploader.single("picture"), (req, res, next) 
 
     let updatedData = {
       username,
-      email,
       phoneNumber,
       favoriteBooks,
       favoriteQuote

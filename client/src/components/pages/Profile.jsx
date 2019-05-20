@@ -61,7 +61,7 @@ export default class Profile extends Component {
                   <CardTitle tag="h3">Libraries</CardTitle>
                   <CardText className="infoContainer">
                     {this.state.profileInfo.members.length < 1 && (
-                      <span>
+                      <span>  
                         You are not part of any libraries yet!
                         <br /> Create one or find libraries near you
                       </span>
