@@ -40,9 +40,9 @@ router.put("/:bookId", uploader.single("picture"), (req, res, next) => {
       status,
       _currentOwner
     };
-    if (_currentOwner !== _createdBy) _currentOwner.status = req.user._id;
+    // if (_currentOwner !== _createdBy) _currentOwner.status = req.user._id;
 
-    Book.findOneAndUpdate(req.params.id, updatedData, { new: true })
+    Book.findOneAndUpdate({_id: req.params.bookId}, updatedData, { new: true })
       .then(response => {
         res.json({
           message: "Book updated!",
@@ -150,7 +150,7 @@ router.post("/",isLoggedIn, uploader.single("picture"), (req, res, next) => {
     language: req.body.language,
     isbn: req.body.isbn,
     _createdBy: req.user._id,
-    _currentOwner: req.user._id,
+    _currentOwner: '000000000000000000000000',
     _library: req.body._library
   })
     .then(response => {
@@ -161,8 +161,5 @@ router.post("/",isLoggedIn, uploader.single("picture"), (req, res, next) => {
     })
     .catch(err => next(err));
 });
-
-
-
 
 module.exports = router;

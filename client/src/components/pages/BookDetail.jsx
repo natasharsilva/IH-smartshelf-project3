@@ -25,6 +25,7 @@ export default class BookDetail extends Component {
 
   borrowBook(event) {
     event.preventDefault();
+    console.log("THIS IS THE ID OOOOK", this.props.match.params.bookId)
     api.updateBook(this.props.match.params.bookId, {
     title: this.state.book.title,
     author: this.state.book.author,

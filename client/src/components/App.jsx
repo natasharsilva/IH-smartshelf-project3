@@ -29,7 +29,7 @@ export default class App extends Component {
           <Route path="/libraries/:libraryId" component={LibraryDetail} />
           <Route path="/:libraryId/books" component={LibraryBooks} />
           {api.isLoggedIn() && <Route path="/:libraryId/add-book" component={AddBook} />}
-          <Route path="/books/:bookId" component={BookDetail} />
+          <Route path="/book-detail/:bookId" component={BookDetail} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
           <Route path="/map" component={Map} />
