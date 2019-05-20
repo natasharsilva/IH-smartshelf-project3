@@ -27,28 +27,18 @@ router.get("/:libraryId", (req, res, next) => {
 
 // ---------Update Libraries ------------
 router.put("/:libraryId", isLoggedIn, uploader.single('picture'), (req, res, next) => {
-  Member.findOne({_library: req.params.libraryId, _user: req.user._id })
-  .then(member => {
-    if (!member) {
-      next({
-        status: 400,
-        message: "you need to be admin of this library to be able to updated"
-      })
-    }
-    else if(member.role === "admin"){
-  Library.findOneAndUpdate(req.params.libraryId,{
+  Library.findOneAndUpdate({_id: req.params.libraryId},{
     name: req.body.name,
     picture: req.file && req.file.secure_url,  
     address: req.body.address,
     description: req.body.description,
+
   }, { new: true })
   .then(response => {
     res.json(response);
   })
   .catch(err => next(err))
-  }
-})
-})
+});
   
   
 

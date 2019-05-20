@@ -142,7 +142,7 @@ export default class AddBook extends Component {
           Genre: <Input type="text" value={this.state.genre} name="genre" onChange={this.handleInputChange} /> <br />
           Picture: 
           <img src={this.state.picture} alt="" /><br />
-          <Input type="file" value={this.state.picture} name="picture" onChange={this.handleFileChange} /> <br />
+          <Input type="file" name="picture" onChange={this.handleFileChange} /> <br />
           Rating: <Input type="number" value={this.state.rating} name="rating" onChange={this.handleInputChange} /> <br />
           Pages: <Input type="number" value={this.state.pages} name="pages" onChange={this.handleInputChange} /> <br />
           Language: <Input type="text" value={this.state.language} name="language" onChange={this.handleInputChange} /> <br />
