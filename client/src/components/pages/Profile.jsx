@@ -19,7 +19,6 @@ export default class Profile extends Component {
       profileInfo: null,
       showEditForm: false
     };
-    // this.showMore = this.showMore.bind(this);
   }
   showEditForm() {
     this.setState({
@@ -39,8 +38,7 @@ export default class Profile extends Component {
   returnBook(event, bookId) {
     event.preventDefault();
     api.updateBook(bookId, {
-    _currentOwner: null,
-    status: 'Available'
+      status: 'Available'
     })
     .then(result => {
       console.log("DID IT WORK???", result)
@@ -77,7 +75,7 @@ export default class Profile extends Component {
                     </span>
                   </CardText>
                 </CardBody>
-                <EditProfile updateProfile={this.updateProfile}/>
+                <EditProfile  updateProfile={this.updateProfile}/>
               </Card>
               <Card>
                 <CardBody>
