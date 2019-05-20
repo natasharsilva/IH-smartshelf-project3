@@ -11,18 +11,26 @@ export default class EditLibrary extends React.Component {
     this.state = {
       name: "",
       address: "",
-      picture: "",
       description: "",
       showEditForm: true,
+      picture: null,
       libraryId: this.props.theLibrary._id
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleFileChange = this.handleFileChange.bind(this)
+
   }
   handleInputChange(event) {
     this.setState({
       [event.target.name]: event.target.value
     });
+  }
+  handleFileChange(event) {
+    console.log("The file added by the user is: ", event.target.files[0])
+    this.setState({
+      picture: event.target.files[0]
+    })
   }
 
   handleFormSubmit() {

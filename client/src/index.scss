@@ -1,8 +1,10 @@
+$primary: #32c3ff;
+$danger: #9024bb;
 
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
 // --------------------
 // Definition of variables
-$primary: #32c3ff;
+
 
 // --------------------
 // Style reusable for all components
@@ -222,4 +224,9 @@ a {
     padding:0;
     margin:0;
   }
+}
+.mapbox {
+  display:flex;
+  min-width: 100%;
+  text-align: left;
 }
