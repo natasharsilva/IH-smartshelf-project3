@@ -22,26 +22,62 @@ router.get("/:bookId", (req, res, next) => {
 // --------- Update Books ------------ Working without picture ****
 
 router.put("/:bookId", uploader.single("picture"), (req, res, next) => {
-  Book.findOneAndUpdate(req.params.id, {
-    // title: req.body.title,
-    // author: req.body.author,
-    // genre: req.body.genre,
-    // picture: req.file && req.file.secure_url,
-    // description: req.body.description,
-    // rating: req.body.rating,
-    // pages: req.body.pages,
-    // language: req.body.language,
-    // _currentOwner: req.user._id,
-    // status: req.body.status
-  })
-    .then(response => {
-      res.json({
-        message: "Book updated!",
-        response
-      });
-    })
-    .catch(err => next(err));
-});
+    const {
+      title,
+      author,
+      genre,
+      picture,
+      description,
+      rating,
+      pages,
+      language,
+      status,
+      _currentOwner
+    } = req.body;
+
+    let updatedData = {
+      title,
+      author,
+      genre,
+      picture,
+      description,
+      rating,
+      pages,
+      language,
+    };
+    if (status) updatedData.status = req.body.status;
+    if (_currentOwner) _currentOwner.status = req.user._id;
+
+    Book.findOneAndUpdate(req.params.id, updatedData, { new: true })
+      .then(response => {
+        res.json({
+          message: "Book updated!",
+          response
+        });
+      })
+      .catch(err => next(err));
+  }
+
+  // Book.findOneAndUpdate(req.params.id, {
+  //   title: req.body.title,
+  //   author: req.body.author,
+  //   genre: req.body.genre,
+  //   picture: req.file && req.file.secure_url,
+  //   description: req.body.description,
+  //   rating: req.body.rating,
+  //   pages: req.body.pages,
+  //   language: req.body.language,
+  //   _currentOwner: req.user._id,
+  //   status: req.body.status
+  // })
+  //   .then(response => {
+  //     res.json({
+  //       message: "Book updated!",
+  //       response
+  //     });
+  //   })
+  //   .catch(err => next(err));}
+  );
 
 //---------------- Delete books -------------- Working
 router.delete("/:bookId", (req, res, next) => {
@@ -90,7 +126,7 @@ router.post("/", isLoggedIn, (req, res, next) => {
         language: response.data.items[0].volumeInfo.language,
         isbn:response.data.items[0].volumeInfo.industryIdentifiers[1].identifier,
         _createdBy: req.user._id,
-        _currentOwner: null,
+        _currentOwner,
         _library: req.body._library,
       }).then(response => {
         res.json({

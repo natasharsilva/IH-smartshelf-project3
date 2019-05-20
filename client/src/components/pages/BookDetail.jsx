@@ -26,14 +26,14 @@ export default class BookDetail extends Component {
   borrowBook(event) {
     event.preventDefault();
     api.updateBook(this.props.match.params.bookId, {
-    title: this.state.book.title,
-    author: this.state.book.author,
-    genre: this.state.book.genre,
-    picture: this.state.book.picture,
-    description: this.state.book.description,
-    rating: this.state.book.rating,
-    pages: this.state.book.pages,
-    language: this.state.book.language,
+    // title: this.state.book.title,
+    // author: this.state.book.author,
+    // genre: this.state.book.genre,
+    // picture: this.state.book.picture,
+    // description: this.state.book.description,
+    // rating: this.state.book.rating,
+    // pages: this.state.book.pages,
+    // language: this.state.book.language,
     _currentOwner: this.state.user,
     status: 'Unavailable'
     })

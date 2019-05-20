@@ -19,7 +19,6 @@ export default class Profile extends Component {
       profileInfo: null,
       showEditForm: false
     };
-    // this.showMore = this.showMore.bind(this);
   }
   showEditForm() {
     this.setState({
@@ -29,9 +28,20 @@ export default class Profile extends Component {
 
   returnBook(event, bookId) {
     event.preventDefault();
+    console.log(bookId)
     api.updateBook(bookId, {
-    _currentOwner: null,
-    status: 'Available'
+      // title: body.title,
+      // author: body.author,
+      // genre: body.genre,
+      // picture: file && file.secure_url,
+      // description: body.description,
+      // rating: body.rating,
+      // pages: body.pages,
+      // language: body.language,
+      // _currentOwner: user._id,
+      // status: body.status,
+      _currentOwner: 'null',
+      status: 'Available'
     })
     .then(result => {
       console.log("DID IT WORK???", result)
