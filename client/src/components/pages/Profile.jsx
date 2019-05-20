@@ -26,7 +26,16 @@ export default class Profile extends Component {
       showEditForm: !this.state.showEditForm
     });
   }
-
+  updateProfile = () => {
+    api.showProfile()
+    .then(response => {
+      this.setState({
+        profileInfo: response
+      });
+      console.log(this.state);
+    })
+    .catch(err => console.log(err));
+}
   returnBook(event, bookId) {
     event.preventDefault();
     api.updateBook(bookId, {
@@ -68,7 +77,7 @@ export default class Profile extends Component {
                     </span>
                   </CardText>
                 </CardBody>
-                <EditProfile />
+                <EditProfile updateProfile={this.updateProfile}/>
               </Card>
               <Card>
                 <CardBody>

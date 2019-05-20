@@ -35,7 +35,17 @@ export default class LibraryDetail extends Component {
       })
       .catch(err => this.setState({ message: err.toString() }))
   }
-
+    updateLibrary = () => {
+      api.getLibrary(this.props.match.params.libraryId)
+      .then(response => {
+        this.setState({
+          library: response.library,
+        })
+      })
+      .catch(err => console.log(err))
+    }
+  
+    
 
   render() {
     return (
@@ -58,7 +68,7 @@ export default class LibraryDetail extends Component {
             </CardBody>
             </Col>
             </Row>
-            <EditLibrary theLibrary={this.state.library} />
+            <EditLibrary updateLibrary={this.updateLibrary} theLibrary={this.state.library} />
           </Card>
         </div>
       }

@@ -19,8 +19,6 @@ export default class EditProfile extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleFileChange = this.handleFileChange.bind(this)
-
-
   }
   handleInputChange(event) {
     this.setState({
@@ -34,21 +32,25 @@ export default class EditProfile extends React.Component {
     })
   }
 
-  handleFormSubmit(){
-    let data = {
-      email: this.state.email,
-      username: this.state.username,
-      // picture: this.state.picture,
-      phoneNumber: this.state.phoneNumber,
-      favoriteBooks: this.state.favoriteBooks,
-      favoriteQuote: this.state.favoriteQuote
-    };
-    api.editProfile(data)
+  handleFormSubmit(e){
+    const uploadData = new FormData() 
+    uploadData.append("username", this.state.username)
+    uploadData.append("picture", this.state.picture)
+    uploadData.append("phoneNumber", this.state.phoneNumber)
+    uploadData.append("favoriteBooks", this.state.favoriteBooks)
+    uploadData.append("favoriteQuote", this.state.favoriteQuote)
+
+    api.editProfile(uploadData)
       .then(result => {
         console.log("DID IT WORK???", result);
+        this.props.updateProfile()
         this.setState({
           message: `Your profile was updated!`,
-          showEditForm: !this.state.showEditForm
+          showEditForm: !this.state.showEditForm,
+          username: "",
+          phoneNumber: "",
+          favoriteBooks: "",
+          favoriteQuote: "",
 
         });
         setTimeout(() => {
@@ -58,7 +60,8 @@ export default class EditProfile extends React.Component {
         }, 2000);
       })
       .catch(err => this.setState({ message: err.toString() }));
-  };
+  
+}
   showEditForm() {
     this.setState({
       showEditForm: !this.state.showEditForm
