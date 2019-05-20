@@ -90,6 +90,7 @@ updateLibrary(libraryId, body) {
   .catch(errHandler)
 },
 
+
 deleteLibrary(libraryId) {
   return service
   .delete(`/libraries/${libraryId}`)

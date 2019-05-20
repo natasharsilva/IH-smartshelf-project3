@@ -26,7 +26,6 @@ router.get("/:libraryId", (req, res, next) => {
 });
 
 // ---------Update Libraries ------------
-
 router.put("/:libraryId", isLoggedIn, uploader.single('picture'), (req, res, next) => {
   Library.findOneAndUpdate(req.params.libraryId,{
     name: req.body.name,
@@ -40,6 +39,8 @@ router.put("/:libraryId", isLoggedIn, uploader.single('picture'), (req, res, nex
   })
   .catch(err => next(err))
 });
+  
+  
 
 //---------------- Delete libraries --------------   
 router.delete('/:libraryId', isLoggedIn, (req, res, next) => {

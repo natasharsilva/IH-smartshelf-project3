@@ -58,7 +58,7 @@ export default class LibraryDetail extends Component {
             </CardBody>
             </Col>
             </Row>
-            <EditLibrary />
+            <EditLibrary theLibrary={this.state.library} />
           </Card>
         </div>
       }
@@ -83,7 +83,9 @@ export default class LibraryDetail extends Component {
           </Card>
 
           </div>))}
-          <Button tag={Nlink} to={`/${this.props.match.params.libraryId}/books`}> See all Books</Button>
+          <Button outline color="info" size="sm" tag={Nlink} to={`/${this.props.match.params.libraryId}/books`}> See all Books</Button>
+
+          <Button  outline color="info" size="sm" tag={Nlink} to={`/${this.props.match.params.libraryId}/add-book`}> Add new Book</Button>
           
 
           <h3>Feed</h3>
@@ -112,7 +114,7 @@ export default class LibraryDetail extends Component {
               <CardTitle><b>{booksFromLibrary.name}</b></CardTitle>
               <CardSubtitle>{booksFromLibrary.comments.rating}</CardSubtitle>
               <CardText>{booksFromLibrary.comments.text}</CardText>
-              <Button size="sm" tag={Nlink}to="/book-detail" className="btn btn-info">See details</Button>
+              <Button outline color="info" size="sm" tag={Nlink}to="/book-detail" className="btn btn-info">See details</Button>
             </CardBody>
             </Col>
             </Row>
