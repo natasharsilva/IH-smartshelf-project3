@@ -81,9 +81,9 @@ export default class BookDetail extends Component {
                     {this.state.book.isbn}
                     <br />
                   </CardText>
-                  <Button onClick={(e) => this.borrowBook(e)} outline color="info">
+                  {this.state.book.status === 'Available' && <Button onClick={(e) => this.borrowBook(e)} outline color="info">
                     Borrow
-                  </Button><br />
+                  </Button>}<br />
                   <Button onClick={this.addReview} outline color="info">
                     Add a review
                   </Button><br />

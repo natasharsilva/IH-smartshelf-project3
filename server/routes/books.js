@@ -23,14 +23,14 @@ router.get("/:bookId", (req, res, next) => {
 
 router.put("/:bookId", uploader.single("picture"), (req, res, next) => {
   Book.findOneAndUpdate(req.params.id, {
-    title: req.body.title,
-    author: req.body.author,
-    genre: req.body.genre,
-    picture: req.file && req.file.secure_url,
-    description: req.body.description,
-    rating: req.body.rating,
-    pages: req.body.pages,
-    language: req.body.language,
+    // title: req.body.title,
+    // author: req.body.author,
+    // genre: req.body.genre,
+    // picture: req.file && req.file.secure_url,
+    // description: req.body.description,
+    // rating: req.body.rating,
+    // pages: req.body.pages,
+    // language: req.body.language,
     _currentOwner: req.user._id,
     status: req.body.status
   })
@@ -90,7 +90,7 @@ router.post("/", isLoggedIn, (req, res, next) => {
         language: response.data.items[0].volumeInfo.language,
         isbn:response.data.items[0].volumeInfo.industryIdentifiers[1].identifier,
         _createdBy: req.user._id,
-        _currentOwner: req.user._id,
+        _currentOwner: null,
         _library: req.body._library,
       }).then(response => {
         res.json({
