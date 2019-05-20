@@ -3,7 +3,6 @@ import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button } fr
 import api from "../../api";
 
 
-
 export default class LibraryBooks extends Component {
   constructor(props) {
     super(props);
@@ -13,7 +12,8 @@ export default class LibraryBooks extends Component {
         book: {}
       },
       member: [],
-      search: ""
+      search: "",
+      message:"",
     };
     this.changeSearch = this.changeSearch.bind(this);
   }
@@ -24,36 +24,22 @@ export default class LibraryBooks extends Component {
     });
   }
 
-  // deleteBook(e, bookDetail) {
-  //   e.preventDefault()
-  //   // console.log("this.props.match.params.libraryId",this.props.match.params.libraryId)
-    
-  //   api.deleteBook(bookDetail._id)
-    
-  //     .then(result => {
-  //       console.log('SUCCESS!')
-  //       console.log("result" , result)
-  //       this.setState({
-  //         title: "",
-  //         author: "",
-  //         picture: "",
-  //         genre: "",
-  //         description: "",
-  //         rating: "",
-  //         pages: "",
-  //         language: "",
-  //         isbn: "",
-  //         _library:"",
-  //         message: `Your book '${this.state.title}' has been deleted`
-  //       })
-  //       setTimeout(() => {
-  //         this.setState({
-  //           message: null
-  //         })
-  //       }, 2000)
-  //     })
-  //     .catch(err => this.setState({ message: err.toString() }))
-  // }
+  deleteBook(e, bookDetail) {
+    console.log("IS THIS THE BOOK YOU WANT TO DELETE?", bookDetail._id)
+    e.preventDefault()
+     api.deleteBook(bookDetail._id)
+     .then(response => {
+      console.log("DID IT WORK???", response)
+      api.getLibrary(this.props.match.params.libraryId)
+      .then(response => {
+      this.setState({
+        message: `Your book was deleted succesfully`,
+        library: response.library,
+        book: response.book
+      })
+    })
+  })
+}
 
   render() {
     return (
@@ -61,8 +47,8 @@ export default class LibraryBooks extends Component {
         {(!this.state.book || !this.state.library) && <div>Loading... Make sure you're inside a library!</div>}
         {this.state.book && (<div>
           <div>
-            <Button color="primary" href={`/libraries/${this.state.library}`}>Go Back to {this.state.library}</Button>
-            <h1>{this.state.library}</h1>
+            {/* <Button color="primary" href={`/libraries/${this.state.library}`}>Go Back to {this.state.library}</Button> */}
+            {/* <h1>{this.state.library}</h1> */}
             <h2>List of Books / Book Details</h2>
             <p>
               <input
@@ -87,12 +73,13 @@ export default class LibraryBooks extends Component {
                   <div>
                     <Card>
                       <CardImg top width="100%" src={bookDetail.picture} alt={`"${bookDetail.title}-cover"`} />
+                        {/* <img src={bookDetail.picture} alt={`"${bookDetail.title}-cover"`}/> */}
                       <CardBody>
                         <CardTitle>Title:{bookDetail.title}</CardTitle>
                         <CardTitle>Author:{bookDetail.author}</CardTitle>
                         <CardSubtitle>Genre:{bookDetail.genre}</CardSubtitle>
                         <CardText>{bookDetail.description}</CardText>
-                        <Button color="danger" onClick={(e) => this.deleteBook(e, bookDetail)}>Delete</Button>
+                        <Button color="danger" onClick={e => this.deleteBook(e,bookDetail)}>Delete Book</Button>
                       </CardBody>
                     </Card>
                   </div>
@@ -108,9 +95,7 @@ export default class LibraryBooks extends Component {
 
   componentDidMount() {
     // console.log(this.props.match)
-    api
-      .getLibrary(this.props.match.params.libraryId)
-
+    api.getLibrary(this.props.match.params.libraryId)
       .then(response => {
         console.log("response------->", response);
         this.setState({
