@@ -86,7 +86,7 @@ export default class LibraryDetail extends Component {
               <CardTitle><b>{booksFromLibrary.name}</b></CardTitle>
               <CardSubtitle>{booksFromLibrary.author}</CardSubtitle>
               <CardText>{booksFromLibrary.description}</CardText>
-              <Button size="sm" tag={Nlink}to="/book-detail" className="btn btn-info">See details</Button>
+              <Button size="sm" tag={Nlink}to={`/book-detail/${booksFromLibrary._id}`} className="btn btn-info">See details</Button>
             </CardBody>
             </Col>
             </Row>

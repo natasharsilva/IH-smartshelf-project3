@@ -36,11 +36,10 @@ export default class Profile extends Component {
     .catch(err => console.log(err));
 }
   returnBook(e, book) {
-		console.log("TCL: Profile -> returnBook -> key", book._id)
     e.preventDefault();
     api.updateBook(book._id, {
       status: 'Available',
-      _currentOwner: '000000000000000000000000'
+      _currentOwner: '0'.repeat(24)
     })
     .then(result => {
       console.log("DID IT WORK???", result)
