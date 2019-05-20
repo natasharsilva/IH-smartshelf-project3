@@ -17,9 +17,9 @@ export default class AddLibrary extends Component {
     //this.addLibraryAndRedirectToProfile = this.addLibraryAndRedirectToProfile.bind(this);
   }
 
-  handleInputChange(event) {
+  handleInputChange(e) {
     this.setState({
-      [event.target.name]: event.target.value
+      [e.target.name]: e.target.value
     });
   }
 
@@ -102,6 +102,7 @@ export default class AddLibrary extends Component {
           </Button>
         </form>
         {this.state.message && <div className="info">{this.state.message}</div>}
+        
       </div>
     );
   }

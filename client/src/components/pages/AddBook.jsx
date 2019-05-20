@@ -64,8 +64,10 @@ export default class AddBook extends Component {
         language: response.data.items[0].volumeInfo.language,
         isbn:response.data.items[0].volumeInfo.industryIdentifiers[1].identifier,
         isbn_message:`Ỳour book's name is ${response.data.items[0].volumeInfo.title}. If this information is worng, fill below the form with the correct information`,
-        _library: this.props.match.params.libraryId})
-  })}
+        _library: `ObjectId(${this.props.match.params.libraryId})`
+      })}
+    )
+  }
 
   addBookAndRedirectToLibraryPage(e){
     // console.log("this.props.match.params.libraryId",this.props.match.params.libraryId)
@@ -87,7 +89,8 @@ export default class AddBook extends Component {
         console.log('result--->',result)
         this.setState({
           message: `Your book '${this.state.title}' has been created`
-        })
+        });
+        
         setTimeout(() => {
           this.setState({
             message: null
@@ -142,7 +145,7 @@ export default class AddBook extends Component {
           Genre: <Input type="text" value={this.state.genre} name="genre" onChange={this.handleInputChange} /> <br />
           Picture: 
           <img src={this.state.picture} alt="" /><br />
-          <Input type="file" value={this.state.picture} name="picture" onChange={this.handleFileChange} /> <br />
+          <Input type="file" name="picture" onChange={this.handleFileChange} /> <br />
           Rating: <Input type="number" value={this.state.rating} name="rating" onChange={this.handleInputChange} /> <br />
           Pages: <Input type="number" value={this.state.pages} name="pages" onChange={this.handleInputChange} /> <br />
           Language: <Input type="text" value={this.state.language} name="language" onChange={this.handleInputChange} /> <br />
@@ -153,6 +156,7 @@ export default class AddBook extends Component {
         {this.state.message && <div className="info">
           {this.state.message}
         </div>}
+        <Button color="primary" href={`/libraries/${this.props.match.params.libraryId}`}>Go Back</Button>
   
       </div>)}
       </div>
