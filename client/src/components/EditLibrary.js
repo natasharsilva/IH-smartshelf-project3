@@ -13,7 +13,8 @@ export default class EditLibrary extends React.Component {
       address: "",
       picture: "",
       description: "",
-      showEditForm: true
+      showEditForm: true,
+      libraryId: this.props.theLibrary._id
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -31,8 +32,7 @@ export default class EditLibrary extends React.Component {
       picture: this.state.picture,
       description: this.state.description
     };
-    api
-      .editProfile(data)
+    api.updateLibrary(this.state.libraryId,data)
       .then(result => {
         console.log("DID IT WORK???", result);
         this.setState({

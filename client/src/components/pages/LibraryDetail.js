@@ -58,7 +58,7 @@ export default class LibraryDetail extends Component {
             </CardBody>
             </Col>
             </Row>
-            <EditLibrary />
+            <EditLibrary theLibrary={this.state.library} />
           </Card>
         </div>
       }
