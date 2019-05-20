@@ -17,13 +17,33 @@ export default class BookDetail extends Component {
     super(props);
     this.state = {
       response: {
+        user: null,
         book: null
       }
     };
-    this.borrowBook = this.borrowBook.bind(this);
   }
 
-  borrowBook() {}
+  borrowBook(event) {
+    event.preventDefault();
+    api.updateBook(this.props.match.params.bookId, {
+    title: this.state.book.title,
+    author: this.state.book.author,
+    genre: this.state.book.genre,
+    picture: this.state.book.picture,
+    description: this.state.book.description,
+    rating: this.state.book.rating,
+    pages: this.state.book.pages,
+    language: this.state.book.language,
+    _currentOwner: this.state.user,
+    status: 'Unavailable'
+    })
+    .then(result => {
+      console.log("DID IT WORK???", result)
+      this.setState({
+        message: `Your book '${this.state.book.title}' has been borrowed by ${this.state.book._currentOwner}`
+      })
+    })
+  }
 
   addReview() {}
 
@@ -61,9 +81,9 @@ export default class BookDetail extends Component {
                     {this.state.book.isbn}
                     <br />
                   </CardText>
-                  <Button onClick={this.borrowBook} outline color="info">
+                  {this.state.book.status === 'Available' && <Button onClick={(e) => this.borrowBook(e)} outline color="info">
                     Borrow
-                  </Button><br />
+                  </Button>}<br />
                   <Button onClick={this.addReview} outline color="info">
                     Add a review
                   </Button><br />
@@ -82,9 +102,13 @@ export default class BookDetail extends Component {
     api
       .getBook(this.props.match.params.bookId)
       .then(response => {
+        console.log(response)
         this.setState({
-          book: response
+          user: response.user,
+          book: response.response
         });
+        console.log('STATE BOOK', this.state.book)
+        console.log('STATE USER', this.state.user)
       })
       .catch(err => console.log(err));
   }

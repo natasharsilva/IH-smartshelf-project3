@@ -27,6 +27,20 @@ export default class Profile extends Component {
     });
   }
 
+  returnBook(event, bookId) {
+    event.preventDefault();
+    api.updateBook(bookId, {
+    _currentOwner: null,
+    status: 'Available'
+    })
+    .then(result => {
+      console.log("DID IT WORK???", result)
+      this.setState({
+        message: `You returned the book`
+      })
+    })
+  }
+
   render() {
     return (
       <div className="profilePage">
@@ -120,7 +134,7 @@ export default class Profile extends Component {
                             {book.author}
                             <br />
                             <strong>Due date: </strong> XXXX <br />
-                            <Button href="/" outline color="info" size="sm">
+                            <Button onClick={(e, bookId) => this.returnBook(e, bookId)} key={book._id} outline color="info" size="sm">
                               Return to library
                             </Button>
                           </span>
@@ -162,7 +176,6 @@ export default class Profile extends Component {
     api
       .showProfile()
       .then(response => {
-        console.log("HEEEEY", response);
         this.setState({
           profileInfo: response
         });
