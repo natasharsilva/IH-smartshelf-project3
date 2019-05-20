@@ -79,7 +79,7 @@ export default class LibraryBooks extends Component {
                         <CardTitle>Author:{bookDetail.author}</CardTitle>
                         <CardSubtitle>Genre:{bookDetail.genre}</CardSubtitle>
                         <CardText>{bookDetail.description}</CardText>
-                        <Button color="danger" onClick={e => this.deleteBook(e,bookDetail)}>Delete Book</Button>
+                        {this.state.role === "admin" && <Button color="danger" onClick={e => this.deleteBook(e,bookDetail)}>Delete Book</Button>}
                       </CardBody>
                     </Card>
                   </div>
@@ -94,14 +94,18 @@ export default class LibraryBooks extends Component {
   }
 
   componentDidMount() {
-    // console.log(this.props.match)
-    api.getLibrary(this.props.match.params.libraryId)
-      .then(response => {
+    Promise.all([
+    api.getLibrary(this.props.match.params.libraryId),
+    api.getMember(this.props.match.params.libraryId)
+  ]).then(([response,member]) => {
         console.log("response------->", response);
         this.setState({
           library: response.library,
-          book: response.book
+          book: response.book,
+          role: member[0].role
         });
+        console.log("ARE YOU AN ADMIN?? ROLE:", this.state.role)
+
       })
       .catch(err => console.log(err));
   }
