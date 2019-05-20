@@ -24,11 +24,11 @@ export default class LibraryBooks extends Component {
     });
   }
 
-  // deleteBook(e) {
+  // deleteBook(e, bookDetail) {
   //   e.preventDefault()
   //   // console.log("this.props.match.params.libraryId",this.props.match.params.libraryId)
     
-  //   api.deleteBook(this.state.book._id)
+  //   api.deleteBook(bookDetail._id)
     
   //     .then(result => {
   //       console.log('SUCCESS!')
@@ -92,7 +92,7 @@ export default class LibraryBooks extends Component {
                         <CardTitle>Author:{bookDetail.author}</CardTitle>
                         <CardSubtitle>Genre:{bookDetail.genre}</CardSubtitle>
                         <CardText>{bookDetail.description}</CardText>
-                        <Button color="danger" onClick={(e) => this.deleteBook(e)}>Delete</Button>
+                        <Button color="danger" onClick={(e) => this.deleteBook(e, bookDetail)}>Delete</Button>
                       </CardBody>
                     </Card>
                   </div>
