@@ -31,47 +31,32 @@ export default class AddLibrary extends Component {
     });
   }
 
-  addLibraryAndRedirectToProfile(e){
-    // To send information with "form-data" (like in Postman)
-    const uploadData = new FormData()
-    uploadData.append("name", this.state.name)
-    uploadData.append("picture", this.state.picture)
-    uploadData.append("address", this.state.address)
-    uploadData.append("description", this.state.description)
-
-    api.createLibrary(uploadData)
-    .then(createdLibrary => {
-      console.log("SUCCESS!");
-      // this.setState({
-      //   name: "",
-      //   picture: "",
-      //   address: "",
-      //   description: "",
-      //   message: `Your library '${this.state.name}' has been created`
-      // });
-      this.props.history.push('/profile')
-      setTimeout(() => {
+    addLibraryAndRedirectToProfile(e){
+      // To send information with "form-data" (like in Postman)
+      const uploadData = new FormData()
+      uploadData.append("name", this.state.name)
+      uploadData.append("picture", this.state.picture)
+      uploadData.append("address", this.state.address)
+      uploadData.append("description", this.state.description)
+  
+      api.createLibrary(uploadData)
+      .then(createdLibrary => {
+        console.log("SUCCESS!");
         this.setState({
-          message: null
+          message: `Your library '${this.state.name}' has been created`
         });
-      }, 2000);
-    })
-    .catch(err => this.setState({ message: err.toString() }));
+        this.props.history.push('/profile')
+        setTimeout(() => {
+          this.setState({
+            message: null
+          });
+        }, 2000);
+      })
+      .catch(err => this.setState({ message: err.toString() }));
+  
+    }
 
-  }
-
-  handleClick(event) {
-    // event.preventDefault();
-    // console.log(this.state.name, this.state.description);
-    // let data = {
-    //   name: this.state.name,
-    //   picture: this.state.picture,
-    //   address: this.state.address,
-    //   description: this.state.description
-    // };
-    // api.createLibrary(data)
-      
-  }
+  
 
   render() {
     return (
