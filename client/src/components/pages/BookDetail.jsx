@@ -88,7 +88,7 @@ export default class BookDetail extends Component {
                   <Button onClick={this.addReview} outline color="info">
                     Add a review
                   </Button><br />
-                  <Button onClick={this.reportProblem} outline color="info">
+                  <Button onClick={(e) => this.reportProblem(e)} outline color="info">
                     Report a problem
                   </Button><br />
                 </CardBody>

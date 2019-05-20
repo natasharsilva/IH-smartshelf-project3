@@ -16,15 +16,10 @@ export default class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      profileInfo: null,
-      showEditForm: false
+      profileInfo: null
     };
   }
-  showEditForm() {
-    this.setState({
-      showEditForm: !this.state.showEditForm
-    });
-  }
+  
   updateProfile = () => {
     api
       .showProfile()
@@ -36,6 +31,7 @@ export default class Profile extends Component {
       })
       .catch(err => console.log(err));
   };
+
   returnBook(e, book) {
     e.preventDefault();
     api
@@ -74,10 +70,9 @@ export default class Profile extends Component {
                       <br />
                       {this.state.profileInfo.user.favoriteQuote && (
                         <em>"{this.state.profileInfo.user.favoriteQuote}"</em>
-                      )}
+                      )}<br/>
                       {this.state.profileInfo.user.favoriteBooks && (
-                        <div>
-                        <strong>Favorite book:</strong>{this.state.profileInfo.user.favoriteBooks}</div>
+                        <span><strong>Favorite book</strong><br/>{this.state.profileInfo.user.favoriteBooks}</span>
                       )}
                     </span>
                   </CardText>

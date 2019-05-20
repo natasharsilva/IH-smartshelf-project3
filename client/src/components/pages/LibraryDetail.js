@@ -68,7 +68,7 @@ export default class LibraryDetail extends Component {
             </CardBody>
             </Col>
             </Row>
-            <EditLibrary updateLibrary={this.updateLibrary} theLibrary={this.state.library} />
+            {this.state.role === "admin" && <EditLibrary updateLibrary={this.updateLibrary} theLibrary={this.state.library} />}
           </Card>
         </div>
       }
@@ -94,7 +94,6 @@ export default class LibraryDetail extends Component {
 
           </div>))}
           <Button outline color="info" size="sm" tag={Nlink} to={`/${this.props.match.params.libraryId}/books`}> See all Books</Button>
-
           <Button  outline color="info" size="sm" tag={Nlink} to={`/${this.props.match.params.libraryId}/add-book`}> Add new Book</Button>
           
 
@@ -113,7 +112,6 @@ export default class LibraryDetail extends Component {
          <Alert color="primary">
          {booksFromLibrary.name} was taken from the library by {booksFromLibrary._currentOwner}
         </Alert>}
-
               <Card>
             <Row>
               <Col>
@@ -135,14 +133,20 @@ export default class LibraryDetail extends Component {
     );
   }
   componentDidMount() {
-    api.getLibrary(this.props.match.params.libraryId)
-    .then(response => {
+    Promise.all([
+      api.getLibrary(this.props.match.params.libraryId),
+      api.getMember(this.props.match.params.libraryId)
+    ]).then(([response,member]) => {
       this.setState({
         library: response.library,
-        book: response.book
+        book: response.book,
+        role: member[0].role
+
       })
+      console.log("DO WE GOOTTA A MEMBER???", this.state.role)
     })
     .catch(err => console.log(err))
   }
+
 }
 
