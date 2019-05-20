@@ -57,52 +57,26 @@ export default class EditLibrary extends React.Component {
     return (
       <div className="editForm">
         {this.state.showEditForm ? (
-          <Button
-            onClick={e => this.showEditForm(e)}
-            outline
-            color="info"
-            size="sm"
-          >
+          <Button onClick={e => this.showEditForm(e)} outline color="info" size="sm">
             Edit Library
           </Button>
         ) : (
           <form>
             Name:{" "}
-            <Input
-              type="Name"
-              value={this.state.Name}
-              name="name"
-              onChange={this.handleInputChange}
+            <Input type="Name" value={this.state.Name} name="name" onChange={this.handleInputChange}
             />{" "}
             Address:{" "}
-            <Input
-              type="text"
-              value={this.state.address}
-              name="address"
-              onChange={this.handleInputChange}
+            <Input type="text" value={this.state.address} name="address" onChange={this.handleInputChange}
             />{" "}
             Picture:{" "}
-            <Input
-              type="file"
-              value={this.state.picture}
-              name="picture"
-              onChange={this.handleFileChange}
+            <Input type="file" name="picture" onChange={this.handleFileChange}
             />{" "}
             <br />
             Description:{" "}
-            <Input
-              type="text"
-              value={this.state.description}
-              name="description"
-              cols="20"
-              rows="5"
-              onChange={this.handleInputChange}
+            <Input type="text" value={this.state.description} name="description" cols="20" rows="5" onChange={this.handleInputChange}
             />{" "}
             <br />
-            <Button
-              outline
-              color="info"
-              onClick={() => this.handleFormSubmit()}
+            <Button outline color="info" onClick={() => this.handleFormSubmit()}
             >
               Confirm
             </Button>

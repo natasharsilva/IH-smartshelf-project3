@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
   {
-    email: { type: String, required: ["Your email is required"], minlength: 1 },
+    email: { type: String, required: ["Your email is required"], minlength: 1, unique:true },
     password: { type: String, required: true },
     username: { type: String, required: true },
     picture: { type: String, default: "/images/defaultProfile.png" },
