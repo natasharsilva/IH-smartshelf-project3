@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import api from '../../api';
 import { Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button, Row, Col,Alert } from 'reactstrap';
+  CardTitle, CardSubtitle, Button, Row, Col, Alert } from 'reactstrap';
   import {NavLink as Nlink} from 'react-router-dom';
+  import EditLibrary from '../EditLibrary.js';
+
 
 export default class LibraryDetail extends Component {
   constructor(props) {
@@ -15,13 +17,11 @@ export default class LibraryDetail extends Component {
       itemsToShow: 2,
       expanded: false
         }
-        this.showMore = this.showMore.bind(this);
       }
 
   handleClick(event) {
     event.preventDefault()
-    let libraryId ={ _library: this.props.match.params.libraryId._id    }
-    api.createMember(libraryId)
+    api.createMember(this.props.match.params.libraryId)
       .then(result => {
         console.log("DID IT WORK???", result)
         this.setState({
@@ -35,17 +35,9 @@ export default class LibraryDetail extends Component {
       })
       .catch(err => this.setState({ message: err.toString() }))
   }
-  showMore() {
-    console.log("NOTICE MEEEEEE",this.state.book.length)
-    this.state.itemsToShow === 2 ? (
-      this.setState({ itemsToShow: this.state.book.length, expanded: true })
-    ) : (
-      this.setState({ itemsToShow: 2, expanded: false })
-    )
-  }
+
 
   render() {
-
     return (
       <div className="LibraryDetail">
         {!this.state.library && <div>Loading...</div>}
@@ -66,12 +58,13 @@ export default class LibraryDetail extends Component {
             </CardBody>
             </Col>
             </Row>
+            <EditLibrary />
           </Card>
         </div>
       }
           <h3>Available Books</h3>
         {!this.state.book && <div>Loading...</div>}
-        {this.state.book && this.state.book.slice(0,this.state.itemsToShow).map((booksFromLibrary,i) => (<div key={booksFromLibrary.id}>
+        {this.state.book && this.state.book.slice(0,this.state.itemsToShow).map((booksFromLibrary,i) => (<div key={booksFromLibrary._id}>
         
             <Card>
             <Row>
@@ -90,11 +83,7 @@ export default class LibraryDetail extends Component {
           </Card>
 
           </div>))}
-          <Button className="btn btn-primary" onClick={this.showMore}>
-          {this.state.expanded ? 
-          (<span>Show less</span>) : (<span>Show more</span>)
-          }</Button>.
-          <Button tag={Nlink} to={`/:${this.props.match.params.libraryId}/books`}> See all Books</Button>
+          <Button tag={Nlink} to={`/${this.props.match.params.libraryId}/books`}> See all Books</Button>
           
 
           <h3>Feed</h3>
@@ -102,7 +91,7 @@ export default class LibraryDetail extends Component {
               AND SORT BY RECENT, MAYBE SORT BY TIMESTAMPS AND SHORTEN THE LENGTH ?? */} 
               {!this.state.book && <div>Loading...</div>}
         {this.state.book && this.state.book.map(booksFromLibrary => (
-        <div className="activityFeed" key={booksFromLibrary.id}>
+        <div className="activityFeed" key={booksFromLibrary._id}>
         {this.state.book.status === "Unavailable" && 
          <Alert color="danger">
          {booksFromLibrary.name} is now available in the library
@@ -134,9 +123,7 @@ export default class LibraryDetail extends Component {
     );
   }
   componentDidMount() {
-    console.log("SETSTATE",this.props.match.params.libraryId)
     api.getLibrary(this.props.match.params.libraryId)
-    
     .then(response => {
       this.setState({
         library: response.library,

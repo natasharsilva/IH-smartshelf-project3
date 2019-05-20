@@ -5,22 +5,18 @@ import {
 } from "reactstrap";
 import api from "../api";
 
-export default class EditProfile extends React.Component {
+export default class EditLibrary extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
-      username: "",
+      name: "",
+      address: "",
       picture: "",
-      phoneNumber: "",
-      favoriteBooks: "",
-      favoriteQuote: "",
-      showEditForm: true,
-
+      description: "",
+      showEditForm: true
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
-
   }
   handleInputChange(event) {
     this.setState({
@@ -28,22 +24,20 @@ export default class EditProfile extends React.Component {
     });
   }
 
-  handleFormSubmit(){
+  handleFormSubmit() {
     let data = {
-      email: this.state.email,
-      username: this.state.username,
+      name: this.state.name,
+      address: this.state.address,
       picture: this.state.picture,
-      phoneNumber: this.state.phoneNumber,
-      favoriteBooks: this.state.favoriteBooks,
-      favoriteQuote: this.state.favoriteQuote
+      description: this.state.description
     };
-    api.editProfile(data)
+    api
+      .editProfile(data)
       .then(result => {
         console.log("DID IT WORK???", result);
         this.setState({
-          message: `Your profile was updated!`,
+          message: `library was updated!`,
           showEditForm: !this.state.showEditForm
-
         });
         setTimeout(() => {
           this.setState({
@@ -51,14 +45,14 @@ export default class EditProfile extends React.Component {
           });
         }, 2000);
       })
-      .catch(err => this.setState({ message: err.toString() }));
-  };
+      .catch(err => this.setState({ message: err.toString() }))
+      
+  }
   showEditForm() {
     this.setState({
       showEditForm: !this.state.showEditForm
-    })
-   
-    }
+    });
+  }
   render() {
     return (
       <div className="editForm">
@@ -69,22 +63,22 @@ export default class EditProfile extends React.Component {
             color="info"
             size="sm"
           >
-            Edit Profile
+            Edit Library
           </Button>
         ) : (
           <form>
-            Email:{" "}
+            Name:{" "}
             <Input
-              type="email"
-              value={this.state.email}
-              name="email"
+              type="Name"
+              value={this.state.Name}
+              name="name"
               onChange={this.handleInputChange}
             />{" "}
-            Username:{" "}
+            Address:{" "}
             <Input
               type="text"
-              value={this.state.username}
-              name="username"
+              value={this.state.address}
+              name="address"
               onChange={this.handleInputChange}
             />{" "}
             Picture:{" "}
@@ -95,31 +89,11 @@ export default class EditProfile extends React.Component {
               onChange={this.handleFileChange}
             />{" "}
             <br />
-            Phone:{" "}
+            Description:{" "}
             <Input
               type="text"
-              value={this.state.phoneNumber}
-              name="phoneNumber"
-              cols="20"
-              rows="5"
-              onChange={this.handleInputChange}
-            />{" "}
-            <br />
-            Favorite Books:{" "}
-            <Input
-              type="text"
-              value={this.state.favoriteBooks}
-              name="favoriteBooks"
-              cols="20"
-              rows="5"
-              onChange={this.handleInputChange}
-            />{" "}
-            <br />
-            Favorite Quote:{" "}
-            <Input
-              type="text"
-              value={this.state.favoriteQuote}
-              name="favoriteQuote"
+              value={this.state.description}
+              name="description"
               cols="20"
               rows="5"
               onChange={this.handleInputChange}
@@ -130,7 +104,7 @@ export default class EditProfile extends React.Component {
               color="info"
               onClick={() => this.handleFormSubmit()}
             >
-              Edit Profile
+              Confirm
             </Button>
           </form>
         )}
