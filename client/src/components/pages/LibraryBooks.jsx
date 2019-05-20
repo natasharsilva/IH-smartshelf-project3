@@ -16,6 +16,7 @@ export default class LibraryBooks extends Component {
       search: ""
     };
     this.changeSearch = this.changeSearch.bind(this);
+    this.deleteBook = this.deleteBook.bind(this);
   }
 
   changeSearch(e) {
@@ -24,11 +25,12 @@ export default class LibraryBooks extends Component {
     });
   }
 
-  // deleteBook(e) {
+  deleteBook(bookId) {
   //   e.preventDefault()
-  //   // console.log("this.props.match.params.libraryId",this.props.match.params.libraryId)
     
-  //   api.deleteBook(this.state.book._id)
+  // console.log("this.props.match.params.libraryId",this.props.match.params.libraryId)
+  //   console.log('this.state.book._id---->',this.state.book)
+  //    api.deleteBook(bookId)
     
   //     .then(result => {
   //       console.log('SUCCESS!')
@@ -53,7 +55,7 @@ export default class LibraryBooks extends Component {
   //       }, 2000)
   //     })
   //     .catch(err => this.setState({ message: err.toString() }))
-  // }
+  }
 
   render() {
     return (
@@ -61,8 +63,8 @@ export default class LibraryBooks extends Component {
         {(!this.state.book || !this.state.library) && <div>Loading... Make sure you're inside a library!</div>}
         {this.state.book && (<div>
           <div>
-            <Button color="primary" href={`/libraries/${this.state.library}`}>Go Back to {this.state.library}</Button>
-            <h1>{this.state.library}</h1>
+            {/* <Button color="primary" href={`/libraries/${this.state.library}`}>Go Back to {this.state.library}</Button> */}
+            {/* <h1>{this.state.library}</h1> */}
             <h2>List of Books / Book Details</h2>
             <p>
               <input
@@ -87,12 +89,13 @@ export default class LibraryBooks extends Component {
                   <div>
                     <Card>
                       <CardImg top width="100%" src={bookDetail.picture} alt={`"${bookDetail.title}-cover"`} />
+                        {/* <img src={bookDetail.picture} alt={`"${bookDetail.title}-cover"`}/> */}
                       <CardBody>
                         <CardTitle>Title:{bookDetail.title}</CardTitle>
                         <CardTitle>Author:{bookDetail.author}</CardTitle>
                         <CardSubtitle>Genre:{bookDetail.genre}</CardSubtitle>
                         <CardText>{bookDetail.description}</CardText>
-                        <Button color="danger" onClick={(e) => this.deleteBook(e)}>Delete</Button>
+                        <Button color="danger" onClick={this.deleteBook()}>Delete Book</Button>
                       </CardBody>
                     </Card>
                   </div>

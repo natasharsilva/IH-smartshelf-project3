@@ -53,10 +53,7 @@ export default class AddLibrary extends Component {
         }, 2000);
       })
       .catch(err => this.setState({ message: err.toString() }));
-  
     }
-
-  
 
   render() {
     return (
