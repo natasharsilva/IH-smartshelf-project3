@@ -3,6 +3,8 @@ import api from '../../api';
 import { Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button, Row, Col, Alert } from 'reactstrap';
   import {NavLink as Nlink} from 'react-router-dom';
+  import EditLibrary from '../EditLibrary.js';
+
 
 export default class LibraryDetail extends Component {
   constructor(props) {
@@ -15,7 +17,6 @@ export default class LibraryDetail extends Component {
       itemsToShow: 2,
       expanded: false
         }
-        this.showMore = this.showMore.bind(this);
       }
 
   handleClick(event) {
@@ -35,14 +36,6 @@ export default class LibraryDetail extends Component {
       .catch(err => this.setState({ message: err.toString() }))
   }
 
-  showMore() {
-    console.log("NOTICE MEEEEEE",this.state.book.length)
-    this.state.itemsToShow === 2 ? (
-      this.setState({ itemsToShow: this.state.book.length, expanded: true })
-    ) : (
-      this.setState({ itemsToShow: 2, expanded: false })
-    )
-  }
 
   render() {
     return (
@@ -65,6 +58,7 @@ export default class LibraryDetail extends Component {
             </CardBody>
             </Col>
             </Row>
+            <EditLibrary />
           </Card>
         </div>
       }
@@ -89,11 +83,7 @@ export default class LibraryDetail extends Component {
           </Card>
 
           </div>))}
-          <Button className="btn btn-primary" onClick={this.showMore}>
-          {this.state.expanded ? 
-          (<span>Show less</span>) : (<span>Show more</span>)
-          }</Button>.
-          <Button tag={Nlink} to={`/:${this.props.match.params.libraryId}/books`}> See all Books</Button>
+          <Button tag={Nlink} to={`/${this.props.match.params.libraryId}/books`}> See all Books</Button>
           
 
           <h3>Feed</h3>

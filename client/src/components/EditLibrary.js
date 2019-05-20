@@ -28,7 +28,7 @@ export default class EditLibrary extends React.Component {
     let data = {
       name: this.state.name,
       address: this.state.address,
-      // picture: this.state.picture,
+      picture: this.state.picture,
       description: this.state.description
     };
     api
@@ -36,7 +36,7 @@ export default class EditLibrary extends React.Component {
       .then(result => {
         console.log("DID IT WORK???", result);
         this.setState({
-          message: `Your profile was updated!`,
+          message: `library was updated!`,
           showEditForm: !this.state.showEditForm
         });
         setTimeout(() => {
@@ -45,7 +45,8 @@ export default class EditLibrary extends React.Component {
           });
         }, 2000);
       })
-      .catch(err => this.setState({ message: err.toString() }));
+      .catch(err => this.setState({ message: err.toString() }))
+      
   }
   showEditForm() {
     this.setState({
@@ -62,7 +63,7 @@ export default class EditLibrary extends React.Component {
             color="info"
             size="sm"
           >
-            Edit Profile
+            Edit Library
           </Button>
         ) : (
           <form>
@@ -80,6 +81,13 @@ export default class EditLibrary extends React.Component {
               name="address"
               onChange={this.handleInputChange}
             />{" "}
+            Picture:{" "}
+            <Input
+              type="file"
+              value={this.state.picture}
+              name="picture"
+              onChange={this.handleFileChange}
+            />{" "}
             <br />
             Description:{" "}
             <Input
@@ -96,7 +104,7 @@ export default class EditLibrary extends React.Component {
               color="info"
               onClick={() => this.handleFormSubmit()}
             >
-              Edit Library
+              Confirm
             </Button>
           </form>
         )}

@@ -32,7 +32,7 @@ export default class EditProfile extends React.Component {
     let data = {
       email: this.state.email,
       username: this.state.username,
-      // picture: this.state.picture,
+      picture: this.state.picture,
       phoneNumber: this.state.phoneNumber,
       favoriteBooks: this.state.favoriteBooks,
       favoriteQuote: this.state.favoriteQuote
@@ -62,62 +62,78 @@ export default class EditProfile extends React.Component {
   render() {
     return (
       <div className="editForm">
-                        {this.state.showEditForm ?    
-              <Button onClick={(e) => this.showEditForm(e)}outline color="info" size="sm">
-        Edit Profile
-      </Button>
-      :
-
-      <form>
-        Email:{" "}
-        <Input
-          type="email"
-          value={this.state.email}
-          name="email"
-          onChange={this.handleInputChange}
-        />{" "}
-        Username:{" "}
-        <Input
-          type="text"
-          value={this.state.username}
-          name="username"
-          onChange={this.handleInputChange}
-        />{" "}
-        <br />
-        Phone:{" "}
-        <Input
-          type="text"
-          value={this.state.phoneNumber}
-          name="phoneNumber"
-          cols="20"
-          rows="5"
-          onChange={this.handleInputChange}
-        />{" "}
-        <br />
-        Favorite Books:{" "}
-        <Input
-          type="text"
-          value={this.state.favoriteBooks}
-          name="favoriteBooks"
-          cols="20"
-          rows="5"
-          onChange={this.handleInputChange}
-        />{" "}
-        <br />
-        Favorite Quote:{" "}
-        <Input
-          type="text"
-          value={this.state.favoriteQuote}
-          name="favoriteQuote"
-          cols="20"
-          rows="5"
-          onChange={this.handleInputChange}
-        />{" "}
-        <br />
-        <Button outline color="info" onClick={() => this.handleFormSubmit()}>
-          Edit Profile
-        </Button>
-      </form>}
+        {this.state.showEditForm ? (
+          <Button
+            onClick={e => this.showEditForm(e)}
+            outline
+            color="info"
+            size="sm"
+          >
+            Edit Profile
+          </Button>
+        ) : (
+          <form>
+            Email:{" "}
+            <Input
+              type="email"
+              value={this.state.email}
+              name="email"
+              onChange={this.handleInputChange}
+            />{" "}
+            Username:{" "}
+            <Input
+              type="text"
+              value={this.state.username}
+              name="username"
+              onChange={this.handleInputChange}
+            />{" "}
+            Picture:{" "}
+            <Input
+              type="file"
+              value={this.state.picture}
+              name="picture"
+              onChange={this.handleFileChange}
+            />{" "}
+            <br />
+            Phone:{" "}
+            <Input
+              type="text"
+              value={this.state.phoneNumber}
+              name="phoneNumber"
+              cols="20"
+              rows="5"
+              onChange={this.handleInputChange}
+            />{" "}
+            <br />
+            Favorite Books:{" "}
+            <Input
+              type="text"
+              value={this.state.favoriteBooks}
+              name="favoriteBooks"
+              cols="20"
+              rows="5"
+              onChange={this.handleInputChange}
+            />{" "}
+            <br />
+            Favorite Quote:{" "}
+            <Input
+              type="text"
+              value={this.state.favoriteQuote}
+              name="favoriteQuote"
+              cols="20"
+              rows="5"
+              onChange={this.handleInputChange}
+            />{" "}
+            <br />
+            <Button
+              outline
+              color="info"
+              onClick={() => this.handleFormSubmit()}
+            >
+              Edit Profile
+            </Button>
+          </form>
+        )}
       </div>
     );
   }
