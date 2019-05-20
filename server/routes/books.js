@@ -31,8 +31,8 @@ router.put("/:bookId", uploader.single("picture"), (req, res, next) => {
     // rating: req.body.rating,
     // pages: req.body.pages,
     // language: req.body.language,
-    _currentOwner: req.user._id,
-    status: req.body.status
+    // _currentOwner: req.user._id,
+    // status: req.body.status
   })
     .then(response => {
       res.json({
