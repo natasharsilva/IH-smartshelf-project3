@@ -11,7 +11,10 @@ const { isLoggedIn } = require('../middlewares')
 router.get("/:bookId", (req, res, next) => {
   Book.findById(req.params.bookId)
     .then(response => {
-      res.json(response);
+      res.json({
+        user: req.user._id,
+        response
+      });
     })
     .catch(err => next(err));
 });
@@ -27,7 +30,8 @@ router.put("/:bookId", uploader.single("picture"), (req, res, next) => {
     description: req.body.description,
     rating: req.body.rating,
     pages: req.body.pages,
-    language: req.body.language
+    language: req.body.language,
+    _currentOwner: req.user._id
   })
     .then(response => {
       res.json({
@@ -85,6 +89,7 @@ router.post("/", isLoggedIn, (req, res, next) => {
         language: response.data.items[0].volumeInfo.language,
         isbn:response.data.items[0].volumeInfo.industryIdentifiers[1].identifier,
         _createdBy: req.user._id,
+        _currentOwner: req.user._id,
         _library: req.body._library
       }).then(response => {
         res.json({
