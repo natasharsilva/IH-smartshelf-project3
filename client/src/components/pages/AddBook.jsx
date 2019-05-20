@@ -49,24 +49,26 @@ export default class AddBook extends Component {
   getInfoFromApi(e){
     axios.get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${this.state.isbn}`)
     .then(response => {
-      console.log("response--->" , response.data.items[0].volumeInfo)
-      console.log("this.state.picture--->" , this.state.picture)
-      this.setState({
+       console.log("response.imageLinks[0]--->" , response.data.items[0].volumeInfo.imageLinks.thumbnail)
+       console.log("this.state.picture--->" , this.state.picture)
+
+         this.setState({
         title: response.data.items[0].volumeInfo.title,
         author: response.data.items[0].volumeInfo.authors[0],
         genre: response.data.items[0].volumeInfo.categories
           ? response.data.items[0].volumeInfo.categories[0]
           : "Provide a genre",
-        picture: response.data.items[0].volumeInfo.imageLinks[0],
+        picture: response.data.items[0].volumeInfo.imageLinks.thumbnail,
         description: response.data.items[0].volumeInfo.description,
         rating: response.data.items[0].volumeInfo.averageRating,
         pages: response.data.items[0].volumeInfo.pageCount,
         language: response.data.items[0].volumeInfo.language,
         isbn:response.data.items[0].volumeInfo.industryIdentifiers[1].identifier,
         isbn_message:`Ỳour book's name is ${response.data.items[0].volumeInfo.title}. If this information is worng, fill below the form with the correct information`,
-        _library: `ObjectId(${this.props.match.params.libraryId})`
-      })}
-    )
+        _library: `ObjectId(${this.props.match.params.libraryId})`})
+      }
+    ).catch(err => this.setState({ isbn_message: 'We do not have this book in our database. Please fill the form' }))
+    // ).catch(err => this.setState({ message: err.toString() }))
   }
 
   addBookAndRedirectToLibraryPage(e){
