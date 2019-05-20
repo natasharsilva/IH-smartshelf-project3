@@ -31,7 +31,8 @@ router.put("/:bookId", uploader.single("picture"), (req, res, next) => {
     rating: req.body.rating,
     pages: req.body.pages,
     language: req.body.language,
-    _currentOwner: req.user._id
+    _currentOwner: req.user._id,
+    status: req.body.status
   })
     .then(response => {
       res.json({
@@ -90,7 +91,7 @@ router.post("/", isLoggedIn, (req, res, next) => {
         isbn:response.data.items[0].volumeInfo.industryIdentifiers[1].identifier,
         _createdBy: req.user._id,
         _currentOwner: req.user._id,
-        _library: req.body._library
+        _library: req.body._library,
       }).then(response => {
         res.json({
           message: "Book created!",

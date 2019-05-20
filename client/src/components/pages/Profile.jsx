@@ -27,6 +27,28 @@ export default class Profile extends Component {
     });
   }
 
+  returnBook(event) {
+    event.preventDefault();
+    api.updateBook(this.props.match.params.bookId, {
+    title: this.state.book.title,
+    author: this.state.book.author,
+    genre: this.state.book.genre,
+    picture: this.state.book.picture,
+    description: this.state.book.description,
+    rating: this.state.book.rating,
+    pages: this.state.book.pages,
+    language: this.state.book.language,
+    _currentOwner: null,
+    status: 'Available'
+    })
+    .then(result => {
+      console.log("DID IT WORK???", result)
+      this.setState({
+        message: `Your book '${this.state.book.title}' has been borrowed by ${this.state.book._currentOwner}`
+      })
+    })
+  }
+
   render() {
     return (
       <div className="profilePage">
@@ -120,7 +142,7 @@ export default class Profile extends Component {
                             {book.author}
                             <br />
                             <strong>Due date: </strong> XXXX <br />
-                            <Button href="/" outline color="info" size="sm">
+                            <Button onClick={(e) => this.returnBook(e)} outline color="info" size="sm">
                               Return to library
                             </Button>
                           </span>

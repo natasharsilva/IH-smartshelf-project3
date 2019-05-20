@@ -34,7 +34,8 @@ export default class BookDetail extends Component {
     rating: this.state.book.rating,
     pages: this.state.book.pages,
     language: this.state.book.language,
-    _currentOwner: this.state.user
+    _currentOwner: this.state.user,
+    status: 'Unavailable'
     })
     .then(result => {
       console.log("DID IT WORK???", result)
@@ -42,7 +43,6 @@ export default class BookDetail extends Component {
         message: `Your book '${this.state.book.title}' has been borrowed by ${this.state.book._currentOwner}`
       })
     })
-
   }
 
   addReview() {}
