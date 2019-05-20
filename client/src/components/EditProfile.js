@@ -47,10 +47,7 @@ export default class EditProfile extends React.Component {
         this.setState({
           message: `Your profile was updated!`,
           showEditForm: !this.state.showEditForm,
-          username: "",
-          phoneNumber: "",
-          favoriteBooks: "",
-          favoriteQuote: "",
+
 
         });
         setTimeout(() => {
