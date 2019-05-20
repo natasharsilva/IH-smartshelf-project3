@@ -33,15 +33,16 @@ export default class EditLibrary extends React.Component {
     })
   }
 
-  handleFormSubmit() {
-    let data = {
-      name: this.state.name,
-      address: this.state.address,
-      picture: this.state.picture,
-      description: this.state.description
-    };
-    api.updateLibrary(this.state.libraryId,data)
+  handleFormSubmit(e) {
+    let uploadData = new FormData()
+      uploadData.append("name", this.state.name)
+      uploadData.append("address", this.state.address)
+      uploadData.append("picture", this.state.picture)
+      uploadData.append("description", this.state.description)
+
+    api.updateLibrary(this.state.libraryId,uploadData)
       .then(result => {
+        this.props.updateLibrary()
         console.log("DID IT WORK???", result);
         this.setState({
           message: `library was updated!`,
@@ -54,8 +55,8 @@ export default class EditLibrary extends React.Component {
         }, 2000);
       })
       .catch(err => this.setState({ message: err.toString() }))
-      
-  }
+      }
+
   showEditForm() {
     this.setState({
       showEditForm: !this.state.showEditForm

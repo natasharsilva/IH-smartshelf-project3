@@ -25,20 +25,19 @@ export default class Profile extends Component {
       showEditForm: !this.state.showEditForm
     });
   }
-
+  updateProfile = () => {
+    api.showProfile()
+    .then(response => {
+      this.setState({
+        profileInfo: response
+      });
+      console.log(this.state);
+    })
+    .catch(err => console.log(err));
+}
   returnBook(event, bookId) {
     event.preventDefault();
     api.updateBook(bookId, {
-      // title: body.title,
-      // author: body.author,
-      // genre: body.genre,
-      // picture: file && file.secure_url,
-      // description: body.description,
-      // rating: body.rating,
-      // pages: body.pages,
-      // language: body.language,
-      // _currentOwner: user._id,
-      // status: body.status,
       status: 'Available'
     })
     .then(result => {
@@ -76,7 +75,7 @@ export default class Profile extends Component {
                     </span>
                   </CardText>
                 </CardBody>
-                <EditProfile />
+                <EditProfile updateProfile={this.updateProfile}/>
               </Card>
               <Card>
                 <CardBody>
