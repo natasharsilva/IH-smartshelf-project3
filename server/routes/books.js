@@ -32,21 +32,15 @@ router.put("/:bookId", uploader.single("picture"), (req, res, next) => {
       pages,
       language,
       status,
-      _currentOwner
+      _currentOwner,
+      _createdBy
     } = req.body;
 
     let updatedData = {
-      title,
-      author,
-      genre,
-      picture,
-      description,
-      rating,
-      pages,
-      language,
+      status,
+      _currentOwner
     };
-    if (status) updatedData.status = req.body.status;
-    if (_currentOwner) _currentOwner.status = req.user._id;
+    if (_currentOwner !== _createdBy) _currentOwner.status = req.user._id;
 
     Book.findOneAndUpdate(req.params.id, updatedData, { new: true })
       .then(response => {
@@ -156,6 +150,7 @@ router.post("/",isLoggedIn, uploader.single("picture"), (req, res, next) => {
     language: req.body.language,
     isbn: req.body.isbn,
     _createdBy: req.user._id,
+    _currentOwner: req.user._id,
     _library: req.body._library
   })
     .then(response => {

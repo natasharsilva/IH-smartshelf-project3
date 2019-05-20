@@ -28,7 +28,6 @@ export default class Profile extends Component {
 
   returnBook(event, bookId) {
     event.preventDefault();
-    console.log(bookId)
     api.updateBook(bookId, {
       // title: body.title,
       // author: body.author,
@@ -40,7 +39,6 @@ export default class Profile extends Component {
       // language: body.language,
       // _currentOwner: user._id,
       // status: body.status,
-      _currentOwner: 'null',
       status: 'Available'
     })
     .then(result => {
