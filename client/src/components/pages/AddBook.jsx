@@ -12,6 +12,7 @@ export default class AddBook extends Component {
       author: "",
       genre: "",
       picture:null,
+      pictureUrl:null,
       description: "",
       rating: "",
       pages: "",
@@ -51,7 +52,7 @@ export default class AddBook extends Component {
     axios.get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${this.state.isbn}`)
     .then(response => {
        console.log("response.imageLinks[0]--->" , response.data.items[0].volumeInfo.imageLinks.thumbnail)
-       console.log("this.state.picture--->" , this.state.picture)
+       
 
          this.setState({
         title: response.data.items[0].volumeInfo.title,
@@ -65,8 +66,11 @@ export default class AddBook extends Component {
         pages: response.data.items[0].volumeInfo.pageCount,
         language: response.data.items[0].volumeInfo.language,
         isbn:response.data.items[0].volumeInfo.industryIdentifiers[1].identifier,
-        isbn_message:`Ỳour book's name is ${response.data.items[0].volumeInfo.title}. If this information is worng, fill below the form with the correct information`,
+        isbn_message:`Your book's name is ${response.data.items[0].volumeInfo.title}. If this information is worng, fill below the form with the correct information`,
         _library: `ObjectId(${this.props.match.params.libraryId})`})
+
+        console.log("this.state.picture--->" , this.state.picture)
+       console.log("this.state.title--->" , this.state.title)
       }
     ).catch(err => this.setState({ isbn_message: 'We do not have this book in our database. Please fill the form' }))
     // ).catch(err => this.setState({ message: err.toString() }))
@@ -74,6 +78,7 @@ export default class AddBook extends Component {
 
   addBookAndRedirectToLibraryPage(e){
     // console.log("this.props.match.params.libraryId",this.props.match.params.libraryId)
+    console.log("this.state.picture--->" , this.state.picture)
     const uploadData = new FormData()
     uploadData.append("title", this.state.title)
     uploadData.append("author", this.state.author)
@@ -89,7 +94,7 @@ export default class AddBook extends Component {
     
     api.addBookWithForm(uploadData)
       .then(result => {
-        console.log('result--->',result)
+        console.log('result--------->',result)
         this.setState({
           message: `Your book '${this.state.title}' has been created`
         });
@@ -148,7 +153,7 @@ export default class AddBook extends Component {
           Genre: <Input type="text" value={this.state.genre} name="genre" onChange={this.handleInputChange} /> <br />
           Picture: 
           <img src={this.state.picture} alt="" /><br />
-          <Input type="file" name="picture" onChange={this.handleFileChange} /> <br />
+          <Input type="file" name="picture" onChange={this.handleInputChange} /> <br />
           Rating: <Input type="number" value={this.state.rating} name="rating" onChange={this.handleInputChange} /> <br />
           Pages: <Input type="number" value={this.state.pages} name="pages" onChange={this.handleInputChange} /> <br />
           Language: <Input type="text" value={this.state.language} name="language" onChange={this.handleInputChange} /> <br />
