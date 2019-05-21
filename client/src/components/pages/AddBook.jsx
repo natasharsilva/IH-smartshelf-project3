@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Input , Modal, ModalHeader, ModalBody } from 'reactstrap';
+import { Button, Input , Modal, ModalHeader, ModalBody, Form } from 'reactstrap';
 import api from '../../api';
 import axios from 'axios';
 
@@ -66,7 +66,7 @@ export default class AddBook extends Component {
         pages: response.data.items[0].volumeInfo.pageCount,
         language: response.data.items[0].volumeInfo.language,
         isbn:response.data.items[0].volumeInfo.industryIdentifiers[1].identifier,
-        isbn_message:`Your book's name is ${response.data.items[0].volumeInfo.title}. If this information is worng, fill below the form with the correct information`,
+        isbn_message:`Your book's name is ${response.data.items[0].volumeInfo.title}. If this information is wrong, fill below the form with the correct information`,
         _library: `ObjectId(${this.props.match.params.libraryId})`})
 
         console.log("this.state.picture--->" , this.state.picture)
@@ -122,10 +122,10 @@ export default class AddBook extends Component {
         {/* <img src="../../../images/isbn-location.png" alt="isbn-location"></img> */}
         {/* {this.props.buttonLabel} */}
         
-      <form>
+      <Form>
           ISBN: <Input type="number" value={this.state.isbn} name="isbn" onChange={this.handleInputChange} /> <br />
           <Button color="primary" onClick={(e) => this.getInfoFromApi(e)}>Check your book's info</Button> <br />
-        </form>
+        </Form>
         {this.state.isbn_message && <div className="info">
           {this.state.isbn_message}
         </div>}
@@ -147,7 +147,7 @@ export default class AddBook extends Component {
       </div>
       <br />
       <h3>Or fill the form manually. Don't worry, it's quite short!</h3>
-        <form>
+        <Form>
           Title: <Input type="text" value={this.state.title} name="title" onChange={this.handleInputChange} /> <br />
           Author: <Input type="text" value={this.state.author} name="author" onChange={this.handleInputChange} /> <br />
           Genre: <Input type="text" value={this.state.genre} name="genre" onChange={this.handleInputChange} /> <br />
@@ -160,7 +160,7 @@ export default class AddBook extends Component {
           ISBN: <Input type="number" value={this.state.isbn} name="isbn" onChange={this.handleInputChange} /> <br />
           Description: <Input type="textarea" value={this.state.description} name="description" cols="20" rows="5" onChange={this.handleInputChange} /> <br />
           <Button color="primary" onClick={(e) => this.addBookAndRedirectToLibraryPage(e)}>Create Book</Button>
-        </form>
+        </Form>
         {this.state.message && <div className="info">
           {this.state.message}
         </div>}

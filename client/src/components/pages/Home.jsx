@@ -101,10 +101,10 @@ export default class Home extends Component {
           </div>
           <div className="features features-3">
             <FontAwesomeIcon icon={faBookReader} size="4x" className="icon"/>
-            <h3>Find and contribute to other libraries near you</h3>
+            <h3>Find and contribute to other libraries</h3>
             <p>Search for available libraries nearby you can borrow books from... And ask to be a part of them!</p>
           </div>
-          <div className="map">
+          <div className="home-location">
             <FontAwesomeIcon icon={faMapMarkerAlt} size="4x" className="icon"/>
             <h3>Find libraries near you</h3>  
           </div>

@@ -71,7 +71,7 @@ export default class Profile extends Component {
                       <br />
                       {this.state.profileInfo.user.favoriteQuote && (
                         <em>"{this.state.profileInfo.user.favoriteQuote}"</em>
-                      )}<br/>
+                      )}<br/><br />
                       {this.state.profileInfo.user.favoriteBooks && (
                         <span><strong>Favorite book</strong><br/>{this.state.profileInfo.user.favoriteBooks}</span>
                       )}
