@@ -25,26 +25,27 @@ export default class BookDetail extends Component {
 
   borrowBook(event) {
     event.preventDefault();
-    console.log("THIS IS THE ID OOOOK", this.props.match.params.bookId)
-    api.updateBook(this.props.match.params.bookId, {
-    title: this.state.book.title,
-    author: this.state.book.author,
-    genre: this.state.book.genre,
-    picture: this.state.book.picture,
-    description: this.state.book.description,
-    rating: this.state.book.rating,
-    pages: this.state.book.pages,
-    language: this.state.book.language,
-    _currentOwner: this.state.user,
-    status: 'Unavailable'
-    })
-    .then(result => {
-      console.log("DID IT WORK???", result)
-      this.setState({
-        book: result.response,
-        message: `Your book '${this.state.book.title}' has been borrowed by ${this.state.book._currentOwner}`
+    console.log("THIS IS THE ID OOOOK", this.props.match.params.bookId);
+    api
+      .updateBook(this.props.match.params.bookId, {
+        title: this.state.book.title,
+        author: this.state.book.author,
+        genre: this.state.book.genre,
+        picture: this.state.book.picture,
+        description: this.state.book.description,
+        rating: this.state.book.rating,
+        pages: this.state.book.pages,
+        language: this.state.book.language,
+        _currentOwner: this.state.user,
+        status: "Unavailable"
       })
-    })
+      .then(result => {
+        console.log("DID IT WORK???", result);
+        this.setState({
+          book: result.response,
+          message: `You borrowed '${this.state.book.title}'`
+        });
+      });
   }
 
   render() {
@@ -81,15 +82,34 @@ export default class BookDetail extends Component {
                     {this.state.book.isbn}
                     <br />
                   </CardText>
-                  {this.state.book.status === 'Available' && <Button onClick={(e) => this.borrowBook(e)} outline color="info">
-                    Borrow
-                  </Button>}<br />
+                  {this.state.book.status === "Available" && (
+                    <Button
+                      onClick={e => this.borrowBook(e)}
+                      outline
+                      color="info"
+                    >
+                      Borrow
+                    </Button>
+                  )}
+                  <br />
                   {/* <Button onClick={this.addReview} outline color="info">
                     Add a review
                   </Button><br /> */}
-                  <Button href={`/report-problem/${this.state.book._library}`} outline color="info" size="sm">
+                  <Button
+                    href={`/report-problem/${this.state.book._library}`}
+                    outline
+                    color="info"
+                    size="sm"
+                  >
                     Report a problem
+                  </Button>
+                  <br />
+                  <Button color="primary" href={`/profile`}>
+                    Go Back
                   </Button><br />
+                  {this.state.message && (
+                    <div className="info">{this.state.message}</div>
+                  )}
                 </CardBody>
               </Row>
             </Card>

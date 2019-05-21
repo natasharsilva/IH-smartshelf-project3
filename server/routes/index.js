@@ -72,7 +72,7 @@ router.post("/report-problem/:libraryId", (req, res, next) => {
           to: adminEmail,
           subject: "A member reported a problem in your library",
           text: `Hi, there! \n A member of your library reported a problem with a book. You can take a look at the message they sent and their contact e-mail below. \n
-          Best, \n - SmartShelf Team \n ${content}`
+          Best, \n - SmartShelf Team \n \n ${content}`
         };
 
         transporter.sendMail(mail, (err, data) => {

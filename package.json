@@ -15,6 +15,7 @@
     "bootstrap": "^4.3.1",
     "cloudinary": "^1.14.0",
     "multer": "^1.4.1",
+    "nodemailer": "^6.1.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "reactstrap": "^8.0.0"

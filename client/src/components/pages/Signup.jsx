@@ -30,7 +30,7 @@ export default class Signup extends Component {
     api.signup(data)
       .then(result => {
         console.log('SUCCESS!')
-        this.props.history.push("/") // Redirect to the home page
+        this.props.history.push("/profile") // Redirect to the profile
       })
       .catch(err => this.setState({ message: err.toString() }))
   }
@@ -46,7 +46,7 @@ export default class Signup extends Component {
           <input type="text" value={this.state.username} name="username" onChange={this.handleInputChange} /> <br /><br />
           Password <br />
           <input type="password" value={this.state.password} name="password" onChange={this.handleInputChange} /> <br /><br />
-          <Button tag="a" outline color="info" onClick={(e) => this.handleClick(e)}>Signup</Button>
+          <Button tag="a" outline color="info" onClick={(e) => this.handleClick(e)}>Sign up</Button>
         </form>
         {this.state.message && <div className="info info-danger">
           {this.state.message}

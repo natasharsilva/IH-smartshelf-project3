@@ -112,7 +112,7 @@ export default class LibraryDetail extends Component {
       }
           <h3>Available Books</h3>
         {!this.state.book && <div>Loading...</div>}
-        {this.state.book && this.state.book.slice(0,this.state.itemsToShow).map((booksFromLibrary,i) => (<div key={booksFromLibrary._id}>
+        {this.state.book && this.state.book.slice(0,2).map((booksFromLibrary,i) => (<div key={booksFromLibrary._id}>
         
             <Card>
             <Row>

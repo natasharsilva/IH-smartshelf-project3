@@ -49,7 +49,7 @@ export default class Map extends Component {
         let lng = Number(lngLat[0])
         let lat = Number(lngLat[1])
 console.log("ARE THEY NUMBERS????", lat, lng)
-        new mapboxgl.Marker({ color: 'red' })
+        new mapboxgl.Marker({ color: 'yellow' })
         .setLngLat([lng, lat])
         .addTo(this.map)
     }
