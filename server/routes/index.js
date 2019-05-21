@@ -47,41 +47,50 @@ router.put(
   }
 );
 
-//----------------------- NODEMAILER ----------------------
-router.post("/send-email", (req, res, next) => {
-  let name = req.body.name;
-  let subject = req.body.subject;
-  let message = req.body.message;
-  let content = `name: ${name} \n subject: ${subject} \n message: ${message} `;
+// ----------------------- NODEMAILER ----------------------
+router.post("/report-problem/:libraryId", (req, res, next) => {
+  let {name, subject, message} = req.body
+  Member.find({ _library: req.params.libraryId, role: "admin" })
+    .then(response => {
+      Promise.all([
+        User.findById(response[0]._user),
+        User.findById(req.user._id)
+      ]).then(([admin, user]) => {
+        let adminEmail = admin.email;
+        let userEmail = user.email;
+        let content = `Name: ${name} \n Contact e-mail: ${userEmail} \n Subject: ${subject} \n message: ${message}`;
+        let transporter = nodemailer.createTransport({
+          service: "Gmail",
+          auth: {
+            user: process.env.GMAIL_USER,
+            pass: process.env.GMAIL_PASS
+          }
+        });
 
-  let transporter = nodemailer.createTransport({
-    service: "Gmail",
-    auth: {
-      user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_PASS
-    }
-  });
+        let mail = {
+          from: '"SmartShelf" <smartshelflisbon@gmail.com>',
+          to: adminEmail,
+          subject: "A member reported a problem in your library",
+          text: `Hi, there! \n A member of your library reported a problem with a book. You can take a look at the message they sent and their contact e-mail below. \n
+          Best, \n - SmartShelf Team \n ${content}`
+        };
 
-  let mail = {
-    from: '"SmartShelf" <smartshelflisbon@gmail.com>',
-    to: "ADMIN", // Find the admin and send the email
-    subject: "A member reported a problem in your library",
-    text: `Hi, there! A member of your library reported a problem with a book. Take a look at the message they sent ${content}`
-  };
-
-  transporter.sendMail(mail, (err, data) => {
-    if (err) {
-      res.json({
-        mail,
-        msg: "Something's wrong"
+        transporter.sendMail(mail, (err, data) => {
+          if (err) {
+            res.json({
+              mail,
+              msg: "Something's wrong"
+            });
+          } else {
+            res.json({
+              mail,
+              msg: "Success!"
+            });
+          }
+        });
       });
-    } else {
-      res.json({
-        mail,
-        msg: "Success!"
-      });
-    }
-  });
+    })
+    .catch(err => next(err));
 });
 
 module.exports = router;

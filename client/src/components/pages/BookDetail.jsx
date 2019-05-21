@@ -47,8 +47,6 @@ export default class BookDetail extends Component {
     })
   }
 
-  addReview() {}
-
   render() {
     return (
       <div>
@@ -89,7 +87,7 @@ export default class BookDetail extends Component {
                   {/* <Button onClick={this.addReview} outline color="info">
                     Add a review
                   </Button><br /> */}
-                  <Button href="/report-problem" outline color="info" size="sm">
+                  <Button href={`/report-problem/${this.state.book._library}`} outline color="info" size="sm">
                     Report a problem
                   </Button><br />
                 </CardBody>

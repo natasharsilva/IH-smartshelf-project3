@@ -38,7 +38,8 @@ export default class AddLibrary extends Component {
       uploadData.append("picture", this.state.picture)
       uploadData.append("address", this.state.address)
       uploadData.append("description", this.state.description)
-  
+      console.log("HEY, THE DATA IS HERE", uploadData)
+
       api.createLibrary(uploadData)
       .then(createdLibrary => {
         console.log("SUCCESS!");

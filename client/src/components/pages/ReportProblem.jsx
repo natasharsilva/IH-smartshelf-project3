@@ -7,9 +7,9 @@ export default class ReportProblem extends Component {
     super(props);
     this.state = {
       name: "",
-      address: "",
-      description: "",
-      message: null
+      subject: "",
+      message: "",
+      feedback: ""
     };
     this.handleInputChange = this.handleInputChange.bind(this);
   }
@@ -20,6 +20,29 @@ export default class ReportProblem extends Component {
     });
   }
 
+  handleSubmit(e) {
+    let data = {
+      name: this.state.name,
+      subject: this.state.subject,
+      message: this.state.message,
+    }
+
+    api
+      .sendEmail(this.props.match.params.libraryId, data)
+      .then(response => {
+        console.log('THIS IS THE RESPONSEEEE', response)
+        this.setState({
+          feedback: `Your email was sent!`
+        });
+        setTimeout(() => {
+          this.setState({
+            feedback: null
+          });
+        }, 5000);
+      })
+      .catch(err => this.setState({ message: err.toString() }));
+  }
+
   render() {
     return (
       <div className="ReportProblem">
@@ -28,15 +51,16 @@ export default class ReportProblem extends Component {
           Name:{" "}
           <Input
             type="text"
-            value={this.state.name}
             name="name"
+            value={this.state.name}
             onChange={this.handleInputChange}
           />{" "}
           <br />
           Subject:{" "}
           <Input
-            type="email"
-            name="email"
+            type="text"
+            name="subject"
+            value={this.state.subject}
             onChange={this.handleInputChange}
           />{" "}
           <br />
@@ -46,14 +70,15 @@ export default class ReportProblem extends Component {
             name="message"
             cols="20"
             rows="5"
+            value={this.state.message}
             onChange={this.handleInputChange}
           />{" "}
           <br />
-          <Button color="primary" onClick={e => this.sendEmail(e)}>
+          <Button color="primary" onClick={e => this.handleSubmit(e)}>
             Send
           </Button>
         </form>
-        {this.state.message && <div className="info">{this.state.message}</div>}
+        {this.state.feedback && <div className="info">{this.state.feedback}</div>}
       </div>
     );
   }

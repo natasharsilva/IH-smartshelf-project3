@@ -35,7 +35,7 @@ export default class App extends Component {
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
           <Route path="/map" component={Map} />
-          <Route path="/report-problem" component={ReportProblem} />
+          <Route path="/report-problem/:libraryId" component={ReportProblem} />
 
           <Route render={() => <h2>404</h2>} />
         </Switch>
