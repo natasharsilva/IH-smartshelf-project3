@@ -8,6 +8,7 @@ import {
 } from 'reactstrap'
 import mapboxgl from "mapbox-gl/dist/mapbox-gl"; // NEW
 import api from "../../api";
+import 'mapbox-gl/dist/mapbox-gl.css' // Import of Mapbox CSS
 
 
 mapboxgl.accessToken = "pk.eyJ1IjoiZ3RjYXJtb25hIiwiYSI6ImNqdWwxYzZwOTAzeWE0NGxsbjJ0ZnJ0aDYifQ.GIzsIahO6WNQFMg486tFkA"
@@ -19,10 +20,12 @@ export default class Map extends Component {
     this.state = {
       lng: "",
       lat: "",
+      libraries: null
 
     }
     this.getCurrentCoordinates = this.getCurrentCoordinates.bind(this)
     this.initMap = this.initMap.bind(this)
+
     this.mapRef = React.createRef();
     this.map = null; 
     this.marker = null;
@@ -39,7 +42,17 @@ export default class Map extends Component {
 
     this.marker = new mapboxgl.Marker({ color: "purple" })
       .setLngLat([lng, lat])
-      .addTo(this.map);
+      .addTo(this.map)
+
+      for(let i = 0; i < this.state.libraries.length; i++){
+        let lngLat = this.state.libraries[i].coordinates[0].split(",",2)
+        let lng = Number(lngLat[0])
+        let lat = Number(lngLat[1])
+console.log("ARE THEY NUMBERS????", lat, lng)
+        new mapboxgl.Marker({ color: 'red' })
+        .setLngLat([lng, lat])
+        .addTo(this.map)
+    }
   }
   getCurrentCoordinates() {
     if (navigator.geolocation) {
@@ -76,7 +89,7 @@ export default class Map extends Component {
             <Input type="number" value={this.state.lat} onChange={this.handleInputChange} name="lat" placeholder="Latitude" />
           </Col>
         </Row>
-        <Button className="btn btn-info"  onClick={() => this.initMap(this.state.lng,this.state.lat)}>
+        <Button className="btn btn-info"onClick={() => this.initMap(this.state.lng,this.state.lat)}>
           Find libraries!
         </Button>
         <div className="mapbox"ref={this.mapRef} style={{ height: 400 }} />
@@ -85,4 +98,15 @@ export default class Map extends Component {
       
     )
   }
+  componentDidMount() {
+    // this.initMap()
+      api.getLibraries()
+        .then(libraries => {
+          console.log("TCL: Map -> componentDidMount -> libraries.response", libraries.response)
+      this.setState({
+        libraries: libraries.response
+      })
+    });
+  }
+
 }

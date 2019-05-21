@@ -38,7 +38,7 @@ export default class EditProfile extends React.Component {
   }
 
   handleFormSubmit(e){
-    const uploadData = FormData() 
+    const uploadData = new FormData() 
     uploadData.append("username", this.state.username)
     uploadData.append("picture", this.state.picture)
     uploadData.append("phoneNumber", this.state.phoneNumber)
