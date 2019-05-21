@@ -127,7 +127,7 @@ export default class Profile extends Component {
                   <Button className="add-library-button" href="/add-library" color="info" size="sm">
                     Add library
                   </Button>
-                  <Button  className="find-libraries-button" href="/" outline color="info" size="sm">
+                  <Button  className="find-libraries-button" href="/find-libraries" outline color="info" size="sm">
                     Find libraries
                   </Button>
                 </CardBody>
@@ -205,7 +205,6 @@ export default class Profile extends Component {
         this.setState({
           profileInfo: response
         });
-        console.log(this.state);
       })
       .catch(err => console.log(err));
   }

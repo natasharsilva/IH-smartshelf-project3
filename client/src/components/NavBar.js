@@ -71,7 +71,7 @@ export default class Example extends React.Component {
                 <NavLink tag={Nlink} to="/books/:bookId">Book Detail</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink tag={Nlink} to="/map">Map</NavLink>
+                <NavLink tag={Nlink} to="/find-libraries">Find Libraries</NavLink>
               </NavItem>
               <NavItem>
           {!api.isLoggedIn() && <NavLink tag={Nlink} to="/login">Login</NavLink>}

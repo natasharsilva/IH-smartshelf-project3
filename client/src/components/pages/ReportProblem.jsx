@@ -42,13 +42,14 @@ export default class ReportProblem extends Component {
       .then(response => {
         console.log("THIS IS THE RESPONSEEEE", response);
         this.setState({
-          feedback: `Your email was sent!`
+          feedback: `Your email was sent! You'll be redirected`
         });
         setTimeout(() => {
           this.setState({
             feedback: null
           });
-        }, 5000);
+        this.props.history.push('/profile')
+        }, 2000);
       })
       .catch(err => this.setState({ message: err.toString() }));
     }

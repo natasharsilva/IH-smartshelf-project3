@@ -34,7 +34,7 @@ export default class App extends Component {
           <Route path="/book-detail/:bookId" component={BookDetail} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
-          <Route path="/map" component={Map} />
+          <Route path="/find-libraries" component={Map} />
           <Route path="/report-problem/:libraryId" component={ReportProblem} />
 
           <Route render={() => <h2>404</h2>} />
