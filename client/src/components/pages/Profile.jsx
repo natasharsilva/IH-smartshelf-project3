@@ -16,37 +16,36 @@ export default class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      profileInfo: null,
-      showEditForm: false
+      profileInfo: null
     };
   }
-  showEditForm() {
-    this.setState({
-      showEditForm: !this.state.showEditForm
-    });
-  }
+
   updateProfile = () => {
-    api.showProfile()
-    .then(response => {
-      this.setState({
-        profileInfo: response
-      });
-      console.log(this.state);
-    })
-    .catch(err => console.log(err));
-}
+    api
+      .showProfile()
+      .then(response => {
+        this.setState({
+          profileInfo: response
+        });
+        console.log(this.state);
+      })
+      .catch(err => console.log(err));
+  };
+
   returnBook(e, book) {
     e.preventDefault();
-    api.updateBook(book._id, {
-      status: 'Available',
-      _currentOwner: '0'.repeat(24)
-    })
-    .then(result => {
-      console.log("DID IT WORK???", result)
-      this.setState({
-        message: `You returned the book`
+    api
+      .updateBook(book._id, {
+        status: "Available",
+        _currentOwner: "0".repeat(24)
       })
-    })
+      .then(result => {
+        console.log("DID IT WORK???", result);
+        this.setState({
+          message: `You returned the book`
+        });
+        this.updateProfile()
+      });
   }
 
   render() {
@@ -72,18 +71,21 @@ export default class Profile extends Component {
                       <br />
                       {this.state.profileInfo.user.favoriteQuote && (
                         <em>"{this.state.profileInfo.user.favoriteQuote}"</em>
+                      )}<br/>
+                      {this.state.profileInfo.user.favoriteBooks && (
+                        <span><strong>Favorite book</strong><br/>{this.state.profileInfo.user.favoriteBooks}</span>
                       )}
                     </span>
                   </CardText>
                 </CardBody>
-                <EditProfile  updateProfile={this.updateProfile}/>
+                <EditProfile updateProfile={this.updateProfile} />
               </Card>
               <Card>
                 <CardBody>
                   <CardTitle tag="h3">Libraries</CardTitle>
                   <CardText className="infoContainer">
                     {this.state.profileInfo.members.length < 1 && (
-                      <span>  
+                      <span>
                         You are not part of any libraries yet!
                         <br /> Create one or find libraries near you
                       </span>
@@ -142,7 +144,13 @@ export default class Profile extends Component {
                             {book.author}
                             <br />
                             <strong>Due date: </strong> XXXX <br />
-                            <Button onClick={e => this.returnBook(e, book)} key={book._id} outline color="info" size="sm">
+                            <Button
+                              onClick={e => this.returnBook(e, book)}
+                              key={book._id}
+                              outline
+                              color="info"
+                              size="sm"
+                            >
                               Return to library
                             </Button>
                           </span>

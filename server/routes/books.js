@@ -150,7 +150,7 @@ router.post("/",isLoggedIn, uploader.single("picture"), (req, res, next) => {
     language: req.body.language,
     isbn: req.body.isbn,
     _createdBy: req.user._id,
-    _currentOwner: '000000000000000000000000',
+    _currentOwner: "0".repeat(24),
     _library: req.body._library
   })
     .then(response => {
