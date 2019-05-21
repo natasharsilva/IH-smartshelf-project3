@@ -38,7 +38,7 @@ export default class EditProfile extends React.Component {
   }
 
   handleFormSubmit(e){
-    const uploadData = FormData() 
+    const uploadData = new FormData() 
     uploadData.append("username", this.state.username)
     uploadData.append("picture", this.state.picture)
     uploadData.append("phoneNumber", this.state.phoneNumber)
@@ -85,7 +85,7 @@ export default class EditProfile extends React.Component {
             <div><Input valid type="text" value={this.state.username} name="username" onChange={this.handleInputChange}
             />{" "}</div>}
             <Label for="picture">Picture:{" "}</Label>
-            <CustomInput type="file" id="exampleCustomFileBrowser" name="picture" label="Bring that smile on!" />
+            <CustomInput type="file" id="exampleCustomFileBrowser" name="picture" onChange={this.handleFileChange} label="Bring that smile on!" />
             {" "}<br />
             <Label for="phoneNumber">Phone:{" "}</Label>
             <Input type="text" value={this.state.phoneNumber} name="phoneNumber" cols="20" rows="5" onChange={this.handleInputChange}

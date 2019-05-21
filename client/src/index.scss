@@ -237,6 +237,18 @@ body {
   .userName {
     font-size: 2.5em;
   }
+
+  .library-cover{
+    width:300px;
+    height:100px;
+    // object-fit:cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size:18px;
+    text-align: center;
+    padding:5px;
+  }
 }
 
 .bookCard {

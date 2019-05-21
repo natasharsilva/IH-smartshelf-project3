@@ -61,7 +61,7 @@ export default class Profile extends Component {
                     <span className="userPic">
                       <img src={this.state.profileInfo.user.picture} alt="" />
                       <br />
-                      {this.state.profileInfo.user.email}
+                      
                     </span>
                     <span>
                       <span className="userName">
@@ -93,10 +93,13 @@ export default class Profile extends Component {
                     {this.state.profileInfo.members.length > 0 &&
                       this.state.profileInfo.members.map(library => (
                         <li key={library._library._id}>
-                          <img src={library._library.picture} alt="" />
+                        <div className="library-cover"
+                          style={{background: `url("${library._library.picture}") center`,opacity:'0.5'}}>
+                          {/* <img src={library._library.picture} alt="" style={{opacity: '0.7'}} /> */}
                           <Link to={`/libraries/${library._library._id}`}>
                             {library._library.name}
                           </Link>
+                          </div>
                         </li>
                       ))}
                   </CardText>
@@ -117,7 +120,7 @@ export default class Profile extends Component {
                   <Button href="/add-library" outline color="info" size="sm">
                     Add library
                   </Button>
-                  <Button href="/" outline color="info" size="sm">
+                  <Button href="/find-libraries" outline color="info" size="sm">
                     Find libraries
                   </Button>
                 </CardBody>
@@ -195,7 +198,6 @@ export default class Profile extends Component {
         this.setState({
           profileInfo: response
         });
-        console.log(this.state);
       })
       .catch(err => console.log(err));
   }
