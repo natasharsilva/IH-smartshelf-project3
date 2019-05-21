@@ -7,7 +7,7 @@ const { isLoggedIn } = require('../middlewares')
 
 // Get Members using library IDs / when testing use http://localhost:5000/api/members/ 
 router.get("/:id", (req, res, next) => {
-  Member.find({_library: req.params.id}).populate("_user")
+  Member.find({_library: req.params.id, _user: req.user._id}).populate("_user")
   .then(response => {
     res.json(response);
   })

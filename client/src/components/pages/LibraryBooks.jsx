@@ -3,7 +3,6 @@ import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button } fr
 import api from "../../api";
 
 
-
 export default class LibraryBooks extends Component {
   constructor(props) {
     super(props);
@@ -13,10 +12,10 @@ export default class LibraryBooks extends Component {
         book: {}
       },
       member: [],
-      search: ""
+      search: "",
+      message:"",
     };
     this.changeSearch = this.changeSearch.bind(this);
-    this.deleteBook = this.deleteBook.bind(this);
   }
 
   changeSearch(e) {
@@ -25,37 +24,22 @@ export default class LibraryBooks extends Component {
     });
   }
 
-  deleteBook(bookId) {
-  //   e.preventDefault()
-    
-  // console.log("this.props.match.params.libraryId",this.props.match.params.libraryId)
-  //   console.log('this.state.book._id---->',this.state.book)
-  //    api.deleteBook(bookId)
-    
-  //     .then(result => {
-  //       console.log('SUCCESS!')
-  //       console.log("result" , result)
-  //       this.setState({
-  //         title: "",
-  //         author: "",
-  //         picture: "",
-  //         genre: "",
-  //         description: "",
-  //         rating: "",
-  //         pages: "",
-  //         language: "",
-  //         isbn: "",
-  //         _library:"",
-  //         message: `Your book '${this.state.title}' has been deleted`
-  //       })
-  //       setTimeout(() => {
-  //         this.setState({
-  //           message: null
-  //         })
-  //       }, 2000)
-  //     })
-  //     .catch(err => this.setState({ message: err.toString() }))
-  }
+  deleteBook(e, bookDetail) {
+    console.log("IS THIS THE BOOK YOU WANT TO DELETE?", bookDetail._id)
+    e.preventDefault()
+     api.deleteBook(bookDetail._id)
+     .then(response => {
+      console.log("DID IT WORK???", response)
+      api.getLibrary(this.props.match.params.libraryId)
+      .then(response => {
+      this.setState({
+        message: `Your book was deleted succesfully`,
+        library: response.library,
+        book: response.book
+      })
+    })
+  })
+}
 
   render() {
     return (
@@ -95,7 +79,7 @@ export default class LibraryBooks extends Component {
                         <CardTitle>Author:{bookDetail.author}</CardTitle>
                         <CardSubtitle>Genre:{bookDetail.genre}</CardSubtitle>
                         <CardText>{bookDetail.description}</CardText>
-                        <Button color="danger" onClick={this.deleteBook()}>Delete Book</Button>
+                        {this.state.role === "admin" && <Button color="danger" onClick={e => this.deleteBook(e,bookDetail)}>Delete Book</Button>}
                       </CardBody>
                     </Card>
                   </div>
@@ -110,16 +94,18 @@ export default class LibraryBooks extends Component {
   }
 
   componentDidMount() {
-    // console.log(this.props.match)
-    api
-      .getLibrary(this.props.match.params.libraryId)
-
-      .then(response => {
+    Promise.all([
+    api.getLibrary(this.props.match.params.libraryId),
+    api.getMember(this.props.match.params.libraryId)
+  ]).then(([response,member]) => {
         console.log("response------->", response);
         this.setState({
           library: response.library,
-          book: response.book
+          book: response.book,
+          role: member[0].role
         });
+        console.log("ARE YOU AN ADMIN?? ROLE:", this.state.role)
+
       })
       .catch(err => console.log(err));
   }
