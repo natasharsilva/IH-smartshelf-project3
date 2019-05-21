@@ -11,7 +11,7 @@ export default class AddBook extends Component {
       title: "",
       author: "",
       genre: "",
-      picture:null,
+      picture: null,
       description: "",
       rating: "",
       pages: "",
@@ -27,16 +27,17 @@ export default class AddBook extends Component {
     this.toggle = this.toggle.bind(this);
   }
 
-  handleInputChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    })
-  }
-
   toggle() {
     this.setState(prevState => ({
       modal: !prevState.modal
     }));
+  }
+
+
+  handleInputChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
   }
 
   handleFileChange(e) {

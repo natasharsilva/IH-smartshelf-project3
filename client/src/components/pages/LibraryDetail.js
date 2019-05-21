@@ -132,6 +132,7 @@ export default class LibraryDetail extends Component {
       </div>
     );
   }
+  
   componentDidMount() {
     Promise.all([
       api.getLibrary(this.props.match.params.libraryId),
@@ -147,6 +148,4 @@ export default class LibraryDetail extends Component {
     })
     .catch(err => console.log(err))
   }
-
 }
-

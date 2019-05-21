@@ -47,8 +47,6 @@ export default class EditProfile extends React.Component {
         this.setState({
           message: `Your profile was updated!`,
           showEditForm: !this.state.showEditForm,
-
-
         });
         setTimeout(() => {
           this.setState({
@@ -57,7 +55,6 @@ export default class EditProfile extends React.Component {
         }, 2000);
       })
       .catch(err => this.setState({ message: err.toString() }));
-  
 }
   showEditForm() {
     this.setState({

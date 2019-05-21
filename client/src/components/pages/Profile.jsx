@@ -19,7 +19,7 @@ export default class Profile extends Component {
       profileInfo: null
     };
   }
-  
+
   updateProfile = () => {
     api
       .showProfile()
@@ -44,6 +44,7 @@ export default class Profile extends Component {
         this.setState({
           message: `You returned the book`
         });
+        this.updateProfile()
       });
   }
 

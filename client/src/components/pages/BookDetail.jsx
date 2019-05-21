@@ -41,6 +41,7 @@ export default class BookDetail extends Component {
     .then(result => {
       console.log("DID IT WORK???", result)
       this.setState({
+        book: result.response,
         message: `Your book '${this.state.book.title}' has been borrowed by ${this.state.book._currentOwner}`
       })
     })
@@ -103,13 +104,10 @@ export default class BookDetail extends Component {
     api
       .getBook(this.props.match.params.bookId)
       .then(response => {
-        console.log(response)
         this.setState({
           user: response.user,
           book: response.response
         });
-        console.log('STATE BOOK', this.state.book)
-        console.log('STATE USER', this.state.user)
       })
       .catch(err => console.log(err));
   }
