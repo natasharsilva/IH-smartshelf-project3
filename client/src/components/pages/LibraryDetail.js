@@ -64,7 +64,7 @@ export default class LibraryDetail extends Component {
               <CardTitle><b>{this.state.library.name}</b></CardTitle>
               <CardSubtitle>{this.state.library.address}</CardSubtitle>
               <CardText>{this.state.library.description}</CardText>
-              <Button onClick={(e) => this.handleClick(e)}className="btn btn-info">Join</Button>
+              {this.state.role === [] && <Button onClick={(e) => this.handleClick(e)}className="btn btn-info">Join</Button>}
             </CardBody>
             </Col>
             </Row>
@@ -141,10 +141,12 @@ export default class LibraryDetail extends Component {
       this.setState({
         library: response.library,
         book: response.book,
-        role: member[0].role
+        role: member.role
 
       })
-      console.log("DO WE GOOTTA A MEMBER???", this.state.role)
+      console.log("WHAT IS YOUR ROLE??", this.state.role)
+      console.log("WHAT IS YOUR ROLE??", response, member)
+
     })
     .catch(err => console.log(err))
   }
