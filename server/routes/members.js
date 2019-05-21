@@ -15,12 +15,13 @@ router.get("/:id", (req, res, next) => {
 });
 
 // ------------ Add a new member ------------------
-router.post("/:libraryId", isLoggedIn, (req, res, next) => {
+router.post("/", isLoggedIn, (req, res, next) => {
   Member.create({
-    _library: req.params.libraryId,
+    _library: req.body._library,
     _user: req.user._id
   })
   .then(response => {
+    console.log("TCL: req.body._library", req.body._library)
     res.json(response);
   })
   .catch(err => next(err))
@@ -28,30 +29,58 @@ router.post("/:libraryId", isLoggedIn, (req, res, next) => {
 
 //-------------- Delete a Member-------------- 
 
-// Make sure the user is connected and is either an admin or himself
-router.delete('/:id', isLoggedIn, (req, res, next)=>{
-
-    Member.findOne({_id: req.params.id})
-      .then(memberToDelete => {
-        console.log("TCL: memberToDelete")
-        Member.findOne({_user: req.user._id,_library:memberToDelete._library})
-        .then(loggedUser =>{
-            console.log("TCL: memberToDelete,loggedUser", loggedUser )
-          
-        if(loggedUser.role === 'admin'){
-      Member.deleteOne({_id: memberToDelete.id})
-      res.json({
-        memberToDelete,loggedUser,
-        message: `Deleted the member ${memberToDelete.id}` 
+router.delete("/:memberId", isLoggedIn, (req,res,next) => {
+  Member.findById(req.params.memberId)
+  .then(member => {
+    if (!member) {
+      next({ status: 400, message: "No member with the id"+req.params.memberId })
+    }
+    // If the connected user is an admin or the member found, delete the member
+    else if (req.user.role === "admin" || member._user.equals(req.user._id)) {
+      Member.findByIdAndDelete(req.params.memberId)
+      .then(() => {
+        res.json({
+          message: "The member with the following id is deleted"+req.params.memberId
+        })
       })
-    } else {
-      res.json({
-        memberToDelete,loggedUser,
-        message: `You do not have permission to delete this member` 
-      }) 
-      .catch(err => next(err))
-    }})
+    }
+    else {
+      next({ status: 403, message: "You cannot delete the member with the id"+req.params.memberId })
+    }
   })
+})
+
+// Make sure the user is connected and is either an admin or himself
+router.delete("/:libraryId", isLoggedIn, (req, res, next) => {
+  Member.findOne({ _user: req.user._id, _library: req.params.libraryId })
+  .then(memberToDelete => {
+    console.log("TCL: memberToDelete");
+    Member.findOne({
+      _user: req.user._id,
+      _library: memberToDelete._library
+    })
+    .then(loggedUser => {
+      if (
+        loggedUser.role === "admin" ||
+        loggedUser._user._id.equals(memberToDelete._user._id)
+      ) {
+        Member.deleteOne({ _id: memberToDelete._id });
+        res.json({
+          memberToDelete,
+          loggedUser,
+          message: `Deleted the member ${memberToDelete._id}`
+        });
+      } else {
+        res
+          .json({
+            memberToDelete,
+            loggedUser,
+            message: `You do not have permission to delete this member`
+          })
+          .catch(err => next(err));
+      }
+    });
+  });
 });
 
 
