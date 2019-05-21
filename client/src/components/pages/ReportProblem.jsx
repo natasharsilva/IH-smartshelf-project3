@@ -24,13 +24,23 @@ export default class ReportProblem extends Component {
     let data = {
       name: this.state.name,
       subject: this.state.subject,
-      message: this.state.message,
-    }
+      message: this.state.message
+    };
 
-    api
+    if (data.name === "" || data.subject === "" || data.message === "") {
+      this.setState({
+        feedback: `Ops! You need to fill all the fields to send`
+      });
+      setTimeout(() => {
+        this.setState({
+          feedback: null
+        });
+      }, 5000);
+    } else {
+      api
       .sendEmail(this.props.match.params.libraryId, data)
       .then(response => {
-        console.log('THIS IS THE RESPONSEEEE', response)
+        console.log("THIS IS THE RESPONSEEEE", response);
         this.setState({
           feedback: `Your email was sent!`
         });
@@ -41,11 +51,12 @@ export default class ReportProblem extends Component {
         }, 5000);
       })
       .catch(err => this.setState({ message: err.toString() }));
+    }
   }
 
   render() {
     return (
-      <div className="ReportProblem">
+      <div className="AddBook">
         <h2>Report a problem with this book</h2>
         <form>
           Name:{" "}
@@ -78,7 +89,9 @@ export default class ReportProblem extends Component {
             Send
           </Button>
         </form>
-        {this.state.feedback && <div className="info">{this.state.feedback}</div>}
+        {this.state.feedback && (
+          <div className="info">{this.state.feedback}</div>
+        )}
       </div>
     );
   }
