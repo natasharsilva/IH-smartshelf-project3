@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button, Container, Row, Col  } from 'reactstrap';
+import { Alert, Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button, Container, Row, Col  } from 'reactstrap';
 import api from "../../api";
 
 
@@ -86,7 +86,11 @@ export default class LibraryBooks extends Component {
                         <CardTitle>Author:{bookDetail.author}</CardTitle>
                         <CardSubtitle>Genre:{bookDetail.genre}</CardSubtitle>
                         <CardText>{bookDetail.description}</CardText>
+                        
                         {this.state.role === "admin" && <Button color="danger" onClick={e => this.deleteBook(e,bookDetail)}>Delete Book</Button>}
+                        {bookDetail._currentOwner && bookDetail._currentOwner !== "000000000000000000000000" && 
+                        <div><br /><Alert color="warning" >This Book is not available for the moment - It has been borrowed.</Alert></div> }
+                      
                       </CardBody>
                      </Col>
                       </Row>
@@ -115,6 +119,7 @@ export default class LibraryBooks extends Component {
           role: member[0].role
         });
         console.log("ARE YOU AN ADMIN?? ROLE:", this.state.role)
+        console.log('currentOwner-------->',this.state.book[0]._currentOwner)
 
       })
       .catch(err => console.log(err));
