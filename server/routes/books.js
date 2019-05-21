@@ -143,7 +143,7 @@ router.post("/",isLoggedIn, uploader.single("picture"), (req, res, next) => {
     title: req.body.title,
     author: req.body.author,
     genre: req.body.genre,
-    picture: req.file && req.file.url,
+    picture: req.file ? req.file.url : req.body.picture,
     description: req.body.description,
     rating: req.body.rating,
     pages: req.body.pages,
