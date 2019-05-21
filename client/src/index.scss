@@ -84,7 +84,7 @@ body {
 .Home {
   display:flex;
   flex-direction: column;
-  padding:20px;
+  // padding:20px;
   background-color: $secondary;
   color:white;
   margin:0;
@@ -247,7 +247,20 @@ body {
     align-items: center;
     font-size:18px;
     text-align: center;
-    padding:5px;
+    padding:0px;
+  }
+  .container-opacity{
+    width:100%;
+    height:100%;
+    margin:0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container-opacity a{
+    text-decoration: none;
+    color:white;
   }
 }
 
