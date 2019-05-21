@@ -9,8 +9,8 @@ import {
 import mapboxgl from "mapbox-gl/dist/mapbox-gl"; // NEW
 import api from "../../api";
 
-mapboxgl.accessToken =
-  "pk.eyJ1IjoiZ3RjYXJtb25hIiwiYSI6ImNqdWwxYzZwOTAzeWE0NGxsbjJ0ZnJ0aDYifQ.GIzsIahO6WNQFMg486tFkA"; // NEW
+
+mapboxgl.accessToken = "pk.eyJ1IjoiZ3RjYXJtb25hIiwiYSI6ImNqdWwxYzZwOTAzeWE0NGxsbjJ0ZnJ0aDYifQ.GIzsIahO6WNQFMg486tFkA"
 
 
 export default class Map extends Component {

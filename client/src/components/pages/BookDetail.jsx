@@ -47,8 +47,6 @@ export default class BookDetail extends Component {
     })
   }
 
-  addReview() {}
-
   render() {
     return (
       <div>
@@ -86,10 +84,10 @@ export default class BookDetail extends Component {
                   {this.state.book.status === 'Available' && <Button onClick={(e) => this.borrowBook(e)} outline color="info">
                     Borrow
                   </Button>}<br />
-                  <Button onClick={this.addReview} outline color="info">
+                  {/* <Button onClick={this.addReview} outline color="info">
                     Add a review
-                  </Button><br />
-                  <Button onClick={(e) => this.reportProblem(e)} outline color="info">
+                  </Button><br /> */}
+                  <Button href={`/report-problem/${this.state.book._library}`} outline color="info" size="sm">
                     Report a problem
                   </Button><br />
                 </CardBody>

@@ -12,6 +12,7 @@ const librarySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  coordinates: Array,
   picture: { type: String, default: "/images/defaultProfile.png" },
   description: String,
 }, {

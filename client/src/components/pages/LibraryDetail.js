@@ -12,20 +12,29 @@ export default class LibraryDetail extends Component {
     this.state = {
       response: {
         library: {},
-        book: [],
-         },
-      itemsToShow: 2,
-      expanded: false
-        }
+        book: []
+      },
+      member: null,
+
+      visible: false,
+    };
+        this.toggleAlert = this.toggleAlert.bind(this);
       }
 
-  handleClick(event) {
+      toggleAlert() {
+        this.setState({ 
+          visible: !this.state.visible 
+        })
+      }
+
+  joinLibrary(event) {
     event.preventDefault()
     api.createMember(this.props.match.params.libraryId)
       .then(result => {
-        console.log("DID IT WORK???", result)
+        console.log("CREATED MEMBER", result.role)
         this.setState({
-          message: `Your book '${this.state.title}' has been created`
+          message: `Your book '${this.state.title}' has been created`,
+          member: result
         })
         setTimeout(() => {
           this.setState({
@@ -44,14 +53,34 @@ export default class LibraryDetail extends Component {
       })
       .catch(err => console.log(err))
     }
-  
+  deleteMember() {
+    api.deleteMember(this.state.member._id)
+    .then(response => {
+      console.log("MEMBER DELETED!", response)
+      api.getLibrary(this.props.match.params.libraryId)
+       .then(response => {
+         this.setState({
+           library: response.library,
+           book: response.book,
+         })
+         api.getMember(this.props.match.params.libraryId)
+           .then(memberInfo => {
+             this.setState({
+               member: memberInfo[0]
+          })
+          this.toggleAlert()
+        })     
+
+      })
+    .catch(err => console.log(err))      
+  })
+  }
     
 
   render() {
     return (
       <div className="LibraryDetail">
-        {!this.state.library && <div>Loading...</div>}
-        {/* If `this.state.pokemons` is truthy (an array) */}
+        {!this.state.library &&  <div>Loading...</div>}
         {this.state.library && 
         <div className="libraryCard">
           <Card>
@@ -64,7 +93,16 @@ export default class LibraryDetail extends Component {
               <CardTitle><b>{this.state.library.name}</b></CardTitle>
               <CardSubtitle>{this.state.library.address}</CardSubtitle>
               <CardText>{this.state.library.description}</CardText>
-              {this.state.role === [] && <Button onClick={(e) => this.handleClick(e)}className="btn btn-info">Join</Button>}
+           
+              {!this.state.member && <Button onClick={(e) => this.joinLibrary(e)} className="btn btn-info">Join</Button>}
+              {this.state.member && this.state.member.role === "member" && <Button onClick={this.toggleAlert} className="btn btn-info">Leave</Button>}
+            
+              <Alert color="info" isOpen={this.state.visible} toggle={this.toggleAlert}>
+              Are you sure you want to leave this library? <br />
+                  <Button onClick={(e) => this.deleteMember(e)} className="btn btn-danger">Leave!</Button>  
+                  <Button onClick={this.toggleAlert} className="btn btn-info">Stay!</Button>     
+                </Alert>
+
             </CardBody>
             </Col>
             </Row>
@@ -132,22 +170,25 @@ export default class LibraryDetail extends Component {
       </div>
     );
   }
-  
   componentDidMount() {
-    Promise.all([
-      api.getLibrary(this.props.match.params.libraryId),
-      api.getMember(this.props.match.params.libraryId)
-    ]).then(([response,member]) => {
-      this.setState({
-        library: response.library,
-        book: response.book,
-        role: member.role
+     api.getLibrary(this.props.match.params.libraryId)
+       .then(response => {
+         this.setState({
+           library: response.library,
+           book: response.book,
+         })
+         api.getMember(this.props.match.params.libraryId)
+           .then(memberInfo => {
+             this.setState({
+               member: memberInfo[0]
+          })
+          
+        })     
 
       })
-      console.log("WHAT IS YOUR ROLE??", this.state.role)
-      console.log("WHAT IS YOUR ROLE??", response, member)
-
-    })
-    .catch(err => console.log(err))
+    .catch(err => console.log(err))      
   }
 }
+
+
+

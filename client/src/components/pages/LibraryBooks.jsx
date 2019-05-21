@@ -9,7 +9,7 @@ export default class LibraryBooks extends Component {
     this.state = {
       response: {
         library: {},
-        book: {}
+        book: {},
       },
       member: [],
       search: "",
@@ -51,10 +51,7 @@ export default class LibraryBooks extends Component {
             {/* <h1>{this.state.library}</h1> */}
             <h2>List of Books / Book Details</h2>
             <p>
-              <input
-                type="text"
-                value={this.state.search}
-                onChange={this.changeSearch}
+              <input type="text" value={this.state.search} onChange={this.changeSearch}
               />
               <p>Filter By Book Title</p>
 
