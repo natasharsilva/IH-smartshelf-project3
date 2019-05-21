@@ -178,9 +178,9 @@ editProfile(body) {
     .then(response => response.data)
     .catch(errHandler)
   },
-  createMember(body) {
+  createMember(_library) {
     return service
-    .post(`/members/${body}`)
+    .post(`/members`, { _library })
     .then(response => response.data)
     .catch(errHandler)
   },
