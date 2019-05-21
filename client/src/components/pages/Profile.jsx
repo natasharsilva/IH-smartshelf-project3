@@ -97,7 +97,7 @@ export default class Profile extends Component {
                           
                         <div className="library-cover"
                           style={{background: `url("${library._library.picture}") no-repeat center`,backgroundSize:'cover'}}>
-                          <div className="container-opacity" style={{backgroundColor: 'black',backgroundSize:'100%',opacity:'0.5'}}>
+                          <div className="container-opacity" style={{backgroundColor: 'black',backgroundSize:'100%',opacity:'0.5',zIndex: '2'}}>
                           {/* <img src={library._library.picture} alt="" style={{opacity: '0.7'}} /> */}
                           <div style={{color:'white'}}>
                             {library._library.name}
@@ -122,10 +122,12 @@ export default class Profile extends Component {
                       )}
                     </Button>
                   )}
-                  <Button href="/add-library" outline color="info" size="sm">
+
+                  
+                  <Button className="add-library-button" href="/add-library" color="info" size="sm">
                     Add library
                   </Button>
-                  <Button href="/" outline color="info" size="sm">
+                  <Button  className="find-libraries-button" href="/" outline color="info" size="sm">
                     Find libraries
                   </Button>
                 </CardBody>
