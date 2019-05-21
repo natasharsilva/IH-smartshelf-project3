@@ -74,6 +74,12 @@ export default {
   // },
 
   // --------------------  Library methods -------------------------
+  getLibraries() {
+    return service
+      .get(`/libraries/`)
+      .then(response => response.data)
+      .catch(errHandler);
+  },
 
   getLibrary(libraryId) {
     return service
@@ -81,14 +87,12 @@ export default {
       .then(response => response.data)
       .catch(errHandler);
   },
-
   updateLibrary(libraryId, body) {
     return service
       .put(`/libraries/${libraryId}`, body)
       .then(response => response.data)
       .catch(errHandler);
   },
-
   deleteLibrary(libraryId) {
     return service
       .delete(`/libraries/${libraryId}`)

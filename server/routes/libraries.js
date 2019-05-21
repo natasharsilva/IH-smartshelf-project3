@@ -40,8 +40,18 @@ router.put("/:libraryId", isLoggedIn, uploader.single('picture'), (req, res, nex
   })
   .catch(err => next(err))
 });
-  
-  
+  //
+// -------- GET all libraries to display on the map
+router.get("/", (req, res, next) => {
+  Library.find()
+  .then(response => {
+    res.json({
+      response
+    });
+  })
+  .catch(err => next(err))
+});
+// ------------------
 
 //---------------- Delete libraries --------------   
 router.delete('/:libraryId', isLoggedIn, (req, res, next) => {

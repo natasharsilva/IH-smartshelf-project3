@@ -44,19 +44,19 @@ export default class AddLibrary extends Component {
       uploadData.append("address", this.state.place.place_name)
       uploadData.append("coordinates", this.state.place.center)
       uploadData.append("description", this.state.description)
-      
+  
       api.createLibrary(uploadData)
       .then(createdLibrary => {
-        console.log("SUCCESS!",createdLibrary );
+        console.log("SUCCESS!", createdLibrary);
         this.setState({
           message: `Your library '${this.state.name}' has been created`
         });
         this.props.history.push('/profile')
-        // setTimeout(() => {
-        //   this.setState({
-        //     message: null
-        //   });
-        // }, 2000);
+        setTimeout(() => {
+          this.setState({
+            message: null
+          });
+        }, 2000);
       })
       .catch(err => this.setState({ message: err.toString() }));
     }
