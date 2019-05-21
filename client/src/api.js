@@ -23,22 +23,22 @@ export default {
   // This method is synchronous and returns true or false
   // To know if the user is connected, we just check if we have a value for localStorage.getItem('user')
   isLoggedIn() {
-    return localStorage.getItem('user') != null;
+    return localStorage.getItem("user") != null;
   },
 
   // This method returns the user from the localStorage
   // Be careful, the value is the one when the user logged in for the last time
   getLocalStorageUser() {
-    return JSON.parse(localStorage.getItem('user'));
+    return JSON.parse(localStorage.getItem("user"));
   },
 
   // This method signs up and logs in the user
   signup(userInfo) {
     return service
-      .post('/signup', userInfo)
+      .post("/signup", userInfo)
       .then(res => {
         // If we have localStorage.getItem('user') saved, the application will consider we are loggedin
-        localStorage.setItem('user', JSON.stringify(res.data));
+        localStorage.setItem("user", JSON.stringify(res.data));
         return res.data;
       })
       .catch(errHandler);
@@ -46,21 +46,21 @@ export default {
 
   login(email, password) {
     return service
-      .post('/login', {
+      .post("/login", {
         email,
         password
       })
       .then(res => {
         // If we have localStorage.getItem('user') saved, the application will consider we are loggedin
-        localStorage.setItem('user', JSON.stringify(res.data));
+        localStorage.setItem("user", JSON.stringify(res.data));
         return res.data;
       })
       .catch(errHandler);
   },
 
   logout() {
-    localStorage.removeItem('user');
-    return service.get('/logout');
+    localStorage.removeItem("user");
+    return service.get("/logout");
   },
   // End of AUTH methods ------------------------------------------------------
 
@@ -73,36 +73,34 @@ export default {
   //     .catch(errHandler)
   // },
 
+  // --------------------  Library methods -------------------------
 
-// --------------------  Library methods -------------------------
+  getLibrary(libraryId) {
+    return service
+      .get(`/libraries/${libraryId}`)
+      .then(response => response.data)
+      .catch(errHandler);
+  },
 
-getLibrary(libraryId) {
-  return service
-  .get(`/libraries/${libraryId}`)
-  .then(response => response.data)
-  .catch(errHandler)
-},
+  updateLibrary(libraryId, body) {
+    return service
+      .put(`/libraries/${libraryId}`, body)
+      .then(response => response.data)
+      .catch(errHandler);
+  },
 
-updateLibrary(libraryId, body) {
-  return service
-  .put(`/libraries/${libraryId}`, body)
-  .then(response => response.data)
-  .catch(errHandler)
-},
+  deleteLibrary(libraryId) {
+    return service
+      .delete(`/libraries/${libraryId}`)
+      .then(response => response.data)
+      .catch(errHandler);
+  },
 
-
-deleteLibrary(libraryId) {
-  return service
-  .delete(`/libraries/${libraryId}`)
-  .then(response => response.data)
-  .catch(errHandler)
-},
-
-createLibrary(body) {
-  return service
-  .post("/libraries", body)
-  .then(res => res.data)
-  .catch(errHandler)
+  createLibrary(body) {
+    return service
+      .post("/libraries", body)
+      .then(res => res.data)
+      .catch(errHandler);
   },
 
   // getLibraries() {
@@ -112,27 +110,25 @@ createLibrary(body) {
   //     .catch(errHandler)
   // },
 
-// -------------------- End of Library methods -------------------------
+  // -------------------- End of Library methods -------------------------
 
-// --------------------  START OF PROFILE METHODS -------------------------
+  // --------------------  START OF PROFILE METHODS -------------------------
 
-showProfile() {
-  return service
-  .get('/profile')
-  .then(response => response.data)
-  .catch(errHandler)
-},
+  showProfile() {
+    return service
+      .get("/profile")
+      .then(response => response.data)
+      .catch(errHandler);
+  },
 
-editProfile(body) {
-  return service
-  .put('/profile', body)
-  .then(response => response.data)
-  .catch(errHandler)
-},
+  editProfile(body) {
+    return service
+      .put("/profile", body)
+      .then(response => response.data)
+      .catch(errHandler);
+  },
 
-
-
-// --------------------  END OF PROFILE METHODS -------------------------
+  // --------------------  END OF PROFILE METHODS -------------------------
 
   // -------------------- START OF BOOK METHODS -------------------------
 
@@ -172,11 +168,14 @@ editProfile(body) {
   },
 
   // -------------------- END OF BOOK METHODS -------------------------
+
+  // ------------------- START OF MEMBER METHODS ----------------------
+
   getMember(id) {
     return service
-    .get(`/members/${id}`)
-    .then(response => response.data)
-    .catch(errHandler)
+      .get(`/members/${id}`)
+      .then(response => response.data)
+      .catch(errHandler);
   },
   createMember(_library) {
     return service
@@ -186,14 +185,23 @@ editProfile(body) {
   },
   deleteMember(id) {
     return service
-    .delete(`/members/${id}`)
-    .then(response => response.data)
-    .catch(errHandler)
+      .delete(`/members/${id}`)
+      .then(response => response.data)
+      .catch(errHandler);
   },
 
-  // ------------------- START OF MEMBER METHODS------------------- 
+  // ------------------- END OF MEMBER METHODS-------------------------
 
-    // ------------------- END OF MEMBER METHODS------------------- 
+  // ------------------- START OF THE NODEMAILER METHOD -----------------------
+
+  sendEmail(libraryId, body) {
+    return service
+      .post(`/report-problem/${libraryId}`, body)
+      .then(response => response.data)
+      .catch(errHandler);
+  },
+
+  // ------------------- END OF THE NODEMAILER METHOD -------------------------
 
   // --------------------  START OF PICTURE UPLOAD METHOD --------------------
 
