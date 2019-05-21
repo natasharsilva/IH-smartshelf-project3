@@ -1,17 +1,24 @@
-$primary: #32c3ff;
-$danger: #9024bb;
 
+
+// #FFCC05 -> Yellow
+// #662D91 -> Purple
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
+
 // --------------------
 // Definition of variables
 
+$primary: #FFCC05;
+$secondary: #662D91;
+$danger: #9024bb;
+$primary-font: 'Muli', sans-serif;
 
 // --------------------
 // Style reusable for all components
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: $primary-font;
 }
 
 .info {
@@ -77,33 +84,59 @@ body {
 .Home {
   display:flex;
   flex-direction: column;
-  padding:5px;
+  padding:20px;
+  background-color: $secondary;
+  color:white;
+  margin:0;
 
-  p {
-    font-size: 1.2em;
-  }
+    p {
+      font-size: 1.2em;
+    }
 
-  img {
-    width:70%;
-    max-width:400px;
-    min-width:250px;
-    padding:30px;
-  }
+    img {
+      width:70%;
+      max-width:400px;
+      min-width:250px;
+      padding:30px;
+    }
 
-  .features {
-    padding:5px;
-    margin:5px;
-  }
+    .features {
+      padding:5px;
+      margin:5px;
+    }
 
-  .icon{
-    padding-bottom:15px;
-  }
+    .icon{
+      padding-bottom:15px;
+    }
 
-  .home-header{
-    padding-top: 10px;
-    padding-bottom:30px;
-  }
+    .home-header{
+      padding-top: 10px;
+      padding-bottom:30px;
+    }
+    .button-home{
+      width:70%;
+      border-radius:50px;
+      margin: auto auto;
+      background-color:$primary;
+      border:0;
+      color:$secondary;
+    }
+
+    .button-home:hover{
+      background-color:rgb(207, 168, 9);
+      border:0;
+      color:$secondary;
+    } 
+    
+    .home-location{
+      background-color:$primary;
+      padding:30px;
+      color:$secondary;
+    }
 }
+// .Navbar{
+//   background-color:$secondary;
+// }
 
 .AddLibrary,.AddBook{
   display:flex;
@@ -137,29 +170,28 @@ body {
 // --------------------
 // Style for Login and Sign Up components
 
-.Login {
-  input {
-  margin-top: 5px;
-  }
+.Login,.Signup {
 
-  h2 {
-  margin-top: 5px;
+  display:flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  
+    .container{
+      display:flex;
+      justify-items: center;
+      align-items: center;
+      flex-direction: column;
   }
+    input {
+    margin-top: 5px;
+    }
+
+    h2 {
+    margin-top: 5px;
+    }
 }
 
-.Signup {
-  input {
-  margin-top: 5px;
-  }
-
-  h2 {
-  margin-top: 5px;
-  }
-}
-
-a {
-  cursor: pointer
-}
 
 // --------------------
 // Style for Profile Page component
@@ -224,7 +256,21 @@ a {
     padding:0;
     margin:0;
   }
+  .CardMain{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+
+    img {
+      width:15%;
+      min-width:110px;
+      object-fit: cover;
+      border-radius:none;
+
+    }
+  }
 }
+
 .mapbox {
   display:flex;
   min-width: 100%;

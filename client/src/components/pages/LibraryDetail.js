@@ -170,7 +170,6 @@ export default class LibraryDetail extends Component {
       </div>
     );
   }
-
   componentDidMount() {
      api.getLibrary(this.props.match.params.libraryId)
        .then(response => {

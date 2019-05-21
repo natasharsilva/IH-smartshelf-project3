@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button, Container, Row, Col  } from 'reactstrap';
 import api from "../../api";
 
 
@@ -53,6 +53,8 @@ export default class LibraryBooks extends Component {
             <p>
               <input type="text" value={this.state.search} onChange={this.changeSearch}
               />
+              <p>Filter By Book Title</p>
+
             </p>
             <Button href={`/${this.state.library}/add-book`} color="primary">ADD BOOK</Button>
             <br />
@@ -63,14 +65,19 @@ export default class LibraryBooks extends Component {
                 .filter(bookDetail =>
                   bookDetail.title
                     .toUpperCase()
-                    .includes(this.state.search.toUpperCase())
+                    .includes(this.state.search.toUpperCase()) 
                 )
                 .map(bookDetail => (
                   <li key={bookDetail._id}>
-                  <div>
+                  <div className="CardMain">
                     <Card>
-                      <CardImg top width="100%" src={bookDetail.picture} alt={`"${bookDetail.title}-cover"`} />
+                    <Container>
+                    <Row>
+                    <Col xs="3">
+                      <CardImg top width="20%" src={bookDetail.picture} alt={`"${bookDetail.title}-cover"`} />
                         {/* <img src={bookDetail.picture} alt={`"${bookDetail.title}-cover"`}/> */}
+                        </Col>
+                    <Col xs="9">
                       <CardBody>
                         <CardTitle>Title:{bookDetail.title}</CardTitle>
                         <CardTitle>Author:{bookDetail.author}</CardTitle>
@@ -78,6 +85,9 @@ export default class LibraryBooks extends Component {
                         <CardText>{bookDetail.description}</CardText>
                         {this.state.role === "admin" && <Button color="danger" onClick={e => this.deleteBook(e,bookDetail)}>Delete Book</Button>}
                       </CardBody>
+                     </Col>
+                      </Row>
+                      </Container>
                     </Card>
                   </div>
                   <br />

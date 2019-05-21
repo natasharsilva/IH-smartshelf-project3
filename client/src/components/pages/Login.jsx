@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Button } from 'reactstrap'
+import { Button, Form } from 'reactstrap'
 import api from '../../api';
+
 
 export default class Login extends Component {
   constructor(props) {
@@ -32,18 +33,20 @@ export default class Login extends Component {
   render() {
     return (
       <div className="Login">
+      <div className="container">
         <h2>Login</h2>
-        <form>
+        <Form>
           E-mail<br />
           <input type="text" value={this.state.email} name="email" onChange={this.handleInputChange} /> <br /><br />
           Password<br />
           <input type="password" value={this.state.password} name="password" onChange={this.handleInputChange} />
           <br /><br />
           <Button tag="a" outline color="info" onClick={(e) => this.handleClick(e)}>Login</Button>
-        </form>
+        </Form>
         {this.state.message && <div className="info info-danger">
           {this.state.message}
         </div>}
+      </div>
       </div>
     );
   }

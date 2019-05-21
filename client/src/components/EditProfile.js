@@ -2,6 +2,11 @@ import React from "react";
 import {
   Button,
   Input,
+  Label,
+  FormFeedback,
+  CustomInput,
+  Form,
+  FormGroup
 } from "reactstrap";
 import api from "../api";
 
@@ -47,8 +52,6 @@ export default class EditProfile extends React.Component {
         this.setState({
           message: `Your profile was updated!`,
           showEditForm: !this.state.showEditForm,
-
-
         });
         setTimeout(() => {
           this.setState({
@@ -57,7 +60,6 @@ export default class EditProfile extends React.Component {
         }, 2000);
       })
       .catch(err => this.setState({ message: err.toString() }));
-  
 }
   showEditForm() {
     this.setState({
@@ -73,27 +75,38 @@ export default class EditProfile extends React.Component {
             Edit Profile
           </Button>
         ) : ( //ternary
-          <form>
-            Username:{" "}
-            <Input type="text" value={this.state.username} name="username"onChange={this.handleInputChange}
+          <Form>
+            <FormGroup>
+          {/* Conditional rendering to prevent not inputting any username */}
+            <Label for="username">Username:{" "}</Label>
+            {!this.state.username ? <div><Input invalid type="text" value={this.state.username} name="username" onChange={this.handleInputChange}
             />{" "}
-            Picture:{" "}
-            <Input type="file" name="picture" onChange={this.handleFileChange} /> <br />
+            <FormFeedback>Oh noes! You have to write your username</FormFeedback></div> :
+            <div><Input valid type="text" value={this.state.username} name="username" onChange={this.handleInputChange}
+            />{" "}</div>}
+            <Label for="picture">Picture:{" "}</Label>
+            <CustomInput type="file" id="exampleCustomFileBrowser" name="picture" label="Bring that smile on!" />
             {" "}<br />
-            Phone:{" "}
+            <Label for="phoneNumber">Phone:{" "}</Label>
             <Input type="text" value={this.state.phoneNumber} name="phoneNumber" cols="20" rows="5" onChange={this.handleInputChange}
             />{" "}<br />
-            Favorite Books:{" "}
+            </FormGroup>
+            <FormGroup>
+            <Label for="favoriteBooks">Favorite Books:{" "}</Label>
             <Input type="text" value={this.state.favoriteBooks} name="favoriteBooks" cols="20" rows="5" onChange={this.handleInputChange}
             />{" "}<br />
-            Favorite Quote:{" "}
+            <Label for="favoriteQuote">Favorite Quote:{" "}</Label>
             <Input type="text" value={this.state.favoriteQuote} name="favoriteQuote" cols="20" rows="5" onChange={this.handleInputChange}
             />{" "}<br />
+            </FormGroup>
+        {/* Show disabled button if there is no username  -> Ternary*/}
+            {!this.state.username ? <Button disabled outline color="info" onClick={() => this.handleFormSubmit()}>
+              Confirm
+            </Button> :
             <Button outline color="info" onClick={() => this.handleFormSubmit()}>
               Confirm
-            </Button>
-          </form>
-        )}
+            </Button>}
+        </Form>)}
       </div>
     );
   }
