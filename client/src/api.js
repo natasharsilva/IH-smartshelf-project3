@@ -172,6 +172,9 @@ editProfile(body) {
   },
 
   // -------------------- END OF BOOK METHODS -------------------------
+
+  // ------------------- START OF MEMBER METHODS ----------------------
+
   getMember(id) {
     return service
     .get(`/members/${id}`)
@@ -191,9 +194,18 @@ editProfile(body) {
     .catch(errHandler)
   },
 
-  // ------------------- START OF MEMBER METHODS------------------- 
+  // ------------------- END OF MEMBER METHODS-------------------------
 
-    // ------------------- END OF MEMBER METHODS------------------- 
+  // ------------------- START OF THE NODEMAILER METHOD -----------------------
+
+  sendEmail() {
+    return service
+    .post('/send-email')
+    .then(response => response.data)
+    .catch(errHandler)
+  },
+
+  // ------------------- END OF THE NODEMAILER METHOD -------------------------
 
   // --------------------  START OF PICTURE UPLOAD METHOD --------------------
 

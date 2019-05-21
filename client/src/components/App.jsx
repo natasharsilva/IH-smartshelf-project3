@@ -12,6 +12,8 @@ import Signup from './pages/Signup';
 import Map from './pages/Map.js';
 import api from '../api';
 import Profile from './pages/Profile';
+import ReportProblem from './pages/ReportProblem';
+
 
 export default class App extends Component {
 
@@ -33,6 +35,7 @@ export default class App extends Component {
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
           <Route path="/map" component={Map} />
+          <Route path="/report-problem" component={ReportProblem} />
 
           <Route render={() => <h2>404</h2>} />
         </Switch>
