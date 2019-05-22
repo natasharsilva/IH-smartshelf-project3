@@ -64,10 +64,10 @@ export default class Profile extends Component {
       result.setDate(result.getDate() + deadlineDays);
       console.log("####")
       console.log("this.state.profileInfo.books", this.state.profileInfo.books)
-      console.log("borrowedDate", borrowedDate)
-      console.log("deadlineDays", deadlineDays)
-      console.log("result", result)
-      console.log("####")
+      // console.log("borrowedDate", borrowedDate)
+      // console.log("deadlineDays", deadlineDays)
+      // console.log("result", result)
+      // console.log("####")
       return result;
     } 
     else{
@@ -89,11 +89,11 @@ export default class Profile extends Component {
 
      console.log("-----")
      console.log("this.calculateDueDate()", this.calculateDueDate())
-     console.log("currentDateMS", currentDateMS)
-     console.log("dueDate", dueDate)
-     console.log("dueDateMS", dueDateMS)
-     console.log("diffMS", diffMS)
-     console.log("oneDay", oneDay)
+    //  console.log("currentDateMS", currentDateMS)
+    //  console.log("dueDate", dueDate)
+    //  console.log("dueDateMS", dueDateMS)
+    //  console.log("diffMS", diffMS)
+    //  console.log("oneDay", oneDay)
 
      return Math.round(diffMS/oneDay)
       } else {return 30}

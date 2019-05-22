@@ -23,6 +23,7 @@ export default class AddReview extends Component {
   handleSubmit(e) {
     let data = {
       _user: this.state.user,
+      author: this.state.user.username,
       title: this.state.title,
       text: this.state.review,
       rating: this.state.rating
@@ -39,34 +40,33 @@ export default class AddReview extends Component {
       }, 5000);
     } else {
       api
-      .updateBook(this.props.match.params.bookId, {
-        title: this.state.book.title,
-        author: this.state.book.author,
-        genre: this.state.book.genre,
-        picture: this.state.book.picture,
-        description: this.state.book.description,
-        rating: this.state.book.rating,
-        pages: this.state.book.pages,
-        language: this.state.book.language,
-        _currentOwner: this.state.book._currentOwner,
-        status: this.state.book.status,
-        comments: [...this.state.book.comments, data]
-      })
-      .then(response => {
-        console.log("THIS IS THE RESPONSEEEE", response);
-        console.log("THIS IS THE DATA", data)
-        console.log("THESE ARE THE COMMENTS", response.comments)
-        this.setState({
-          feedback: `Your review was added! You'll be redirected`
-        });
-        setTimeout(() => {
+        .updateBook(this.props.match.params.bookId, {
+          title: this.state.book.title,
+          author: this.state.book.author,
+          genre: this.state.book.genre,
+          picture: this.state.book.picture,
+          description: this.state.book.description,
+          rating: this.state.book.rating,
+          pages: this.state.book.pages,
+          language: this.state.book.language,
+          _currentOwner: this.state.book._currentOwner,
+          status: this.state.book.status,
+          comments: [...this.state.book.comments, data]
+        })
+        .then(response => {
           this.setState({
-            feedback: null
+            feedback: `Your review was added! You'll be redirected`
           });
-        this.props.history.push(`/book-detail/${this.props.match.params.bookId}`)
-        }, 2000);
-      })
-      .catch(err => this.setState({ message: err.toString() }));
+          setTimeout(() => {
+            this.setState({
+              feedback: null
+            });
+            this.props.history.push(
+              `/book-detail/${this.props.match.params.bookId}`
+            );
+          }, 2000);
+        })
+        .catch(err => this.setState({ message: err.toString() }));
     }
   }
 
@@ -113,15 +113,17 @@ export default class AddReview extends Component {
   }
 
   componentDidMount() {
-    api
-      .getBook(this.props.match.params.bookId)
+    Promise.all([
+      api.getBook(this.props.match.params.bookId),
+      api.showProfile()
+    ])
       .then(response => {
-        console.log('THIS IS THE RESPONSE',response)
+        console.log('THIS IS THE RESPONSEEEEE', response)
         this.setState({
-          user: response.user,
-          book: response.response
+          user: response[1].user,
+          book: response[0].response
         });
-        console.log('THIS IS THE STATEEE',this.state)
+        console.log("THIS IS THE STATEEE", this.state);
       })
       .catch(err => console.log(err));
   }

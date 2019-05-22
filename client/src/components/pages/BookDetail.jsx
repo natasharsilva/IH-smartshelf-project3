@@ -154,10 +154,10 @@ export default class BookDetail extends Component {
               <CardTitle tag="h4">Reviews</CardTitle>
                 <CardText>
                     {this.state.book.comments.map(comment => <span key={comment._id}>
-                      Author: <br/>
+                      Author: {comment.author}<br/>
                       Title: {comment.title}<br/>
                       Review: {comment.text}<br/>
-                      Rating: {comment.rating}</span> )}
+                      Rating: {comment.rating}<br/></span> )}
                     {/* DON'T FORGET TO MAP!!!!!!! */}
                 </CardText>
             </Card>
@@ -167,7 +167,6 @@ export default class BookDetail extends Component {
     );
   }
   componentDidMount() {
-    
     api
       .getBook(this.props.match.params.bookId)
       .then(response => {
