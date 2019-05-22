@@ -23,6 +23,9 @@ export default class Profile extends Component {
     this.state = {
       profileInfo: null
     };
+
+    this.calculateDueDate = this.calculateDueDate.bind(this);
+    this.untilDueDate = this.untilDueDate.bind(this);
   }
 
   updateProfile = () => {
@@ -53,7 +56,57 @@ export default class Profile extends Component {
       });
   }
 
+  calculateDueDate(borrowedDate){
+    if(this.state.profileInfo.books) {
+      // let borrowedDate = this.state.profileInfo.books.borrowedDate ;
+      let deadlineDays=30 ;
+      var result = new Date(borrowedDate);
+      result.setDate(result.getDate() + deadlineDays);
+      console.log("####")
+      console.log("this.state.profileInfo.books", this.state.profileInfo.books)
+      console.log("borrowedDate", borrowedDate)
+      console.log("deadlineDays", deadlineDays)
+      console.log("result", result)
+      console.log("####")
+      return result;
+    } 
+    else{
+      return 0
+    }
+  }
+
+  untilDueDate(borrowedDate){ //currentDate as parameter?
+    if(this.state.profileInfo.books)
+      {
+     let dueDate = this.calculateDueDate(borrowedDate);
+     let currentDate = Date.now();
+     var oneDay = 1000 * 60 * 60 * 24;
+
+     let dueDateMS = dueDate.getTime();
+     let currentDateMS = currentDate;
+
+     let diffMS = dueDateMS-currentDateMS;
+
+     console.log("-----")
+     console.log("this.calculateDueDate()", this.calculateDueDate())
+     console.log("currentDateMS", currentDateMS)
+     console.log("dueDate", dueDate)
+     console.log("dueDateMS", dueDateMS)
+     console.log("diffMS", diffMS)
+     console.log("oneDay", oneDay)
+
+     return Math.round(diffMS/oneDay)
+      } else {return 30}
+  }
+
   render() {
+    // let showDuedate = 
+    // if(Number(this.untilDueDate(book.borrowedDate)) <= 1){
+    // showDuedate = <strong>Days Left: </strong> {this.untilDueDate(book.borrowedDate)
+    // }
+    //   else {
+    // showDuedate = <div className="alert danger"><strong>Days Left: </strong>{this.untilDueDate(book.borrowedDate)}</div>
+  
     return (
       <div className="profilePage">
         {!this.state.profileInfo && <div>Loading...</div>}
@@ -166,7 +219,15 @@ export default class Profile extends Component {
                             <strong>Author: </strong>
                             {book.author}
                             <br />
-                            <strong>Due date: </strong> XXXX <br />
+
+    {  !(Number(this.untilDueDate(book.borrowedDate)) < 1) ? 
+        <div><strong>Days Left: </strong> {this.untilDueDate(book.borrowedDate)}</div> :
+                    <div className="alert alert-danger">
+                      You reached you deadline! Return the book. <strong>You're{' '}  
+                      {Math.abs(Number(this.untilDueDate(book.borrowedDate)))} 
+                      {' '} days overdue</strong></div>}
+
+                              <br /> 
                             <Button
                               onClick={e => this.returnBook(e, book)}
                               key={book._id}
@@ -213,6 +274,7 @@ export default class Profile extends Component {
   }
 
   componentDidMount() {
+    
     api
       .showProfile()
       .then(response => {
@@ -221,5 +283,7 @@ export default class Profile extends Component {
         });
       })
       .catch(err => console.log(err));
+      
+      
   }
 }

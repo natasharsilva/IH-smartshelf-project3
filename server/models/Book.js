@@ -23,6 +23,7 @@ const bookSchema = new mongoose.Schema({
   isbn: {type: Number, minlength: 10},
   _createdBy: {type: Schema.Types.ObjectId, ref: "User"},
   _currentOwner: {type: Schema.Types.ObjectId, ref: "User"},
+  borrowedDate:{type:Date, default:Date.now()},
   status: { type: String, enum: ['Available', 'Unavailable'], default:'Available' },
   _library: {type: Schema.Types.ObjectId, ref:"Library"},
   notification: [
