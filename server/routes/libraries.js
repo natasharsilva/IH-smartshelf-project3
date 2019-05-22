@@ -95,7 +95,7 @@ router.post('/', isLoggedIn, uploader.single('picture'), (req, res, next) => {
     name: req.body.name,
     picture: req.file && req.file.secure_url,  
     address: req.body.address,
-    coordinates: req.body.coordinates,
+    coordinates: [req.body.coordinates_lng, req.body.coordinates_lat],
     description: req.body.description,
   })
     .then(libraryCreated => {

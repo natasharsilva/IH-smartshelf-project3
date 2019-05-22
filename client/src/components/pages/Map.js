@@ -21,16 +21,14 @@ export default class Map extends Component {
       lng: "",
       lat: "",
       libraries: null
-
     }
     this.getCurrentCoordinates = this.getCurrentCoordinates.bind(this)
     this.initMap = this.initMap.bind(this)
-
     this.mapRef = React.createRef();
     this.map = null; 
     this.marker = null;
   }
-  initMap(lng, lat) {
+    initMap(lng, lat) {
     this.map = new mapboxgl.Map({
       container: this.mapRef.current,
       style: "mapbox://styles/mapbox/streets-v11",
@@ -39,21 +37,19 @@ export default class Map extends Component {
     });
 
     this.map.addControl(new mapboxgl.NavigationControl());
-
     this.marker = new mapboxgl.Marker({ color: "purple" })
       .setLngLat([lng, lat])
       .addTo(this.map)
-
       for(let i = 0; i < this.state.libraries.length; i++){
-        let lngLat = this.state.libraries[i].coordinates[0].split(",",2)
-        let lng = Number(lngLat[0])
-        let lat = Number(lngLat[1])
-console.log("ARE THEY NUMBERS????", lat, lng)
-        new mapboxgl.Marker({ color: 'yellow' })
-        .setLngLat([lng, lat])
-        .addTo(this.map)
-    }
-  }
+          let lng = this.state.libraries[i].coordinates[0]
+          let lat = this.state.libraries[i].coordinates[1]
+          // console.log("ARE THEY NUMBERS????", lat, lng)
+            new mapboxgl.Marker({ color: 'yellow' })
+            .setLngLat([lng, lat])
+            .addTo(this.map)
+            
+          }
+        }
   getCurrentCoordinates() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
