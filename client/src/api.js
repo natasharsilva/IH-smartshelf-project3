@@ -196,7 +196,7 @@ export default {
 
   // ------------------- END OF MEMBER METHODS-------------------------
 
-  // ------------------- START OF THE NODEMAILER METHOD -----------------------
+  // ------------------- START OF THE NODEMAILER METHODS -----------------------
 
   sendEmail(libraryId, body) {
     return service
@@ -205,7 +205,14 @@ export default {
       .catch(errHandler);
   },
 
-  // ------------------- END OF THE NODEMAILER METHOD -------------------------
+  sendInvitation(libraryId, body) {
+    return service
+      .post(`/send-invitation/${libraryId}`, body)
+      .then(response => response.data)
+      .catch(errHandler);
+  },
+
+  // ------------------- END OF THE NODEMAILER METHODS -------------------------
 
   // --------------------  START OF PICTURE UPLOAD METHOD --------------------
 

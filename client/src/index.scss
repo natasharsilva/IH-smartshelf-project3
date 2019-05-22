@@ -25,7 +25,7 @@ body {
   margin: 20px;
   padding: 10px 20px;
   border-radius: 10px;
-  display: inline-block;
+  // display: inline-block;
   background-color: #5776e9;
   color: white;
 }
@@ -267,13 +267,17 @@ body {
   }
   .add-library-button, .find-libraries-button{
     border-radius:50px;
-      margin: auto;
+      margin: 15px auto;
       background-color:$primary;
       border:0;
       color:$secondary;
       padding:6px;
-      width:30%;
-  }
+      width:100%;
+      display:inline-block;}
+      
+
+
+  
 
   .add-library-button:hover, .find-libraries-button:hover{
       background-color:$primary;

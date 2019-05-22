@@ -6,8 +6,13 @@ import {
   CardBody,
   CardDeck,
   CardText,
-  CardTitle
+  CardTitle, 
+  Container, 
+  Row, 
+  Col
 } from "reactstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearchLocation,faPlus } from '@fortawesome/free-solid-svg-icons'
 import { Link } from "react-router-dom";
 import api from "../../api";
 import EditProfile from "../EditProfile";
@@ -123,15 +128,23 @@ export default class Profile extends Component {
                     </Button>
                   )}
 
-                  
-                  <Button className="add-library-button" href="/add-library" color="info" size="sm">
-                    Add library
-                  </Button>
-                  <Button  className="find-libraries-button" href="/find-libraries" outline color="info" size="sm">
-                    Find libraries
-                  </Button>
+                  <Container>
+                  <Row style={{flexDirection:'row'}}>
+                    <Col >
+                      <Button className="add-library-button btn" href="/add-library">
+                      <FontAwesomeIcon icon={faPlus} size="1x" className="icon"/> Add library
+                      </Button>
+                      </Col>
+                      <Col >
+                      <Button  className="find-libraries-button btn" href="/find-libraries"  >
+                      <FontAwesomeIcon icon={faSearchLocation} size="1x" className="icon"/> Find libraries
+                      </Button>
+                    </Col>
+                  </Row>
+                  </Container>
                 </CardBody>
               </Card>
+              
               <Card>
                 <CardBody>
                   <CardTitle tag="h3">Books</CardTitle>
@@ -192,6 +205,7 @@ export default class Profile extends Component {
                 Logout
               </Button>
             </ButtonGroup>
+
           </div>
         )}
       </div>

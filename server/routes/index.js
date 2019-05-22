@@ -93,4 +93,43 @@ router.post("/report-problem/:libraryId", (req, res, next) => {
     .catch(err => next(err));
 });
 
+router.post("/send-invitation/:libraryId", (req, res, next) => {
+  let {name, email} = req.body
+  User.find(req.user._id)
+    .then(response => {
+        let userEmail = response[0].email
+        let transporter = nodemailer.createTransport({
+          service: "Gmail",
+          auth: {
+            user: process.env.GMAIL_USER,
+            pass: process.env.GMAIL_PASS
+          }
+        });
+
+        let mail = {
+          from: '"SmartShelf" <smartshelflisbon@gmail.com>',
+          to: email,
+          subject: "You were invited to join a library!",
+          text: `Hello, ${name}! \n A friend of yours (${userEmail}) invited you to join a library in SmartShelf! \n Open the link below to check the library details and click on 'Join' to be a part of it 🙂 \n
+          http://localhost:3000/libraries/${req.params.libraryId}
+          Best, \n - SmartShelf Team`
+        };
+
+        transporter.sendMail(mail, (err, data) => {
+          if (err) {
+            res.json({
+              mail,
+              msg: "Something's wrong"
+            });
+          } else {
+            res.json({
+              mail,
+              msg: "Success!"
+            });
+          }
+        });
+    })
+    .catch(err => next(err));
+});
+
 module.exports = router;
