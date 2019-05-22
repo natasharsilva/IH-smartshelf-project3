@@ -111,7 +111,7 @@ router.post("/send-invitation/:libraryId", (req, res, next) => {
           to: email,
           subject: "You were invited to join a library!",
           text: `Hello, ${name}! \n A friend of yours (${userEmail}) invited you to join a library in SmartShelf! \n Open the link below to check the library details and click on 'Join' to be a part of it 🙂 \n
-          http://localhost:3000/libraries/${req.params.libraryId}
+          http://ih-smart-shelf.herokuapp.com/libraries/${req.params.libraryId}
           Best, \n - SmartShelf Team`
         };
 

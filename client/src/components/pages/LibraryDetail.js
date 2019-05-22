@@ -265,7 +265,7 @@ export default class LibraryDetail extends Component {
            library: response.library,
            book: response.book,
          })
-         Promise.all([
+      Promise.all([
           api.getMember(this.props.match.params.libraryId),
           api.getAllMember(this.props.match.params.libraryId)
         ]).then(([memberInfo,allmembers]) => {
