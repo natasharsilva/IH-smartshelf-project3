@@ -8,6 +8,8 @@ import {
   Form,
   FormGroup
 } from "reactstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUserEdit } from '@fortawesome/free-solid-svg-icons'
 import api from "../api";
 
 export default class EditProfile extends React.Component {
@@ -71,9 +73,9 @@ export default class EditProfile extends React.Component {
     return (
       <div className="editForm">
         {this.state.showEditForm ? (
-          <Button onClick={e => this.showEditForm(e)} outline color="info" size="sm">
-            Edit Profile
-          </Button>
+          <div className="edit-button" style={{flexDirection:'row'}}>
+          <FontAwesomeIcon icon={faUserEdit} size="1x" className="icon" onClick={e => this.showEditForm(e)}/>
+          </div>
         ) : ( //ternary
           <Form>
             <FormGroup>

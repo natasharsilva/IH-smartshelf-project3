@@ -276,9 +276,6 @@ body {
       display:inline-block;}
       
 
-
-  
-
   .add-library-button:hover, .find-libraries-button:hover{
       background-color:$primary;
       background-color:rgb(207, 168, 9);
@@ -286,6 +283,19 @@ body {
       color:$secondary;
   }
 
+}
+
+.editForm{
+  .edit-button{
+    display:block;
+    text-align:right;
+    padding:5px;
+    // cursor: pointer;
+    color:$primary;
+  }
+  .icon{
+    cursor: pointer;
+  }
 }
 
 .bookCard {
