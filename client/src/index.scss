@@ -138,6 +138,10 @@ body {
       background-color:$primary;
       padding:30px;
       color:$secondary;
+      
+      .icon{
+        color:$secondary;
+      }
     }
 }
 
