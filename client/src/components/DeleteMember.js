@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Button,
-  Input,
   Alert,
 } from "reactstrap";
 import api from "../api";
@@ -37,12 +36,12 @@ export default class DeleteMember extends React.Component {
       <div className="editForm">
 
       {this.state.showDeleteAlert ? 
-      <Button onClick={this.showDeleteAlert} className="btn btn-danger">Remove Member</Button>
+      <Button onClick={this.showDeleteAlert} outline color="danger">Remove Member</Button>
      : 
       <Alert color="danger">
         Are you sure you want to remove this member?<br />
-        <Button onClick={this.deleteMemberADMIN} className="btn btn-danger">Delete!</Button>  
-        <Button onClick={this.showDeleteAlert} className="btn btn-danger">No!</Button>  
+        <Button onClick={this.deleteMemberADMIN} outline color="danger">Delete!</Button>  
+        <Button onClick={this.showDeleteAlert} outline color="danger">No!</Button>  
       </Alert>}
     </div>
     )

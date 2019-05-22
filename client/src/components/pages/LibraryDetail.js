@@ -184,7 +184,8 @@ export default class LibraryDetail extends Component {
             </CardBody>
             </Col>
             </Row>
-            {this.state.role === "admin" && <EditLibrary updateLibrary={this.updateLibrary} theLibrary={this.state.library} />}
+            {this.state.member && this.state.member.role === "admin" && 
+            <EditLibrary updateLibrary={this.updateLibrary} theLibrary={this.state.library} />}
           </Card>
         </div>
       }
@@ -225,7 +226,7 @@ export default class LibraryDetail extends Component {
         </Button>
 
         <div className="memberList">
-        <h2>Members</h2>
+        <h2>Member List</h2>
         {this.state.allmembers && this.state.allmembers.map((members,i) => (<div key={members._id}>
              <Card>
               <Row>
