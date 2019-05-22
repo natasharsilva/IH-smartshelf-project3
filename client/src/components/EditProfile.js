@@ -74,10 +74,10 @@ export default class EditProfile extends React.Component {
       <div className="editForm">
         {this.state.showEditForm ? (
           <div className="edit-button" style={{flexDirection:'row'}}>
-          <FontAwesomeIcon icon={faUserEdit} size="1x" className="icon" onClick={e => this.showEditForm(e)}/>
+          <FontAwesomeIcon icon={faUserEdit} size="1x" className="icon" onClick={e => this.showEditForm(e)}>edit</FontAwesomeIcon>
           </div>
         ) : ( //ternary
-          <Form>
+          <Form className="form-container">
             <FormGroup>
           {/* Conditional rendering to prevent not inputting any username */}
             <Label for="username">Username:{" "}</Label>
@@ -105,7 +105,7 @@ export default class EditProfile extends React.Component {
             {!this.state.username ? <Button disabled outline color="info" onClick={() => this.handleFormSubmit()}>
               Confirm
             </Button> :
-            <Button outline color="info" onClick={() => this.handleFormSubmit()}>
+            <Button className="confirm-profile-button" outline color="info" onClick={() => this.handleFormSubmit()}>
               Confirm
             </Button>}
         </Form>)}

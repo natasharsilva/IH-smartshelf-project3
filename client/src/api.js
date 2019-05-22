@@ -183,6 +183,12 @@ export default {
       .then(response => response.data)
       .catch(errHandler);
   },
+  getAllMember(id) {
+    return service
+      .get(`/members/all/${id}`)
+      .then(response => response.data)
+      .catch(errHandler);
+  },
   createMember(_library) {
     return service
     .post(`/members`, { _library })

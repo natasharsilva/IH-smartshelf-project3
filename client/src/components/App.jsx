@@ -7,6 +7,7 @@ import AddLibrary from './pages/AddLibrary.jsx';
 import AddBook from './pages/AddBook.jsx';
 import BookDetail from './pages/BookDetail';
 import NavBar from './NavBar';
+import Footer from './Footer';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Map from './pages/Map.js';
@@ -24,7 +25,8 @@ export default class App extends Component {
   render() {
     return (
       <div className="App">
-      <NavBar />
+      <NavBar className="NavBar"/>
+      <div className="main">
         <Switch>
           <Route path="/" exact component={Home} />
           {api.isLoggedIn() ? <Route path="/profile" component={Profile} /> : <Route path="/profile" component={Login} />}
@@ -44,6 +46,8 @@ export default class App extends Component {
 
           <Route render={() => <h2>404</h2>} />
         </Switch>
+        </div>
+        <Footer />
       </div>
     );
   }

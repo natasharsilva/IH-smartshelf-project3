@@ -5,9 +5,18 @@ const uploader = require("../configs/cloudinary")
 const { isLoggedIn } = require('../middlewares')
 
 
-// Get Members using library IDs / when testing use http://localhost:5000/api/members/ 
+// Get one Members using library IDs / when testing use http://localhost:5000/api/members/ 
 router.get("/:id", (req, res, next) => {
   Member.find({_library: req.params.id, _user: req.user._id}).populate("_user")
+  .then(response => {
+    res.json(response);
+  })
+  .catch(err => next(err))
+});
+
+// get all members of a library
+router.get("/all/:id", (req, res, next) => {
+  Member.find({_library: req.params.id}).populate("_user")
   .then(response => {
     res.json(response);
   })
@@ -45,43 +54,11 @@ router.delete("/:memberId", isLoggedIn, (req,res,next) => {
       })
     }
     else {
-      next({ status: 403, message: "You cannot delete the member with the id"+req.params.memberId })
+      next({ status: 403, message: "You cannot delete the member with the id "+req.params.memberId })
     }
   })
 })
-
-// Make sure the user is connected and is either an admin or himself
-router.delete("/:libraryId", isLoggedIn, (req, res, next) => {
-  Member.findOne({ _user: req.user._id, _library: req.params.libraryId })
-  .then(memberToDelete => {
-    console.log("TCL: memberToDelete");
-    Member.findOne({
-      _user: req.user._id,
-      _library: memberToDelete._library
-    })
-    .then(loggedUser => {
-      if (
-        loggedUser.role === "admin" ||
-        loggedUser._user._id.equals(memberToDelete._user._id)
-      ) {
-        Member.deleteOne({ _id: memberToDelete._id });
-        res.json({
-          memberToDelete,
-          loggedUser,
-          message: `Deleted the member ${memberToDelete._id}`
-        });
-      } else {
-        res
-          .json({
-            memberToDelete,
-            loggedUser,
-            message: `You do not have permission to delete this member`
-          })
-          .catch(err => next(err));
-      }
-    });
-  });
-});
+ 
 
 
 module.exports = router;
