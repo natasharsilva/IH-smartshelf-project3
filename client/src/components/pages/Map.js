@@ -41,13 +41,20 @@ export default class Map extends Component {
       .setLngLat([lng, lat])
       .addTo(this.map)
       for(let i = 0; i < this.state.libraries.length; i++){
+        let popup = new mapboxgl.Popup()
+        .setHTML(
+          `<a href="http://localhost:3000/libraries/${this.state.libraries[i]._id}"<b>${this.state.libraries[i].name}</b> <br>
+          </a>
+        `)
+
           let lng = this.state.libraries[i].coordinates[0]
           let lat = this.state.libraries[i].coordinates[1]
           // console.log("ARE THEY NUMBERS????", lat, lng)
             new mapboxgl.Marker({ color: 'yellow' })
             .setLngLat([lng, lat])
+            .setPopup(popup)
             .addTo(this.map)
-            
+
           }
         }
   getCurrentCoordinates() {
