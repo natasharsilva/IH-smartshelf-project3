@@ -102,10 +102,10 @@ export default class EditProfile extends React.Component {
             />{" "}<br />
             </FormGroup>
         {/* Show disabled button if there is no username  -> Ternary*/}
-            {!this.state.username ? <Button disabled outline color="info" onClick={() => this.handleFormSubmit()}>
+            {!this.state.username ? <Button disabled  className="confirm-profile-button" onClick={() => this.handleFormSubmit()}>
               Confirm
             </Button> :
-            <Button className="confirm-profile-button" outline color="info" onClick={() => this.handleFormSubmit()}>
+            <Button className="confirm-profile-button" onClick={() => this.handleFormSubmit()}>
               Confirm
             </Button>}
         </Form>)}
