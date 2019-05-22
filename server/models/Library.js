@@ -12,7 +12,11 @@ const librarySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  coordinates: Array,
+  coordinates: {
+    type: [Number],
+    minlength: 2,
+    maxlength: 2,
+  },
   picture: { type: String, default: "/images/defaultProfile.png" },
   description: String,
 }, {

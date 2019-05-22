@@ -15,18 +15,33 @@ export default class LibraryDetail extends Component {
         book: []
       },
       member: null,
+      allmembers: null,
+      showAlertLeaveLibrary: false,
+      showAlertDeleteLibrary: false,
+      showAlertDeleteMember: false,
 
-      visible: false,
     };
-        this.toggleAlert = this.toggleAlert.bind(this);
-      }
+        this.toggleAlertLeaveLibrary = this.toggleAlertLeaveLibrary.bind(this);
+        this.toggleAlertDeleteLibrary = this.toggleAlertDeleteLibrary.bind(this);
+        this.toggleAlertDeleteMember = this.toggleAlertDeleteMember.bind(this);
 
-      toggleAlert() {
+      }
+      toggleAlertLeaveLibrary() {
         this.setState({ 
-          visible: !this.state.visible 
+          showAlertLeaveLibrary: !this.state.showAlertLeaveLibrary,
         })
       }
-
+      toggleAlertDeleteLibrary() {
+        this.setState({ 
+          showAlertDeleteLibrary: !this.state.showAlertDeleteLibrary,
+        })
+      }
+      toggleAlertDeleteMember() {
+        this.setState({ 
+          showAlertDeleteMember: !this.state.showAlertDeleteMember,
+        })
+      }
+// ---------- METHOD TO THE USER BECOME A MEMBER OF THE LIBRARY
   joinLibrary(event) {
     event.preventDefault()
     api.createMember(this.props.match.params.libraryId)
@@ -53,7 +68,9 @@ export default class LibraryDetail extends Component {
       })
       .catch(err => console.log(err))
     }
-  deleteMember() {
+  //  ---------- METHOD TO LEAVE LIBRARY  -------------------
+
+  leaveLibrary() {
     api.deleteMember(this.state.member._id)
     .then(response => {
       console.log("MEMBER DELETED!", response)
@@ -68,19 +85,51 @@ export default class LibraryDetail extends Component {
              this.setState({
                member: memberInfo[0]
           })
-          this.toggleAlert()
+          this.toggleAlertLeaveLibrary()
         })     
 
       })
     .catch(err => console.log(err))      
   })
   }
-    
+//  ---------- METHOD TO DELETE MEMBER AS AN ADMIN -------------------
+  deleteMemberADMIN(e, memberToBeDeletedId) {
+    api.deleteMember(memberToBeDeletedId)
+    .then(response => {
+      console.log("MEMBER DELETED!", response)
+      api.getLibrary(this.props.match.params.libraryId)
+       .then(response => {
+         this.setState({
+           library: response.library,
+           book: response.book,
+         })
+         api.getMember(this.props.match.params.libraryId)
+           .then(memberInfo => {
+             this.setState({
+              allmembers: memberInfo
+            })
+          this.toggleAlertLeaveLibrary()
+        })     
+      })
+    .catch(err => console.log(err))      
+    })
+  }
+  //  ---------- METHOD TO DELETE LIBRARY AS AN ADMIN -------------------
 
+  deleteLibrary() {
+    api.deleteLibrary(this.props.match.params.libraryId)
+      .then(response => {
+        console.log("THE LIBRARY WAS DELETED!", response )
+        this.props.history.push('/profile')
+      })
+      .catch(err => console.log(err))      
+  }
+
+// ----------------------
   render() {
     return (
       <div className="LibraryDetail">
-        {!this.state.library &&  <div>Loading...</div>}
+        {!this.state.library  &&  <div>Loading...</div>}
         {this.state.library && 
         <div className="libraryCard">
           <Card>
@@ -93,14 +142,21 @@ export default class LibraryDetail extends Component {
               <CardTitle><b>{this.state.library.name}</b></CardTitle>
               <CardSubtitle>{this.state.library.address}</CardSubtitle>
               <CardText>{this.state.library.description}</CardText>
-           
+
+              {this.state.member && this.state.member.role === "admin" && <Button onClick={this.toggleAlertDeleteLibrary} className="btn btn-danger">Delete Library</Button>}
+              <Alert color="info" isOpen={this.state.showAlertDeleteLibrary} toggle={this.toggleAlertDeleteLibrary}>
+                Are you sure you want to delete this library? <br />
+                  <Button onClick={(e) => this.deleteLibrary(e)} className="btn btn-danger">Delete!</Button>  
+                  <Button onClick={this.toggleAlertDeleteLibrary} className="btn btn-info">No!</Button>     
+                </Alert>
+              
               {!this.state.member && <Button onClick={(e) => this.joinLibrary(e)} className="btn btn-info">Join</Button>}
-              {this.state.member && this.state.member.role === "member" && <Button onClick={this.toggleAlert} className="btn btn-info">Leave</Button>}
-            
-              <Alert color="info" isOpen={this.state.visible} toggle={this.toggleAlert}>
+
+              {this.state.member && this.state.member.role === "member" && <Button onClick={this.toggleAlertLeaveLibrary} className="btn btn-info">Leave</Button>}
+              <Alert color="info" isOpen={this.state.showAlertLeaveLibrary} toggle={this.toggleAlertLeaveLibrary}>
               Are you sure you want to leave this library? <br />
-                  <Button onClick={(e) => this.deleteMember(e)} className="btn btn-danger">Leave!</Button>  
-                  <Button onClick={this.toggleAlert} className="btn btn-info">Stay!</Button>     
+                  <Button onClick={(e) => this.leaveLibrary(e)} className="btn btn-danger">Leave!</Button>  
+                  <Button onClick={this.toggleAlertLeaveLibrary} className="btn btn-info">Stay!</Button>     
                 </Alert>
 
             </CardBody>
@@ -133,40 +189,38 @@ export default class LibraryDetail extends Component {
           </div>))}
           <Button outline color="info" size="sm" tag={Nlink} to={`/${this.props.match.params.libraryId}/books`}> See all Books</Button>
           <Button  outline color="info" size="sm" tag={Nlink} to={`/${this.props.match.params.libraryId}/add-book`}> Add new Book</Button>
-          
 
-          <h3>Feed</h3>
-              {/* comments & notifications - NEED TO SEE HOW TO SHOW ONLY A FEW 
-              AND SORT BY RECENT, MAYBE SORT BY TIMESTAMPS AND SHORTEN THE LENGTH ?? */} 
-              {!this.state.book && <div>Loading...</div>}
-        {this.state.book && this.state.book.map(booksFromLibrary => (
-        <div className="activityFeed" key={booksFromLibrary._id}>
-        {this.state.book.status === "Unavailable" && 
-         <Alert color="danger">
-         {booksFromLibrary.name} is now available in the library
-        </Alert>}
+      <div className="memberList">
 
-       {this.state.book.status === "Available" && 
-         <Alert color="primary">
-         {booksFromLibrary.name} was taken from the library by {booksFromLibrary._currentOwner}
-        </Alert>}
-              <Card>
+      <h2>Members</h2>
+      {this.state.allmembers && this.state.allmembers.map((members,i) => (<div key={members._id}>
+           <Card>
             <Row>
               <Col>
-            <CardImg top width="100%" src={booksFromLibrary.picture} alt="Card image cap" />
+                <CardImg top width="100%" src={members._user.picture} alt="Card image cap" />
               </Col>
               <Col>
-            <CardBody>
-              <CardTitle><b>{booksFromLibrary.name}</b></CardTitle>
-              <CardSubtitle>{booksFromLibrary.comments.rating}</CardSubtitle>
-              <CardText>{booksFromLibrary.comments.text}</CardText>
-              <Button outline color="info" size="sm" tag={Nlink}to="/book-detail" className="btn btn-info">See details</Button>
-            </CardBody>
-            </Col>
+                <CardBody>
+                  <CardTitle><b>{members._user.username}</b></CardTitle>
+                  <CardSubtitle></CardSubtitle>
+                  <CardText></CardText>
+                  <Button size="sm" tag={Nlink}to={`/profile/${members._user._id}`} className="btn btn-info">See details</Button>
+                  {this.state.member && this.state.member.role === "admin" && 
+                  <Button size="sm"onClick={() =>this.toggleAlertDeleteMember()} className="btn btn-danger">Delete Member</Button>}
+                   {this.state.showAlertDeleteMember &&
+                   <Alert color="info" isOpen={() =>this.state.showAlertDeleteMember()}>
+                        Are you sure you want to delete this member? <br />
+                      <Button size="sm" onClick={(e) => this.deleteMember(e, members._id)} className="btn btn-danger">Delete!</Button>  
+                      <Button size="sm" onClick={this.toggleAlertDeleteMember} className="btn btn-info">No!</Button>     
+                    </Alert>}
+                  
+                </CardBody>
+              </Col>
             </Row>
           </Card>
-        </div>))
-      }
+        </div>))}
+        </div>
+
       </div>
     );
   }
@@ -177,14 +231,17 @@ export default class LibraryDetail extends Component {
            library: response.library,
            book: response.book,
          })
-         api.getMember(this.props.match.params.libraryId)
-           .then(memberInfo => {
+         Promise.all([
+          api.getMember(this.props.match.params.libraryId),
+          api.getAllMember(this.props.match.params.libraryId)
+        ]).then(([memberInfo,allmembers]) => {
              this.setState({
-               member: memberInfo[0]
+               member: memberInfo[0],
+               allmembers: allmembers
           })
-          
+          console.log("THIS IS THE LOGGED MEMBER:", this.state.member)
+          console.log('THERE ARE THE MEMBERS-------->',this.state.allmembers)
         })     
-
       })
     .catch(err => console.log(err))      
   }

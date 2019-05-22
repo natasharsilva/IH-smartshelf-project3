@@ -42,7 +42,8 @@ export default class AddLibrary extends Component {
       uploadData.append("name", this.state.name)
       uploadData.append("picture", this.state.picture)
       uploadData.append("address", this.state.place.place_name)
-      uploadData.append("coordinates", this.state.place.center)
+      uploadData.append("coordinates_lng", this.state.place.center[0])
+      uploadData.append("coordinates_lat", this.state.place.center[1])
       uploadData.append("description", this.state.description)
   
       api.createLibrary(uploadData)
