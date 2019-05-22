@@ -21,11 +21,14 @@ export default class BookDetail extends Component {
         book: null
       }
     };
+
+    this.calculateDueDate = this.calculateDueDate.bind(this);
+    this.untilDueDate = this.untilDueDate.bind(this);
   }
 
   borrowBook(event) {
     event.preventDefault();
-    console.log("THIS IS THE ID OOOOK", this.props.match.params.bookId);
+    console.log("THIS IS THE ID LOOOOK", this.props.match.params.bookId);
     api
       .updateBook(this.props.match.params.bookId, {
         title: this.state.book.title,
@@ -37,18 +40,52 @@ export default class BookDetail extends Component {
         pages: this.state.book.pages,
         language: this.state.book.language,
         _currentOwner: this.state.user,
+        borrowedDate:Date.now(),
         status: "Unavailable"
       })
       .then(result => {
         console.log("DID IT WORK???", result);
         this.setState({
           book: result.response,
-          message: `You borrowed '${this.state.book.title}'`
+          message: `You borrowed '${this.state.book.title}'. You have ${this.untilDueDate()} days to give it back`
         });
       });
   }
 
+  calculateDueDate(){
+    if(this.state.book)
+      {
+    let borrowedDate = this.state.book.borrowedDate ;
+    let deadlineDays=30 ;
+      var result = new Date(borrowedDate);
+      result.setDate(result.getDate() + deadlineDays);
+          return result;} else{
+      return 0
+    }
+  }
+
+  untilDueDate(){ //currentDate as parameter?
+    if(this.state.book)
+      {
+     let dueDate = this.calculateDueDate();
+     let currentDate = Date.now();
+     var oneDay = 1000 * 60 * 60 * 24;
+
+     let dueDateMS = dueDate.getTime();
+     let currentDateMS = currentDate;
+
+     let diffMS = Math.abs(currentDateMS-dueDateMS);
+
+     return Math.round(diffMS/oneDay)
+      } else {return 0}
+  }
+
   render() {
+
+    console.log(this.state.book)
+    console.log('calculateDueDate ---->',this.calculateDueDate())
+    console.log('untilDueDate ---->',this.untilDueDate())      
+
     return (
       <div>
         {!this.state.book && <div>Loading...</div>}
@@ -119,6 +156,7 @@ export default class BookDetail extends Component {
     );
   }
   componentDidMount() {
+    
     api
       .getBook(this.props.match.params.bookId)
       .then(response => {
