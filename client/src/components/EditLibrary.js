@@ -21,7 +21,11 @@ export default class EditLibrary extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleFileChange = this.handleFileChange.bind(this)
+    this.handleSelect = this.handleSelect.bind(this)
 
+  }
+  handleSelect(place) {
+    this.setState({ place })
   }
   handleInputChange(event) {
     this.setState({
@@ -38,7 +42,7 @@ export default class EditLibrary extends React.Component {
   handleFormSubmit(e) {
     let uploadData = new FormData()
       uploadData.append("name", this.state.name)
-      uploadData.append("address", this.state.address)
+      uploadData.append("address", this.state.place.place_name)
       uploadData.append("picture", this.state.picture)
       uploadData.append("coordinates_lng", this.state.place.center[0])
       uploadData.append("coordinates_lat", this.state.place.center[1])
