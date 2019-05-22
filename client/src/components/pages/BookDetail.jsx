@@ -81,11 +81,6 @@ export default class BookDetail extends Component {
   }
 
   render() {
-
-    console.log(this.state.book)
-    console.log('calculateDueDate ---->',this.calculateDueDate())
-    console.log('untilDueDate ---->',this.untilDueDate())      
-
     return (
       <div>
         {!this.state.book && <div>Loading...</div>}

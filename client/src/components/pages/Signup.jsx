@@ -48,6 +48,7 @@ export default class Signup extends Component {
           <input type="password" value={this.state.password} name="password" onChange={this.handleInputChange} /> <br /><br />
           <Button tag="a" outline color="info" onClick={(e) => this.handleClick(e)}>Sign up</Button>
         </form>
+        <p>Already have an account? <a href="/login">Login</a></p>
         {this.state.message && <div className="info info-danger">
           {this.state.message}
         </div>}
