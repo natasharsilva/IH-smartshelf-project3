@@ -55,7 +55,7 @@ export default class LibraryBooks extends Component {
               /><br />
               Filter by book title
             </p>
-            <Button href={`/${this.state.library}/add-book`} color="primary">Add book</Button>
+            <Button href={`/${this.state.library._id}/add-book`} color="primary">Add book</Button>
             <br /><br />
             {/* <h3>{this.state.boo}</h3> */}
             <ul>
