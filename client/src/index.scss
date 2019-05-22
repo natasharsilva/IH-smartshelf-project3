@@ -39,6 +39,8 @@ body {
 .App {
   text-align: center;
   font-family: $primary-font;
+  display:flex;
+  flex-direction: column;
  
 
   .App-logo {
@@ -110,6 +112,7 @@ body {
 
     .icon{
       padding-bottom:15px;
+      color:white;
     }
 
     .home-header{
@@ -137,9 +140,7 @@ body {
       color:$secondary;
     }
 }
-// .Navbar{
-//   background-color:$secondary;
-// }
+
 
 .AddLibrary,.AddBook{
   display:flex;
@@ -200,6 +201,8 @@ body {
 // Style for Profile Page component
 
 .profilePage {
+  background-color: $secondary;
+  padding: 0 20px;
   div {
     display: flex;
     flex-direction: column;
@@ -216,29 +219,39 @@ body {
     margin-top: 5px;
   }
 
-  .infoContainer {
-    margin-top: 10px;
-  }
-
-  .infoContainer img {
-    height: 120px;
-  }
+  
 
   .userContainer {
     display: flex;
     justify-content: space-evenly;
   }
 
-  .userContainer img {
-    height: 150px;
-    width: 150px;
-    margin-bottom: 10px;
+  .userPic img{
+    height: 120px;
+    width: 120px;
+    margin: 20px;
     object-fit: cover;
     border-radius: 100px;
+    height: 120px;
   }
 
-  .userName {
-    font-size: 2.5em;
+  .userName, .libraryName, .bookName {
+    font-size: 1.6em;
+    color:rgb(100, 100, 100);
+    font-weight: bold;
+  }
+
+  .libraryName, .bookName {
+    color:$secondary;
+  }
+
+  .infoContainer {
+    margin-top: 10px;
+    // border:3px solid orange;
+  }
+
+  .infoContainer img {
+    height: 120px;
   }
 
   .library-cover{
@@ -251,6 +264,7 @@ body {
     font-size:18px;
     text-align: center;
     padding:0px;
+    border-radius:10px;
   }
   .container-opacity{
     width:100%;
@@ -259,13 +273,14 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius:10px;
   }
 
   .container-opacity a{
     text-decoration: none;
     color:white;
   }
-  .add-library-button, .find-libraries-button{
+  .add-library-button, .find-libraries-button,.return-book-button{
     border-radius:50px;
       margin: 15px auto;
       background-color:$primary;
@@ -274,9 +289,19 @@ body {
       padding:6px;
       width:100%;
       display:inline-block;}
+
+  .return-book-button{
+    border-radius:50px;
+      margin: 0;
+      background-color:$primary;
+      border:0;
+      color:$secondary;
+      padding:3px;
+      width:150px;
+      display:inline-block;}
       
 
-  .add-library-button:hover, .find-libraries-button:hover{
+  .add-library-button:hover, .find-libraries-button:hover,.return-book-button:hover{
       background-color:$primary;
       background-color:rgb(207, 168, 9);
       border:0;
@@ -358,4 +383,16 @@ body {
 
 .AutocompletePlace-items:hover {
   background-color: #0000FF11;
+}
+
+.main{
+  flex-grow: 1;
+}
+
+.Footer{
+  flex-shrink: 0;
+  background-color: $primary;
+  color:$secondary;
+  padding:3px 0;
+
 }
