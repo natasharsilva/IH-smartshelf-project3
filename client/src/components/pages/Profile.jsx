@@ -241,13 +241,14 @@ export default class Profile extends Component {
               </Card>
             </CardDeck>
             <ButtonGroup vertical>
-              <Button href="/" outline color="info">
+              <Button href="/" outline color="warning">
                 Home
               </Button>
-              <Button href="/logout" outline color="info">
+              <Button href="/logout" outline color="warning">
                 Logout
               </Button>
             </ButtonGroup>
+            <br />
 
           </div>
         )}
