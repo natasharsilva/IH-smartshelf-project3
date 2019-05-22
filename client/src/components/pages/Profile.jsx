@@ -94,151 +94,154 @@ export default class Profile extends Component {
         {this.state.profileInfo && (
           <div>
           <span className="userPic">
-                      <img src={this.state.profileInfo.user.picture} alt="" />
-                      <br />
+            <img src={this.state.profileInfo.user.picture} alt="" />
+            <br />
+          </span>
+        <CardDeck>
+          <Card>
+            <CardBody>
+              <CardText className="userContainer">
+                <span>
+                  <span className="userName">
+                    {this.state.profileInfo.user.username[0].toUpperCase() +
+                      this.state.profileInfo.user.username.substr(1)}
+                  </span>
+                  <br />
+                  {this.state.profileInfo.user.favoriteQuote && (
+                    <em>"{this.state.profileInfo.user.favoriteQuote}"</em>
+                  )}<br/><br />
+                  {this.state.profileInfo.user.favoriteBooks && (
+                    <span><strong>Favorite book</strong><br/>{this.state.profileInfo.user.favoriteBooks}</span>
+                  )}
+                </span>
+              </CardText>
+            </CardBody>
+            <EditProfile updateProfile={this.updateProfile} />
+          </Card>
+          <Card>
+            <CardBody>
+              <CardTitle tag="h3" className="libraryName">My Libraries</CardTitle>
+              <div className="infoContainer">
+                {this.state.profileInfo.members.length < 1 && (
+                  <span>
+                    You are not part of any libraries yet!
+                    <br /> Create one or find libraries near you
+                  </span>
+                )}
+                {this.state.profileInfo.members.length > 0 &&
+                  this.state.profileInfo.members.map(library => (
+                    <li key={library._library._id}>
+                    <Link to={`/libraries/${library._library._id}`}>
                       
-                    </span>
-            <CardDeck>
-              <Card>
-                <CardBody>
-                  <CardText className="userContainer">
-                    
-                    <span>
-                      <span className="userName">
-                        {this.state.profileInfo.user.username[0].toUpperCase() +
-                          this.state.profileInfo.user.username.substr(1)}
-                      </span>
-                      <br />
-                      {this.state.profileInfo.user.favoriteQuote && (
-                        <em>"{this.state.profileInfo.user.favoriteQuote}"</em>
-                      )}<br/><br />
-                      {this.state.profileInfo.user.favoriteBooks && (
-                        <span><strong>Favorite book</strong><br/>{this.state.profileInfo.user.favoriteBooks}</span>
-                      )}
-                    </span>
-                  </CardText>
-                </CardBody>
-                <EditProfile updateProfile={this.updateProfile} />
-              </Card>
-              <Card>
-                <CardBody>
-                  <CardTitle tag="h3" className="libraryName">My Libraries</CardTitle>
-                  <div className="infoContainer">
-                    {this.state.profileInfo.members.length < 1 && (
-                      <span>
-                        You are not part of any libraries yet!
-                        <br /> Create one or find libraries near you
-                      </span>
-                    )}
-                    {this.state.profileInfo.members.length > 0 &&
-                      this.state.profileInfo.members.map(library => (
-                        <li key={library._library._id}>
-                        <Link to={`/libraries/${library._library._id}`}>
-                          
-                        <div className="library-cover"
-                          style={{background: `url("${library._library.picture}") no-repeat center`,backgroundSize:'cover'}}>
-                          <div className="container-opacity" style={{backgroundColor: 'black',backgroundSize:'100%',opacity:'0.5',zIndex: '2'}}>
-                          {/* <img src={library._library.picture} alt="" style={{opacity: '0.7'}} /> */}
-                          <div style={{color:'white'}}>
-                            {library._library.name}
-                            </div>
-                          </div>
-                          </div></Link>
-                          
-                        </li>
-                      ))}
-                  </div>
-                  {this.state.profileInfo.members.length > 2 && (
-                    <Button
-                      onClick={this.showMore}
-                      outline
-                      color="info"
-                      size="sm"
-                    >
-                      {this.state.expanded ? (
-                        <span>Show less</span>
-                      ) : (
-                        <span>Show more</span>
-                      )}
-                    </Button>
+                    <div className="library-cover"
+                      style={{background: `url("${library._library.picture}") no-repeat center`,backgroundSize:'cover'}}>
+                      <div className="container-opacity" style={{backgroundColor: 'black',backgroundSize:'100%',opacity:'0.5',zIndex: '2'}}>
+                      {/* <img src={library._library.picture} alt="" style={{opacity: '0.7'}} /> */}
+                      <div style={{color:'white'}}>
+                        {library._library.name}
+                        </div>
+                      </div>
+                      </div></Link>
+                      
+                    </li>
+                  ))}
+              </div>
+              {this.state.profileInfo.members.length > 2 && (
+                <Button
+                  onClick={this.showMore}
+                  outline
+                  color="info"
+                  size="sm"
+                >
+                  {this.state.expanded ? (
+                    <span>Show less</span>
+                  ) : (
+                    <span>Show more</span>
                   )}
+                </Button>
+              )}
 
-                  <Container>
-                  <Row style={{flexDirection:'row'}}>
-                    <Col >
-                      <Button className="add-library-button btn" href="/add-library">
-                      <FontAwesomeIcon icon={faPlus} size="1x" className="icon"/> Add library
-                      </Button>
+              <Container>
+              <Row style={{flexDirection:'row'}}>
+                <Col >
+                  <Button className="add-library-button btn" href="/add-library">
+                  <FontAwesomeIcon icon={faPlus} size="1x" className="icon"/> Add library
+                  </Button>
+                  </Col>
+                  <Col >
+                  <Button  className="find-libraries-button btn" href="/find-libraries"  >
+                  <FontAwesomeIcon icon={faSearchLocation} size="1x" className="icon"/> Find libraries
+                  </Button>
+                </Col>
+              </Row>
+              </Container>
+            </CardBody>
+          </Card>
+          
+          <Card>
+            <CardBody>
+              <CardTitle tag="h3" className="bookName">Books I borrowed</CardTitle>
+              <CardText className="infoContainer">
+                {this.state.profileInfo.books.length < 1 && (
+                  <span>
+                    You haven't borrowed books yet!
+                    <br /> Check your libraries to start reading
+                  </span>
+                )}
+                {this.state.profileInfo.books.length > 0 &&
+                  this.state.profileInfo.books.map(book => (
+                    <li key={book._id}>
+                    <Container><Row>
+                    <Col xs="3">
+                      <img src={book.picture} alt="" />
                       </Col>
-                      <Col >
-                      <Button  className="find-libraries-button btn" href="/find-libraries"  >
-                      <FontAwesomeIcon icon={faSearchLocation} size="1x" className="icon"/> Find libraries
-                      </Button>
-                    </Col>
-                  </Row>
-                  </Container>
-                </CardBody>
-              </Card>
-              
-              <Card>
-                <CardBody>
-                  <CardTitle tag="h3" className="bookName">Books I borrowed</CardTitle>
-                  <CardText className="infoContainer">
-                    {this.state.profileInfo.books.length < 1 && (
+                      <Col xs="9">
                       <span>
-                        You haven't borrowed books yet!
-                        <br /> Check your libraries to start reading
-                      </span>
-                    )}
-                    {this.state.profileInfo.books.length > 0 &&
-                      this.state.profileInfo.books.map(book => (
-                        <li key={book._id}>
-                          <img src={book.picture} alt="" />
-                          <span>
-                            <strong>Title: </strong>
-                            {book.title}
-                            <br />
-                            <strong>Author: </strong>
-                            {book.author}
-                            <br />
+                        <strong>Title: </strong>
+                        {book.title}
+                        <br />
+                        <strong>Author: </strong>
+                        {book.author}
+                        <br />
 
-    {  !(Number(this.untilDueDate(book.borrowedDate)) < 1) ? 
-        <div><strong>Days Left: </strong> {this.untilDueDate(book.borrowedDate)}</div> :
-                    <div className="alert alert-danger">
-                      You reached you deadline! Return the book. <strong>You're{' '}  
-                      {Math.abs(Number(this.untilDueDate(book.borrowedDate)))} 
-                      {' '} days overdue</strong></div>}
-
-                              <br /> 
-                            <Button
-                              onClick={e => this.returnBook(e, book)}
-                              key={book._id}
-                              outline
-                              className="return-book-button"
-                            >
-                              Return to library
-                            </Button>
+            {  !(Number(this.untilDueDate(book.borrowedDate)) < 1) ? 
+                <div><strong>Days Left: </strong> {this.untilDueDate(book.borrowedDate)}</div> :
+                            <div className="alert alert-danger small">
+                  You reached you deadline! Return the book. <strong>You're{' '}  
+                  {Math.abs(Number(this.untilDueDate(book.borrowedDate)))} 
+                  {' '} days overdue</strong></div>}
                           </span>
-                        </li>
-                      ))}
-                  </CardText>
-                  {this.state.profileInfo.members.length > 2 && (
-                    <Button
-                      onClick={this.showMore}
-                      outline
-                      color="info"
-                      size="sm"
-                    >
-                      {this.state.expanded ? (
-                        <span>Show less</span>
-                      ) : (
-                        <span>Show more</span>
-                      )}
-                    </Button>
+                          </Col>
+                        </Row></Container>
+                        <Button
+                          onClick={e => this.returnBook(e, book)}
+                          key={book._id}
+                          outline
+                          className="return-book-button"
+                        >
+                          Return Book to library
+                        </Button>
+                      
+                    </li>
+                  ))}
+              </CardText>
+              {this.state.profileInfo.members.length > 2 && (
+                <Button
+                  onClick={this.showMore}
+                  outline
+                  color="info"
+                  size="sm"
+                >
+                  {this.state.expanded ? (
+                    <span>Show less</span>
+                  ) : (
+                    <span>Show more</span>
                   )}
-                </CardBody>
-              </Card>
-            </CardDeck>
+                </Button>
+              )}
+            </CardBody>
+          </Card>
+        </CardDeck>
             <ButtonGroup vertical>
               <Button href="/" outline color="warning">
                 Home
