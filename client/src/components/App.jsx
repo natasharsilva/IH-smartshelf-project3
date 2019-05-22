@@ -7,6 +7,7 @@ import AddLibrary from './pages/AddLibrary.jsx';
 import AddBook from './pages/AddBook.jsx';
 import BookDetail from './pages/BookDetail';
 import NavBar from './NavBar';
+import Footer from './Footer';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Map from './pages/Map.js';
@@ -14,6 +15,7 @@ import api from '../api';
 import Profile from './pages/Profile';
 import ReportProblem from './pages/ReportProblem';
 import SendInvitation from './pages/SendInvitation';
+import AddReview from './pages/AddReview';
 
 export default class App extends Component {
 
@@ -23,24 +25,28 @@ export default class App extends Component {
   render() {
     return (
       <div className="App">
-      <NavBar />
+      <NavBar className="NavBar"/>
+      <div className="main">
         <Switch>
           <Route path="/" exact component={Home} />
           {api.isLoggedIn() ? <Route path="/profile" component={Profile} /> : <Route path="/profile" component={Login} />}
-         {api.isLoggedIn() && <Route path="/add-library" component={AddLibrary} />}
+         {api.isLoggedIn() ? <Route path="/add-library" component={AddLibrary} /> : <Route path="/add-library" component={Login} />}
           <Route path="/libraries/:libraryId" component={LibraryDetail} />
-          <Route path="/:libraryId/books" component={LibraryBooks} />
-          {api.isLoggedIn() && <Route path="/:libraryId/add-book" component={AddBook} />}
-          <Route path="/book-detail/:bookId" component={BookDetail} />
+          {api.isLoggedIn() ? <Route path="/:libraryId/books" component={LibraryBooks} /> : <Route path="/:libraryId/books" component={Login} />}
+          {api.isLoggedIn() ? <Route path="/:libraryId/add-book" component={AddBook} /> : <Route path="/:libraryId/add-book" component={Login} />}
+          {api.isLoggedIn() ? <Route path="/book-detail/:bookId" exact component={BookDetail} />: <Route path="/book-detail/:bookId" exact component={Login} />}
+          {api.isLoggedIn() ? <Route path="/book-detail/:bookId/add-review" component={AddReview}/> : <Route path="/book-detail/:bookId/add-review" component={Login} />}
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
           <Route path="/find-libraries" component={Map} />
-          <Route path="/report-problem/:libraryId" component={ReportProblem} 
-          />
-          <Route path="/send-invitation/:libraryId" component={SendInvitation}/>
+          {api.isLoggedIn() ? <Route path="/report-problem/:libraryId" component={ReportProblem}/> : <Route path="/report-problem/:libraryId" component={Login} />}
+          {api.isLoggedIn() ? <Route path="/send-invitation/:libraryId" component={SendInvitation}/> : <Route path="/send-invitation/:libraryId" component={Login}/>}
+          
 
           <Route render={() => <h2>404</h2>} />
         </Switch>
+        </div>
+        <Footer />
       </div>
     );
   }

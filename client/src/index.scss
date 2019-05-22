@@ -1,17 +1,15 @@
-
-
 // #FFCC05 -> Yellow
 // #662D91 -> Purple
 
-@import '../node_modules/bootstrap/scss/bootstrap.scss';
-@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+@import url("https://fonts.googleapis.com/css?family=Muli&display=swap");
 // --------------------
 // Definition of variables
 
-$primary: #FFCC05;
-$secondary: #662D91;
+$primary: #ffcc05;
+$secondary: #662d91;
 $danger: #9024bb;
-$primary-font: 'Muli', sans-serif;
+$primary-font: "Muli", sans-serif;
 
 // --------------------
 // Style reusable for all components
@@ -39,7 +37,8 @@ body {
 .App {
   text-align: center;
   font-family: $primary-font;
- 
+  display: flex;
+  flex-direction: column;
 
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -84,47 +83,47 @@ body {
 // --------------------
 // Style for Home component
 .Home {
-  display:flex;
+  display: flex;
   flex-direction: column;
   // padding:20px;
   background-color: $secondary;
-  color:white;
-  margin:0;
+  color: white;
+  margin: 0;
   font-family: $primary-font;
 
-    p {
-      font-size: 1.2em;
-    }
+  p {
+    font-size: 1.2em;
+  }
 
-    img {
-      width:70%;
-      max-width:400px;
-      min-width:250px;
-      padding:30px;
-    }
+  img {
+    width: 70%;
+    max-width: 400px;
+    min-width: 250px;
+    padding: 30px;
+  }
 
-    .features {
-      padding:5px;
-      margin:5px;
-    }
+  .features {
+    padding: 5px;
+    margin: 5px;
+  }
 
-    .icon{
-      padding-bottom:15px;
-    }
+  .icon {
+    padding-bottom: 15px;
+    color: white;
+  }
 
-    .home-header{
-      padding-top: 10px;
-      padding-bottom:30px;
-    }
-    .button-home{
-      width:70%;
-      border-radius:50px;
-      margin: auto auto;
-      background-color:$primary;
-      border:0;
-      color:$secondary;
-    }
-
+  .home-header {
+    padding-top: 10px;
+    padding-bottom: 30px;
+  }
+  .button-home {
+    width: 70%;
+    border-radius: 50px;
+    margin: auto auto;
+    background-color: $primary;
+    border: 0;
+    color: $secondary;
+  }
     .button-home:hover{
       background-color:rgb(207, 168, 9);
       border:0;
@@ -135,27 +134,38 @@ body {
       background-color:$primary;
       padding:30px;
       color:$secondary;
+      
+      .icon{
+        color:$secondary;
+      }
     }
 }
-// .Navbar{
-//   background-color:$secondary;
-// }
 
-.AddLibrary,.AddBook{
-  display:flex;
-  flex-direction: column;
-  align-items: center;
-  
-  form{
-    width:70%;
-    max-width:500px;}
-  
-  h2{
-    padding:10px;
+
+  .home-location {
+    background-color: $primary;
+    padding: 30px;
+    color: $secondary;
   }
 
-  .modal-body{
-    display:flex;
+
+.AddLibrary,
+.AddBook {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  form {
+    width: 70%;
+    max-width: 500px;
+  }
+
+  h2 {
+    padding: 10px;
+  }
+
+  .modal-body {
+    display: flex;
     justify-content: center;
     text-align: center;
   }
@@ -173,33 +183,34 @@ body {
 // --------------------
 // Style for Login and Sign Up components
 
-.Login,.Signup {
-
-  display:flex;
+.Login,
+.Signup {
+  display: flex;
   flex-direction: column;
   justify-items: center;
   align-items: center;
-  
-    .container{
-      display:flex;
-      justify-items: center;
-      align-items: center;
-      flex-direction: column;
+
+  .container {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    flex-direction: column;
   }
-    input {
+  input {
     margin-top: 5px;
-    }
+  }
 
-    h2 {
+  h2 {
     margin-top: 5px;
-    }
+  }
 }
-
 
 // --------------------
 // Style for Profile Page component
 
 .profilePage {
+  background-color: $secondary;
+  padding: 0 20px;
   div {
     display: flex;
     flex-direction: column;
@@ -216,90 +227,136 @@ body {
     margin-top: 5px;
   }
 
+  .userContainer {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .userPic img {
+    height: 120px;
+    width: 120px;
+    margin: 20px;
+    object-fit: cover;
+    border-radius: 100px;
+    height: 120px;
+  }
+
+  .userName,
+  .libraryName,
+  .bookName {
+    font-size: 1.6em;
+    color: rgb(100, 100, 100);
+    font-weight: bold;
+  }
+
+  .libraryName,
+  .bookName {
+    color: $secondary;
+  }
+
   .infoContainer {
     margin-top: 10px;
+    // border:3px solid orange;
   }
 
   .infoContainer img {
     height: 120px;
   }
 
-  .userContainer {
-    display: flex;
-    justify-content: space-evenly;
-  }
-
-  .userContainer img {
-    height: 150px;
-    width: 150px;
-    margin-bottom: 10px;
-    object-fit: cover;
-    border-radius: 100px;
-  }
-
-  .userName {
-    font-size: 2.5em;
-  }
-
-  .library-cover{
-    width:300px;
-    height:100px;
+  .library-cover {
+    width: 300px;
+    height: 100px;
     // object-fit:cover;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size:18px;
+    font-size: 18px;
     text-align: center;
-    padding:0px;
+    padding: 0px;
+    border-radius: 10px;
   }
-  .container-opacity{
-    width:100%;
-    height:100%;
-    margin:0;
+  .container-opacity {
+    width: 100%;
+    height: 100%;
+    margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 10px;
   }
 
-  .container-opacity a{
+  .container-opacity a {
     text-decoration: none;
-    color:white;
+    color: white;
   }
-  .add-library-button, .find-libraries-button{
-    border-radius:50px;
-      margin: 15px auto;
-      background-color:$primary;
-      border:0;
-      color:$secondary;
-      padding:6px;
-      width:100%;
-      display:inline-block;}
-      
-
-  .add-library-button:hover, .find-libraries-button:hover{
-      background-color:$primary;
-      background-color:rgb(207, 168, 9);
-      border:0;
-      color:$secondary;
+  .add-library-button,
+  .find-libraries-button,
+  .return-book-button {
+    border-radius: 50px;
+    margin: 15px auto;
+    background-color: $primary;
+    border: 0;
+    color: $secondary;
+    padding: 6px;
+    width: 100%;
+    display: inline-block;
   }
 
+  .return-book-button {
+    border-radius: 50px;
+    margin: 0;
+    background-color: $primary;
+    border: 0;
+    color: $secondary;
+    padding: 3px;
+    width: 150px;
+    display: inline-block;
+  }
+
+  .add-library-button:hover,
+  .find-libraries-button:hover,
+  .return-book-button:hover,
+  .confirm-profile-button:hover {
+    background-color: $primary;
+    background-color: rgb(207, 168, 9);
+    border: 0;
+    color: $secondary;
+  }
 }
 
-.editForm{
-  .edit-button{
-    display:block;
-    text-align:right;
-    padding:5px;
+.editForm {
+  .edit-button {
+    // display:block;
+    text-align: right;
+    padding: 5px;
+    font-size: 22px;
     // cursor: pointer;
-    color:$primary;
+    color: $secondary;
   }
-  .icon{
+  .icon {
     cursor: pointer;
+  }
+  .form-container {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+  }
+
+  .confirm-profile-button {
+    border-radius: 50px;
+    margin: 10px;
+    background-color: $primary;
+    border: 2px solid $primary;
+    color: $secondary;
+    padding: 3px;
+    width: 150px;
+    display: inline-block;
   }
 }
 
 .bookCard {
-  
   img {
     width: 70%;
   }
@@ -309,34 +366,33 @@ body {
   }
 }
 
-.LibraryBooks{
+.LibraryBooks {
   li {
-    list-style:none;
-    padding:0;
-    margin:0;
+    list-style: none;
+    padding: 0;
+    margin: 0;
   }
-  .CardMain{
-    display:flex;
+  .CardMain {
+    display: flex;
     flex-direction: column;
     justify-content: center;
 
     img {
-      width:15%;
-      min-width:110px;
+      width: 15%;
+      min-width: 110px;
       object-fit: cover;
-      border-radius:none;
-
+      border-radius: none;
     }
   }
 }
 
 .mapbox {
-  display:flex;
+  display: flex;
   min-width: 100%;
   text-align: left;
 }
 
-//autocomplete geocoder 
+//autocomplete geocoder
 .AutocompletePlace {
   position: relative;
 }
@@ -357,5 +413,23 @@ body {
 }
 
 .AutocompletePlace-items:hover {
-  background-color: #0000FF11;
+  background-color: #0000ff11;
+}
+
+.main {
+  flex-grow: 1;
+}
+
+.Footer {
+  flex-shrink: 0;
+  background-color: $primary;
+  color: $secondary;
+  padding: 3px 0;
+}
+
+.reviewContainer {
+  li {
+    list-style: none;
+    text-align: left;
+  }
 }

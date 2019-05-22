@@ -25,7 +25,7 @@ export default class Login extends Component {
     api.login(this.state.email, this.state.password)
       .then(result => {
         console.log('SUCCESS!')
-        this.props.history.push("/") // Redirect to the home page
+        this.props.history.push("/profile") // Redirect to the home page
       })
       .catch(err => this.setState({ message: err.toString() }))
   }
@@ -43,6 +43,7 @@ export default class Login extends Component {
           <br /><br />
           <Button tag="a" outline color="info" onClick={(e) => this.handleClick(e)}>Login</Button>
         </Form>
+        <p>Don't have an account yet? <a href="/signup">Sign up</a></p>
         {this.state.message && <div className="info info-danger">
           {this.state.message}
         </div>}

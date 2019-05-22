@@ -62,12 +62,6 @@ export default class Profile extends Component {
       let deadlineDays=30 ;
       var result = new Date(borrowedDate);
       result.setDate(result.getDate() + deadlineDays);
-      console.log("####")
-      console.log("this.state.profileInfo.books", this.state.profileInfo.books)
-      console.log("borrowedDate", borrowedDate)
-      console.log("deadlineDays", deadlineDays)
-      console.log("result", result)
-      console.log("####")
       return result;
     } 
     else{
@@ -87,40 +81,28 @@ export default class Profile extends Component {
 
      let diffMS = dueDateMS-currentDateMS;
 
-     console.log("-----")
-     console.log("this.calculateDueDate()", this.calculateDueDate())
-     console.log("currentDateMS", currentDateMS)
-     console.log("dueDate", dueDate)
-     console.log("dueDateMS", dueDateMS)
-     console.log("diffMS", diffMS)
-     console.log("oneDay", oneDay)
-
      return Math.round(diffMS/oneDay)
       } else {return 30}
   }
 
   render() {
-    // let showDuedate = 
-    // if(Number(this.untilDueDate(book.borrowedDate)) <= 1){
-    // showDuedate = <strong>Days Left: </strong> {this.untilDueDate(book.borrowedDate)
-    // }
-    //   else {
-    // showDuedate = <div className="alert danger"><strong>Days Left: </strong>{this.untilDueDate(book.borrowedDate)}</div>
+    
   
     return (
       <div className="profilePage">
         {!this.state.profileInfo && <div>Loading...</div>}
         {this.state.profileInfo && (
           <div>
-            <CardDeck>
-              <Card>
-                <CardBody>
-                  <CardText className="userContainer">
-                    <span className="userPic">
+          <span className="userPic">
                       <img src={this.state.profileInfo.user.picture} alt="" />
                       <br />
                       
                     </span>
+            <CardDeck>
+              <Card>
+                <CardBody>
+                  <CardText className="userContainer">
+                    
                     <span>
                       <span className="userName">
                         {this.state.profileInfo.user.username[0].toUpperCase() +
@@ -140,7 +122,7 @@ export default class Profile extends Component {
               </Card>
               <Card>
                 <CardBody>
-                  <CardTitle tag="h3">Libraries</CardTitle>
+                  <CardTitle tag="h3" className="libraryName">My Libraries</CardTitle>
                   <div className="infoContainer">
                     {this.state.profileInfo.members.length < 1 && (
                       <span>
@@ -200,7 +182,7 @@ export default class Profile extends Component {
               
               <Card>
                 <CardBody>
-                  <CardTitle tag="h3">Books</CardTitle>
+                  <CardTitle tag="h3" className="bookName">Books I borrowed</CardTitle>
                   <CardText className="infoContainer">
                     {this.state.profileInfo.books.length < 1 && (
                       <span>
@@ -232,8 +214,7 @@ export default class Profile extends Component {
                               onClick={e => this.returnBook(e, book)}
                               key={book._id}
                               outline
-                              color="info"
-                              size="sm"
+                              className="return-book-button"
                             >
                               Return to library
                             </Button>
@@ -259,13 +240,14 @@ export default class Profile extends Component {
               </Card>
             </CardDeck>
             <ButtonGroup vertical>
-              <Button href="/" outline color="info">
+              <Button href="/" outline color="warning">
                 Home
               </Button>
-              <Button href="/logout" outline color="info">
+              <Button href="/logout" outline color="warning">
                 Logout
               </Button>
             </ButtonGroup>
+            <br />
 
           </div>
         )}
