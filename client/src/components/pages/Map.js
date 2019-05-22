@@ -47,6 +47,7 @@ export default class Map extends Component {
             new mapboxgl.Marker({ color: 'yellow' })
             .setLngLat([lng, lat])
             .addTo(this.map)
+            
           }
         }
   getCurrentCoordinates() {

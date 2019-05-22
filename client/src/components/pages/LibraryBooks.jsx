@@ -33,7 +33,7 @@ export default class LibraryBooks extends Component {
       api.getLibrary(this.props.match.params.libraryId)
       .then(response => {
       this.setState({
-        message: `Your book was deleted succesfully`,
+        message: `Your book was deleted successfully`,
         library: response.library,
         book: response.book
       })
@@ -49,16 +49,14 @@ export default class LibraryBooks extends Component {
           <div>
             {/* <Button color="primary" href={`/libraries/${this.state.library}`}>Go Back to {this.state.library}</Button> */}
             {/* <h1>{this.state.library}</h1> */}
-            <h2>List of Books / Book Details</h2>
+            <h2>List of Books</h2>
             <p>
               <input type="text" value={this.state.search} onChange={this.changeSearch}
-              />
-              <p>Filter By Book Title</p>
-
+              /><br />
+              Filter by book title
             </p>
-            <Button href={`/${this.state.library}/add-book`} color="primary">ADD BOOK</Button>
-            <br />
-
+            <Button href={`/${this.state.library}/add-book`} color="primary">Add book</Button>
+            <br /><br />
             {/* <h3>{this.state.boo}</h3> */}
             <ul>
               {this.state.book
@@ -79,14 +77,14 @@ export default class LibraryBooks extends Component {
                         </Col>
                     <Col xs="9">
                       <CardBody>
-                        <CardTitle>Title:{bookDetail.title}</CardTitle>
-                        <CardTitle>Author:{bookDetail.author}</CardTitle>
-                        <CardSubtitle>Genre:{bookDetail.genre}</CardSubtitle>
-                        <CardText>{bookDetail.description}</CardText>
+                        <CardTitle>Title: {bookDetail.title}</CardTitle>
+                        <CardTitle>Author: {bookDetail.author}</CardTitle>
+                        <CardSubtitle>Genre: {bookDetail.genre}</CardSubtitle>
+                        <CardText>Description: {bookDetail.description}</CardText>
                         
                         {this.state.role === "admin" && <Button color="danger" onClick={e => this.deleteBook(e,bookDetail)}>Delete Book</Button>}
                         {bookDetail._currentOwner && bookDetail._currentOwner !== "000000000000000000000000" && 
-                        <div><br /><Alert color="warning" >This Book is not available for the moment - It has been borrowed.</Alert></div> }
+                        <div><br /><Alert color="warning" >This book is not available at the moment - It has been borrowed.</Alert></div> }
                       
                       </CardBody>
                      </Col>

@@ -13,7 +13,7 @@ import Map from './pages/Map.js';
 import api from '../api';
 import Profile from './pages/Profile';
 import ReportProblem from './pages/ReportProblem';
-
+import SendInvitation from './pages/SendInvitation';
 
 export default class App extends Component {
 
@@ -35,7 +35,9 @@ export default class App extends Component {
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
           <Route path="/find-libraries" component={Map} />
-          <Route path="/report-problem/:libraryId" component={ReportProblem} />
+          <Route path="/report-problem/:libraryId" component={ReportProblem} 
+          />
+          <Route path="/send-invitation/:libraryId" component={SendInvitation}/>
 
           <Route render={() => <h2>404</h2>} />
         </Switch>

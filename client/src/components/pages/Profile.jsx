@@ -6,8 +6,13 @@ import {
   CardBody,
   CardDeck,
   CardText,
-  CardTitle
+  CardTitle, 
+  Container, 
+  Row, 
+  Col
 } from "reactstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearchLocation,faPlus } from '@fortawesome/free-solid-svg-icons'
 import { Link } from "react-router-dom";
 import api from "../../api";
 import EditProfile from "../EditProfile";
@@ -97,7 +102,7 @@ export default class Profile extends Component {
                           
                         <div className="library-cover"
                           style={{background: `url("${library._library.picture}") no-repeat center`,backgroundSize:'cover'}}>
-                          <div className="container-opacity" style={{backgroundColor: 'black',backgroundSize:'100%',opacity:'0.5'}}>
+                          <div className="container-opacity" style={{backgroundColor: 'black',backgroundSize:'100%',opacity:'0.5',zIndex: '2'}}>
                           {/* <img src={library._library.picture} alt="" style={{opacity: '0.7'}} /> */}
                           <div style={{color:'white'}}>
                             {library._library.name}
@@ -122,14 +127,24 @@ export default class Profile extends Component {
                       )}
                     </Button>
                   )}
-                  <Button href="/add-library" outline color="info" size="sm">
-                    Add library
-                  </Button>
-                  <Button href="/find-libraries" outline color="info" size="sm">
-                    Find libraries
-                  </Button>
+
+                  <Container>
+                  <Row style={{flexDirection:'row'}}>
+                    <Col >
+                      <Button className="add-library-button btn" href="/add-library">
+                      <FontAwesomeIcon icon={faPlus} size="1x" className="icon"/> Add library
+                      </Button>
+                      </Col>
+                      <Col >
+                      <Button  className="find-libraries-button btn" href="/find-libraries"  >
+                      <FontAwesomeIcon icon={faSearchLocation} size="1x" className="icon"/> Find libraries
+                      </Button>
+                    </Col>
+                  </Row>
+                  </Container>
                 </CardBody>
               </Card>
+              
               <Card>
                 <CardBody>
                   <CardTitle tag="h3">Books</CardTitle>
@@ -190,6 +205,7 @@ export default class Profile extends Component {
                 Logout
               </Button>
             </ButtonGroup>
+
           </div>
         )}
       </div>

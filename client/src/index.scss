@@ -2,9 +2,9 @@
 
 // #FFCC05 -> Yellow
 // #662D91 -> Purple
-@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
-@import '../node_modules/bootstrap/scss/bootstrap.scss';
 
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
 // --------------------
 // Definition of variables
 
@@ -25,7 +25,7 @@ body {
   margin: 20px;
   padding: 10px 20px;
   border-radius: 10px;
-  display: inline-block;
+  // display: inline-block;
   background-color: #5776e9;
   color: white;
 }
@@ -38,6 +38,8 @@ body {
 // Style for App component
 .App {
   text-align: center;
+  font-family: $primary-font;
+ 
 
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -88,6 +90,7 @@ body {
   background-color: $secondary;
   color:white;
   margin:0;
+  font-family: $primary-font;
 
     p {
       font-size: 1.2em;
@@ -262,6 +265,27 @@ body {
     text-decoration: none;
     color:white;
   }
+  .add-library-button, .find-libraries-button{
+    border-radius:50px;
+      margin: 15px auto;
+      background-color:$primary;
+      border:0;
+      color:$secondary;
+      padding:6px;
+      width:100%;
+      display:inline-block;}
+      
+
+
+  
+
+  .add-library-button:hover, .find-libraries-button:hover{
+      background-color:$primary;
+      background-color:rgb(207, 168, 9);
+      border:0;
+      color:$secondary;
+  }
+
 }
 
 .bookCard {
