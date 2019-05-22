@@ -22,6 +22,7 @@ router.get("/:bookId", (req, res, next) => {
 // --------- Update Books ------------ Working without picture ****
 
 router.put("/:bookId", uploader.single("picture"), (req, res, next) => {
+  console.log("THIS IS THE REQ.BODYYYY",req.body)
     const {
       title,
       author,

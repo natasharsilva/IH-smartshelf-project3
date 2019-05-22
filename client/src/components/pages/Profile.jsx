@@ -42,18 +42,21 @@ export default class Profile extends Component {
 
   returnBook(e, book) {
     e.preventDefault();
-    api
+    api.getBook(book._id)
+    .then(response => {
+      api
       .updateBook(book._id, {
         status: "Available",
-        _currentOwner: "0".repeat(24)
+        _currentOwner: "0".repeat(24),
+        comments: response.response.comments
       })
       .then(result => {
-        console.log("DID IT WORK???", result);
         this.setState({
           message: `You returned the book`
         });
         this.updateProfile()
       });
+    })
   }
 
   calculateDueDate(borrowedDate){
@@ -86,8 +89,6 @@ export default class Profile extends Component {
   }
 
   render() {
-    
-  
     return (
       <div className="profilePage">
         {!this.state.profileInfo && <div>Loading...</div>}
@@ -259,7 +260,6 @@ export default class Profile extends Component {
   }
 
   componentDidMount() {
-    
     api
       .showProfile()
       .then(response => {
@@ -268,7 +268,5 @@ export default class Profile extends Component {
         });
       })
       .catch(err => console.log(err));
-      
-      
   }
 }

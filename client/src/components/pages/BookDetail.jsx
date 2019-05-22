@@ -41,6 +41,7 @@ export default class BookDetail extends Component {
         language: this.state.book.language,
         _currentOwner: this.state.user,
         borrowedDate: Date.now(),
+        comments: this.state.book.comments,
         status: "Unavailable"
       })
       .then(result => {
