@@ -186,7 +186,8 @@ export default class LibraryDetail extends Component {
 
             </CardBody>
           
-            {this.state.role === "admin" && <EditLibrary updateLibrary={this.updateLibrary} theLibrary={this.state.library} />}
+            {this.state.member && this.state.member.role === "admin" &&  
+            <EditLibrary updateLibrary={this.updateLibrary} theLibrary={this.state.library} />}
           </Card>
         </div>
       }

@@ -11,6 +11,7 @@ import api from "../../api";
 import 'mapbox-gl/dist/mapbox-gl.css' // Import of Mapbox CSS
 
 
+
 mapboxgl.accessToken = "pk.eyJ1IjoiZ3RjYXJtb25hIiwiYSI6ImNqdWwxYzZwOTAzeWE0NGxsbjJ0ZnJ0aDYifQ.GIzsIahO6WNQFMg486tFkA"
 
 
@@ -54,7 +55,6 @@ export default class Map extends Component {
             .setLngLat([lng, lat])
             .setPopup(popup)
             .addTo(this.map)
-
           }
         }
   getCurrentCoordinates() {
