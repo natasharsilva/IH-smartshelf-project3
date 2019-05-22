@@ -46,7 +46,7 @@ export default class Map extends Component {
         .setHTML(
           `<a href="https://ih-smart-shelf.herokuapp.com/libraries/${this.state.libraries[i]._id}"<b>${this.state.libraries[i].name}</b> <br>
           </a>
-          <Button onClick=${this.redirectToLibrary} />
+
         `)
 
           let lng = this.state.libraries[i].coordinates[0]

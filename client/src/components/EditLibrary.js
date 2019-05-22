@@ -4,6 +4,8 @@ import {
   Input,
 } from "reactstrap";
 import api from "../api";
+import AutocompletePlace from "./AutocompletePlace"
+
 
 export default class EditLibrary extends React.Component {
   constructor(props) {
@@ -38,6 +40,8 @@ export default class EditLibrary extends React.Component {
       uploadData.append("name", this.state.name)
       uploadData.append("address", this.state.address)
       uploadData.append("picture", this.state.picture)
+      uploadData.append("coordinates_lng", this.state.place.center[0])
+      uploadData.append("coordinates_lat", this.state.place.center[1])
       uploadData.append("description", this.state.description)
 
     api.updateLibrary(this.state.libraryId,uploadData)
@@ -75,8 +79,8 @@ export default class EditLibrary extends React.Component {
             <Input type="Name" value={this.state.Name} name="name" onChange={this.handleInputChange}
             />{" "}
             Address:{" "}
-            <Input type="text" value={this.state.address} name="address" onChange={this.handleInputChange}
-            />{" "}
+            <AutocompletePlace onSelect={this.handleSelect} />
+            {" "}
             Picture:{" "}
             <Input type="file" name="picture" onChange={this.handleFileChange}
             />{" "}

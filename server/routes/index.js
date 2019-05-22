@@ -24,11 +24,7 @@ router.get("/profile", isLoggedIn, (req, res, next) => {
   });
 });
 
-router.put(
-  "/profile",
-  isLoggedIn,
-  uploader.single("picture"),
-  (req, res, next) => {
+router.put("/profile",isLoggedIn,uploader.single("picture"),(req, res, next) => {
     const { username, phoneNumber, favoriteBooks, favoriteQuote } = req.body;
 
     let updatedData = {

@@ -27,20 +27,23 @@ router.get("/:libraryId", (req, res, next) => {
 
 // ---------Update Libraries ------------
 router.put("/:libraryId", isLoggedIn, uploader.single('picture'), (req, res, next) => {
-  Library.findOneAndUpdate({_id: req.params.libraryId},{
-    name: req.body.name,
-    picture: req.file && req.file.secure_url,  
-    address: req.body.address,
-    description: req.body.description,
-    coordinates: req.body.coordinates,
+  const { name, address, description, coordinates } = req.body;
 
-  }, { new: true })
+  let updatedData = {
+    name,
+    address,
+    description,
+    coordinates
+  };
+  if (req.file) updatedData.picture = req.file.secure_url;
+
+  Library.findOneAndUpdate({_id: req.params.libraryId},updatedData, { new: true })
   .then(response => {
     res.json(response);
   })
   .catch(err => next(err))
 });
-  //
+  
 // -------- GET all libraries to display on the map
 router.get("/", (req, res, next) => {
   Library.find()
