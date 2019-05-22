@@ -91,11 +91,12 @@ export default class AddReview extends Component {
             onChange={this.handleInputChange}
           />{" "}
           <br />
-          Rate this book from 0 to 10{" "}
+          Rate this book from 0 to 5{" "}
           <Input
             type="number"
             min="0"
             max="5"
+            maxlength="1"
             name="rating"
             value={this.state.rating}
             onChange={this.handleInputChange}

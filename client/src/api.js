@@ -195,9 +195,9 @@ export default {
     .then(response => response.data)
     .catch(errHandler)
   },
-  deleteMember(id) {
+  deleteMember(id, libraryId) {
     return service
-      .delete(`/members/${id}`)
+      .delete(`/members/${id}/${libraryId}`)
       .then(response => response.data)
       .catch(errHandler);
   },

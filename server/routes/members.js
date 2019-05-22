@@ -38,24 +38,29 @@ router.post("/", isLoggedIn, (req, res, next) => {
 
 //-------------- Delete a Member-------------- 
 
-router.delete("/:memberId", isLoggedIn, (req,res,next) => {
-  Member.findById(req.params.memberId)
-  .then(member => {
-    if (!member) {
-      next({ status: 400, message: "No member with the id"+req.params.memberId })
-    }
-    // If the connected user is an admin or the member found, delete the member
-    else if (req.user.role === "admin" || member._user.equals(req.user._id)) {
-      Member.findByIdAndDelete(req.params.memberId)
-      .then(() => {
-        res.json({
-          message: "The member with the following id is deleted"+req.params.memberId
+router.delete("/:memberId/:libraryId", isLoggedIn, (req,res,next) => {
+  Member.findOne({_user: req.user._id, _library: req.params.libraryId})
+  .then(loggedInUser => {
+    console.log("IS THIS THE ADMIN??", loggedInUser)
+    Member.findById(req.params.memberId)
+    .then(member => {
+      if (!member) {
+        next({ status: 400, message: "No member with the id"+req.params.memberId })
+      }
+      // If the connected user is an admin or the member found, delete the member
+      else if (loggedInUser.role === "admin" || member._user.equals(req.user._id)) {
+        Member.findByIdAndDelete(req.params.memberId)
+        .then(() => {
+          res.json({
+            message: "The member with the following id is deleted"+req.params.memberId
+          })
         })
-      })
-    }
-    else {
-      next({ status: 403, message: "You cannot delete the member with the id "+req.params.memberId })
-    }
+      }
+      else {
+        next({ status: 403, message: "You cannot delete the member with the id "+req.params.memberId })
+      }
+    })
+
   })
 })
  
