@@ -320,7 +320,10 @@ body {
   .add-library-button:hover,
   .find-libraries-button:hover,
   .return-book-button:hover,
-  .confirm-profile-button:hover {
+  .confirm-profile-button:hover, 
+  .send-invitation-btn:hover,
+  .delete-libr-btn:hover
+    {
     background-color: $primary;
     background-color: rgb(207, 168, 9);
     border: 0;
@@ -402,14 +405,31 @@ body {
 }
 
 .LibraryDetail{
+  margin:0px;
+  padding:10px;
+  background-color: $secondary;
+
   .library-pic {
     width: 60%;
-    margin:auto;
+    margin:20px auto;
     min-width: 110px;
     max-width:200px;
     object-fit: cover;
     border-radius: 10px;
     
+  }
+
+  .card{
+    width:90%;
+    margin:auto;
+  }
+
+  h3{
+    margin:20px;
+    font-size: 1.6em;
+    color: white;
+    font-weight: bold;
+
   }
 
   .book-pic {
@@ -418,7 +438,42 @@ body {
       object-fit: cover;
       border-radius: none;
     }
+
+    .delete-libr-btn,.send-invitation-btn{
+      border-radius: 50px;
+      margin: 10px;
+      padding: 3px;
+      width: 150px;
+      display: inline-block;
+    }
+
+    .delete-libr-btn{
+      background-color: white;
+      border: 2px solid $primary;
+      color: $secondary;
+      margin:2px;
+
+    }
+
+    .send-invitation-btn{
+      background-color: $primary;
+      border: 2px solid $primary;
+      color: $secondary;
+    }
 }
+
+.memberList{
+  img {
+    height: 80px;
+    width: 80px;
+    margin: 15px;
+    object-fit: cover;
+    border-radius: 80px;
+  }
+
+
+}
+
 
 .mapbox {
   display: flex;

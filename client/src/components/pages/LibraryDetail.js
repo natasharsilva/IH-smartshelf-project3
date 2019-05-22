@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import api from "../../api";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash,faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
 import {
   Card,
   CardImg,
@@ -150,18 +152,23 @@ export default class LibraryDetail extends Component {
         {!this.state.library  &&  <div>Loading...</div>}
         {this.state.library && 
         <div className="libraryCard">
+        <img src={this.state.library.picture} alt="library-img" className="library-pic" />
           <Card>
-            <CardImg top width="100%" src={this.state.library.picture} alt="Card image cap" className="library-pic" />
+            {/* <CardImg top width="100%" src={this.state.library.picture} alt="Card image cap" className="library-pic" /> */}
             <CardBody>
               <CardTitle><b>{this.state.library.name}</b></CardTitle>
-              <CardSubtitle>{this.state.library.address}</CardSubtitle>
+              <CardSubtitle>
+              <FontAwesomeIcon icon={faMapMarkerAlt} size="1x" className="icon"/>{' '}
+              {this.state.library.address}</CardSubtitle>
               <CardText>{this.state.library.description}</CardText>
 
-              {this.state.member && this.state.member.role === "admin" && <Button onClick={this.toggleAlertDeleteLibrary} className="btn btn-danger">Delete Library</Button>}
+              {this.state.member && this.state.member.role === "admin" && <Button onClick={this.toggleAlertDeleteLibrary} className="delete-libr-btn">
+              <FontAwesomeIcon icon={faTrash} size="1x" className="icon"/>{' '}
+                Delete Library</Button>}
               <Alert color="info" isOpen={this.state.showAlertDeleteLibrary} toggle={this.toggleAlertDeleteLibrary}>
                 Are you sure you want to delete this library? <br />
                   <Button onClick={(e) => this.deleteLibrary(e)} className="btn btn-danger">Delete!</Button>  
-                  <Button onClick={this.toggleAlertDeleteLibrary} className="btn btn-info">No!</Button>     
+                  <Button onClick={this.toggleAlertDeleteLibrary} className="send-invitation-btn">No!</Button>     
                 </Alert>
               
               {!this.state.member && <Button onClick={(e) => this.joinLibrary(e)} className="btn btn-info">Join</Button>}
@@ -172,7 +179,7 @@ export default class LibraryDetail extends Component {
                   <Button onClick={this.toggleAlertLeaveLibrary} className="btn btn-info">Stay!</Button>     
                 </Alert>
             {this.state.member && (
-              <Button href={`/send-invitation/${this.state.library._id}`} className="btn btn-info">
+              <Button href={`/send-invitation/${this.state.library._id}`} className="send-invitation-btn">
                 Send Invitation
               </Button>
             )}
@@ -201,7 +208,7 @@ export default class LibraryDetail extends Component {
                       </CardTitle>
                       <CardSubtitle>{booksFromLibrary.author}</CardSubtitle>
                       <CardText className="small">{booksFromLibrary.description}</CardText>
-                      <Button size="sm" tag={Nlink} to={`/book-detail/${booksFromLibrary._id}`} className="btn btn-info">
+                      <Button size="sm" tag={Nlink} to={`/book-detail/${booksFromLibrary._id}`} className="send-invitation-btn">
                         See details
                       </Button>
                     </CardBody>
@@ -220,26 +227,26 @@ export default class LibraryDetail extends Component {
         </Button>
 
         <div className="memberList">
-        <h2>Members</h2>
+        <h3>Members</h3>
         {this.state.allmembers && this.state.allmembers.map((members,i) => (<div key={members._id}>
              <Card>
               <Row>
-                <Col>
+                <Col xs="3">
                   <CardImg top width="100%" src={members._user.picture} alt="Card image cap" />
                 </Col>
-                <Col>
+                <Col xs="9">
                   <CardBody>
                     <CardTitle><b>{members._user.username}</b></CardTitle>
-                    <CardSubtitle></CardSubtitle>
-                    <CardText></CardText>
-                    <Button size="sm" tag={Nlink}to={`/profile/${members._user._id}`} className="btn btn-info">See details</Button>
-                  
+                    <Row>
+                    <Col xs="6">
+                    <Button size="sm" tag={Nlink}to={`/profile/${members._user._id}`}  className="send-invitation-btn small">See details</Button>
+                    </Col><Col xs="6">
                     {this.state.member && this.state.member.role === "admin" &&
                       <DeleteMember
                       onDelete={() => this.handleDeleteMember(i)}
                       memberToBeDeletedId={members._id}
                       theLibrary={this.state.library}/>}
-                  
+                  </Col></Row>
                   </CardBody>
                 </Col>
               </Row>
