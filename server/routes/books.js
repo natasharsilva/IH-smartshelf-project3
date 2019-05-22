@@ -33,14 +33,15 @@ router.put("/:bookId", uploader.single("picture"), (req, res, next) => {
       language,
       status,
       _currentOwner,
+      comments,
       _createdBy
     } = req.body;
 
     let updatedData = {
       status,
-      _currentOwner
+      _currentOwner,
+      comments
     };
-    // if (_currentOwner !== _createdBy) _currentOwner.status = req.user._id;
 
     Book.findOneAndUpdate({_id: req.params.bookId}, updatedData, { new: true })
       .then(response => {

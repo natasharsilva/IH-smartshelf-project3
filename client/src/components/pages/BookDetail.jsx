@@ -25,7 +25,6 @@ export default class BookDetail extends Component {
 
   borrowBook(event) {
     event.preventDefault();
-    console.log("THIS IS THE ID OOOOK", this.props.match.params.bookId);
     api
       .updateBook(this.props.match.params.bookId, {
         title: this.state.book.title,
@@ -92,9 +91,9 @@ export default class BookDetail extends Component {
                     </Button>
                   )}
                   <br />
-                  {/* <Button onClick={this.addReview} outline color="info">
+                  <Button href={`/book-detail/${this.state.book._id}/add-review`} outline color="info">
                     Add a review
-                  </Button><br /> */}
+                  </Button><br />
                   <Button
                     href={`/report-problem/${this.state.book._library}`}
                     outline
@@ -112,6 +111,17 @@ export default class BookDetail extends Component {
                   )}
                 </CardBody>
               </Row>
+            </Card>
+            <Card>
+              <CardTitle tag="h4">Reviews</CardTitle>
+                <CardText>
+                    {this.state.book.comments.map(comment => <span key={comment._id}>
+                      Author: <br/>
+                      Title: {comment.title}<br/>
+                      Review: {comment.text}<br/>
+                      Rating: {comment.rating}</span> )}
+                    {/* DON'T FORGET TO MAP!!!!!!! */}
+                </CardText>
             </Card>
           </div>
         )}
