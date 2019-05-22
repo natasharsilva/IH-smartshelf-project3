@@ -96,7 +96,7 @@ export default class AddReview extends Component {
             type="number"
             min="0"
             max="5"
-            maxlength="1"
+            maxLength="1"
             name="rating"
             value={this.state.rating}
             onChange={this.handleInputChange}
