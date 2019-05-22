@@ -62,7 +62,6 @@ export default class Profile extends Component {
       let deadlineDays=30 ;
       var result = new Date(borrowedDate);
       result.setDate(result.getDate() + deadlineDays);
-
       return result;
     } 
     else{

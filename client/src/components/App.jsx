@@ -15,6 +15,7 @@ import api from '../api';
 import Profile from './pages/Profile';
 import ReportProblem from './pages/ReportProblem';
 import SendInvitation from './pages/SendInvitation';
+import AddReview from './pages/AddReview';
 
 export default class App extends Component {
 
@@ -33,13 +34,15 @@ export default class App extends Component {
           <Route path="/libraries/:libraryId" component={LibraryDetail} />
           <Route path="/:libraryId/books" component={LibraryBooks} />
           {api.isLoggedIn() && <Route path="/:libraryId/add-book" component={AddBook} />}
-          <Route path="/book-detail/:bookId" component={BookDetail} />
+          <Route path="/book-detail/:bookId" exact component={BookDetail} />
+          <Route path="/book-detail/:bookId/add-review" component={AddReview}/>
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
           <Route path="/find-libraries" component={Map} />
           <Route path="/report-problem/:libraryId" component={ReportProblem} 
           />
           <Route path="/send-invitation/:libraryId" component={SendInvitation}/>
+          
 
           <Route render={() => <h2>404</h2>} />
         </Switch>

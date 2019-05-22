@@ -40,7 +40,7 @@ export default class BookDetail extends Component {
         pages: this.state.book.pages,
         language: this.state.book.language,
         _currentOwner: this.state.user,
-        borrowedDate:Date.now(),
+        borrowedDate: Date.now(),
         status: "Unavailable"
       })
       .then(result => {
@@ -129,9 +129,9 @@ export default class BookDetail extends Component {
                     </Button>
                   )}
                   <br />
-                  {/* <Button onClick={this.addReview} outline color="info">
+                  <Button href={`/book-detail/${this.state.book._id}/add-review`} outline color="info">
                     Add a review
-                  </Button><br /> */}
+                  </Button><br />
                   <Button
                     href={`/report-problem/${this.state.book._library}`}
                     outline
@@ -150,13 +150,25 @@ export default class BookDetail extends Component {
                 </CardBody>
               </Row>
             </Card>
+            <Card className="reviewContainer">
+              <CardBody>
+              <CardTitle tag="h4">Reviews</CardTitle>
+                <CardText>
+                    {this.state.book.comments.map(comment => <li key={comment._id}>
+                      <strong>"{comment.title}"</strong><br/>
+                      Author: {comment.author}<br/>
+                      Review: {comment.text}<br/>
+                      <strong>Rating:</strong> {comment.rating}<br/></li> )}
+                    {/* DON'T FORGET TO MAP!!!!!!! */}
+                </CardText>
+                </CardBody>
+            </Card>
           </div>
         )}
       </div>
     );
   }
   componentDidMount() {
-    
     api
       .getBook(this.props.match.params.bookId)
       .then(response => {

@@ -37,6 +37,8 @@ const bookSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: "User"
       },
+      author: String,
+      title: String,
       text: String,
       rating: Number
     }]
