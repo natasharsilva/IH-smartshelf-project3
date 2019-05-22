@@ -401,6 +401,25 @@ body {
   }
 }
 
+.LibraryDetail{
+  .library-pic {
+    width: 60%;
+    margin:auto;
+    min-width: 110px;
+    max-width:200px;
+    object-fit: cover;
+    border-radius: 10px;
+    
+  }
+
+  .book-pic {
+      width: 15%;
+      min-width: 110px;
+      object-fit: cover;
+      border-radius: none;
+    }
+}
+
 .mapbox {
   display: flex;
   min-width: 100%;
@@ -433,6 +452,7 @@ body {
 
 .main {
   flex-grow: 1;
+  min-height:90vh;
 }
 
 .Footer {
@@ -440,6 +460,7 @@ body {
   background-color: $primary;
   color: $secondary;
   padding: 3px 0;
+  
 }
 
 .reviewContainer {

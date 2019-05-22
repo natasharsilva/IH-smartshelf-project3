@@ -151,11 +151,7 @@ export default class LibraryDetail extends Component {
         {this.state.library && 
         <div className="libraryCard">
           <Card>
-            <Row>
-              <Col>
-            <CardImg top width="100%" src={this.state.library.picture} alt="Card image cap" />
-              </Col>
-              <Col>
+            <CardImg top width="100%" src={this.state.library.picture} alt="Card image cap" className="library-pic" />
             <CardBody>
               <CardTitle><b>{this.state.library.name}</b></CardTitle>
               <CardSubtitle>{this.state.library.address}</CardSubtitle>
@@ -182,8 +178,7 @@ export default class LibraryDetail extends Component {
             )}
 
             </CardBody>
-            </Col>
-            </Row>
+          
             {this.state.role === "admin" && <EditLibrary updateLibrary={this.updateLibrary} theLibrary={this.state.library} />}
           </Card>
         </div>
@@ -196,7 +191,7 @@ export default class LibraryDetail extends Component {
               <Card>
                 <Row>
                   <Col>
-                    <CardImg top width="100%" src={booksFromLibrary.picture} alt="Card image cap"
+                    <CardImg top width="100%" src={booksFromLibrary.picture} alt="Card image cap" className="book-pic"
                     />
                   </Col>
                   <Col>
