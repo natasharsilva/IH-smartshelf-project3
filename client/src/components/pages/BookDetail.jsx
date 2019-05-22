@@ -150,16 +150,18 @@ export default class BookDetail extends Component {
                 </CardBody>
               </Row>
             </Card>
-            <Card>
+            <Card className="reviewContainer">
+              <CardBody>
               <CardTitle tag="h4">Reviews</CardTitle>
                 <CardText>
-                    {this.state.book.comments.map(comment => <span key={comment._id}>
+                    {this.state.book.comments.map(comment => <li key={comment._id}>
+                      <strong>"{comment.title}"</strong><br/>
                       Author: {comment.author}<br/>
-                      Title: {comment.title}<br/>
                       Review: {comment.text}<br/>
-                      Rating: {comment.rating}<br/></span> )}
+                      <strong>Rating:</strong> {comment.rating}<br/></li> )}
                     {/* DON'T FORGET TO MAP!!!!!!! */}
                 </CardText>
+                </CardBody>
             </Card>
           </div>
         )}

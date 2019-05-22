@@ -273,7 +273,8 @@ body {
       color:$secondary;
       padding:6px;
       width:100%;
-      display:inline-block;}
+      display:inline-block;
+    }
       
 
   .add-library-button:hover, .find-libraries-button:hover{
@@ -358,4 +359,14 @@ body {
 
 .AutocompletePlace-items:hover {
   background-color: #0000FF11;
+}
+
+.reviewContainer {
+  li {
+    list-style:none;
+    text-align: left;
+    padding:0;
+    margin:0;
+  }
+
 }
