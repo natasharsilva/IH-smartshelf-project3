@@ -54,7 +54,7 @@ router.delete("/:memberId", isLoggedIn, (req,res,next) => {
       })
     }
     else {
-      next({ status: 403, message: "You cannot delete the member with the id"+req.params.memberId })
+      next({ status: 403, message: "You cannot delete the member with the id "+req.params.memberId })
     }
   })
 })

@@ -101,28 +101,9 @@ export default class LibraryDetail extends Component {
       })
     })
   }
-  deleteMember() {
-    api.deleteMember(this.state.member._id).then(response => {
-      console.log("MEMBER DELETED!", response);
-      api
-        .getLibrary(this.props.match.params.libraryId)
-        .then(response => {
-          this.setState({
-            library: response.library,
-            book: response.book
-          });
-          api.getMember(this.props.match.params.libraryId).then(memberInfo => {
-            this.setState({
-              member: memberInfo[0]
-            });
-            this.toggleAlert();
-          });
-        })
-        .catch(err => console.log(err));
-    });
-  }
+
 //  ---------- METHOD TO DELETE MEMBER AS AN ADMIN -------------------
-  deleteMemberADMIN(e, memberToBeDeletedId) {
+  deleteMemberADMIN(memberToBeDeletedId) {
     api.deleteMember(memberToBeDeletedId)
     .then(response => {
       console.log("MEMBER DELETED!", response)
@@ -137,7 +118,7 @@ export default class LibraryDetail extends Component {
              this.setState({
               allmembers: memberInfo
             })
-          this.toggleAlertLeaveLibrary()
+          this.toggleAlertDeleteMember()
         })     
       })
     .catch(err => console.log(err))      
@@ -254,7 +235,7 @@ export default class LibraryDetail extends Component {
                      {this.state.showAlertDeleteMember &&
                      <Alert color="info" isOpen={() =>this.state.showAlertDeleteMember()}>
                           Are you sure you want to delete this member? <br />
-                        <Button size="sm" onClick={(e) => this.deleteMember(e, members._id)} className="btn btn-danger">Delete!</Button>  
+                        <Button size="sm" onClick={(e) => this.deleteMemberADMIN(members._id)} className="btn btn-danger">Delete!</Button>  
                         <Button size="sm" onClick={this.toggleAlertDeleteMember} className="btn btn-info">No!</Button>     
                       </Alert>}                    
                   </CardBody>
@@ -278,7 +259,6 @@ export default class LibraryDetail extends Component {
           api.getMember(this.props.match.params.libraryId),
           api.getAllMember(this.props.match.params.libraryId)
         ]).then(([memberInfo,allmembers]) => {
-          console.log("WHAT IS THIS", memberInfo)
              this.setState({
                member: memberInfo[0],
                allmembers: allmembers
