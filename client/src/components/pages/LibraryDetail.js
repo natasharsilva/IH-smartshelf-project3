@@ -14,6 +14,9 @@ import {
 } from "reactstrap";
 import { NavLink as Nlink } from "react-router-dom";
 import EditLibrary from "../EditLibrary.js";
+import DeleteMember from "../DeleteMember";
+
+
 
 export default class LibraryDetail extends Component {
   constructor(props) {
@@ -82,7 +85,7 @@ export default class LibraryDetail extends Component {
   //  ---------- METHOD TO LEAVE LIBRARY  -------------------
 
   leaveLibrary() {
-    api.deleteMember(this.state.member._id)
+    api.deleteMember(this.state.member._id, this.props.match.params.libraryId)
     .then(response => {
       console.log("MEMBER DELETED!", response)
       api.getLibrary(this.props.match.params.libraryId)
@@ -103,27 +106,27 @@ export default class LibraryDetail extends Component {
   }
 
 //  ---------- METHOD TO DELETE MEMBER AS AN ADMIN -------------------
-  deleteMemberADMIN(memberToBeDeletedId) {
-    api.deleteMember(memberToBeDeletedId)
-    .then(response => {
-      console.log("MEMBER DELETED!", response)
-      api.getLibrary(this.props.match.params.libraryId)
-       .then(response => {
-         this.setState({
-           library: response.library,
-           book: response.book,
-         })
-         api.getMember(this.props.match.params.libraryId)
-           .then(memberInfo => {
-             this.setState({
-              allmembers: memberInfo
-            })
-          this.toggleAlertDeleteMember()
-        })     
-      })
-    .catch(err => console.log(err))      
-    })
-  }
+  // deleteMemberADMIN(memberToBeDeletedId, ) {
+  //   api.deleteMember(memberToBeDeletedId, this.props.match.params.libraryId)
+  //   .then(response => {
+  //     console.log("MEMBER DELETED!", response)
+  //     api.getLibrary(this.props.match.params.libraryId)
+  //      .then(response => {
+  //        this.setState({
+  //          library: response.library,
+  //          book: response.book,
+  //        })
+  //        api.getMember(this.props.match.params.libraryId)
+  //          .then(memberInfo => {
+  //            this.setState({
+  //             allmembers: memberInfo
+  //           })
+  //         this.toggleAlertDeleteMember()
+  //       })     
+  //     })
+  //   .catch(err => console.log(err))      
+  //   })
+  // }
   //  ---------- METHOD TO DELETE LIBRARY AS AN ADMIN -------------------
 
   deleteLibrary() {
@@ -133,6 +136,11 @@ export default class LibraryDetail extends Component {
         this.props.history.push('/profile')
       })
       .catch(err => console.log(err))      
+  }
+  handleDeleteMember(indexToRemove) {
+    this.setState({
+      allmembers: this.state.allmembers.filter((member,i) => i !== indexToRemove)
+    })
   }
 
 // ----------------------
@@ -230,14 +238,13 @@ export default class LibraryDetail extends Component {
                     <CardSubtitle></CardSubtitle>
                     <CardText></CardText>
                     <Button size="sm" tag={Nlink}to={`/profile/${members._user._id}`} className="btn btn-info">See details</Button>
-                    {this.state.member && this.state.member.role === "admin" && 
-                    <Button size="sm"onClick={() =>this.toggleAlertDeleteMember()} className="btn btn-danger">Delete Member</Button>}
-                     {this.state.showAlertDeleteMember &&
-                     <Alert color="info" isOpen={() =>this.state.showAlertDeleteMember()}>
-                          Are you sure you want to delete this member? <br />
-                        <Button size="sm" onClick={(e) => this.deleteMemberADMIN(members._id)} className="btn btn-danger">Delete!</Button>  
-                        <Button size="sm" onClick={this.toggleAlertDeleteMember} className="btn btn-info">No!</Button>     
-                      </Alert>}                    
+                  
+                    {this.state.member && this.state.member.role === "admin" &&
+                      <DeleteMember
+                      onDelete={() => this.handleDeleteMember(i)}
+                      memberToBeDeletedId={members._id}
+                      theLibrary={this.state.library}/>}
+                  
                   </CardBody>
                 </Col>
               </Row>
