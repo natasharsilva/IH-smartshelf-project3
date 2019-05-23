@@ -206,7 +206,8 @@ export default class LibraryDetail extends Component {
                   <CardImg top width="100%" src={booksFromLibrary.picture} alt="Card image cap"
                   style={{maxWidth:'130px'}}/>
                 </Col>
-                <Col> 
+                <Col>
+                  <CardTitle>{booksFromLibrary.title}</CardTitle>
                   <CardSubtitle>{booksFromLibrary.author}</CardSubtitle>
                   <CardText className="small" style={{overflow:'auto'}}>{booksFromLibrary.description}</CardText>
                 </Col>
