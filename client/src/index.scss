@@ -103,12 +103,22 @@ body {
     font-size: 1.2em;
   }
 
-  img {
+
+  .SmartShelfLogo{
     width: 70%;
-    max-width: 400px;
-    min-width: 250px;
-    padding: 30px;
+    margin:0 auto 20px;
+    padding:20px 10px;
+
+  img {
+    width:100%;
+    max-width:300px;
+    margin:20px auto;
+    display:block;
   }
+    #symbol{
+      padding:0
+    }
+ }
 
   .features {
     padding: 5px;
@@ -140,12 +150,38 @@ body {
 
   .home-location {
     background-color: $primary;
-    padding: 30px;
+    padding: 60px;
     color: $secondary;
 
     .icon {
       color: $secondary;
     }
+  }
+
+  .testimonials{
+    padding:60px 20px;
+
+    h2{
+      margin:15px 0 30px 0;
+    }
+
+    .carousel {
+
+      h2{
+        margin:0px 0 30px 0;
+      }
+
+      img{
+        max-width:300px;
+        max-height:300px;
+        object-fit:cover;
+        border-radius:50%;
+        // opacity:0.5;
+        z-index:-1;
+        filter: grayscale(100%);}
+    }
+
+
   }
 }
 
@@ -665,3 +701,4 @@ body {
     text-align: left;
   }
 }
+ 
