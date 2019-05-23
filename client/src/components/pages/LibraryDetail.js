@@ -289,7 +289,7 @@ export default class LibraryDetail extends Component {
                allmembers: allmembers,
                profileInfo: profileInfo
           })
-          console.log("CHECK IF THESE ARE THE SAME?", this.state.member._user._id, this.state.profileInfo.user._id)
+          console.log("PLEASE LET ME KNOW IF THESE ARE THE SAME?", this.state.member._user._id, this.state.profileInfo.user._id)
           console.log("THIS IS THE LOGGED MEMBER:", this.state.member)
           console.log('THERE ARE THE MEMBERS-------->',this.state.allmembers)
         })     
