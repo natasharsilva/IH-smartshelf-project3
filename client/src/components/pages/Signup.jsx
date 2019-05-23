@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Button } from 'reactstrap'
+import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import api from '../../api';
+
 
 export default class Signup extends Component {
   constructor(props) {
@@ -38,20 +39,28 @@ export default class Signup extends Component {
   render() {
     return (
       <div className="Signup">
-        <h2>Sign up</h2>
-        <form>
-          Email <br />
-          <input type="text" value={this.state.email} name="email" onChange={this.handleInputChange} /> <br /><br />
-          Username <br />
-          <input type="text" value={this.state.username} name="username" onChange={this.handleInputChange} /> <br /><br />
-          Password <br />
-          <input type="password" value={this.state.password} name="password" onChange={this.handleInputChange} /> <br /><br />
-          <Button tag="a" outline color="info" onClick={(e) => this.handleClick(e)}>Sign up</Button>
-        </form>
-        <p>Already have an account? <a href="/login">Login</a></p>
+      <div className="container">
+        <h2>sign up</h2>
+        <Form>
+        <FormGroup>
+          <Label for="email">Email</Label>
+          <Input type="text" value={this.state.email} name="email" onChange={this.handleInputChange} /> 
+        </FormGroup>
+        <FormGroup>
+          <Label for="username">Username </Label>
+          <Input type="text" value={this.state.username} name="username" onChange={this.handleInputChange} /> 
+        </FormGroup>
+        <FormGroup>
+          <Label for="password">Password</Label>
+          <Input type="password" value={this.state.password} name="password" onChange={this.handleInputChange} /> 
+        </FormGroup>
+          <Button tag="a" className="btn-yellow-fill" onClick={(e) => this.handleClick(e)}>Sign up</Button>
+        </Form>
+        <p>Already have an account? <a href="/login"><span className="badge badge-warning">Login</span></a></p>
         {this.state.message && <div className="info info-danger">
           {this.state.message}
         </div>}
+      </div>
       </div>
     );
   }
