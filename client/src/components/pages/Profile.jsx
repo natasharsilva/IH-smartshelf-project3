@@ -210,11 +210,11 @@ export default class Profile extends Component {
                     <CardTitle tag="h3" className="bookName">Books I borrowed</CardTitle>
                     <CardText className="infoContainer"></CardText>
                     <Container><Row>
-                    <Col xs="3">
+                    <Col s='3'>
                       <CardImg top width="100%" src={book.picture} alt="Card image cap"
                   style={{maxWidth:'130px'}}/>
                       </Col>
-                      <Col xs="9">
+                      <Col s='9'>
                       <span>
                         <strong>Title: </strong>
                         {book.title}
