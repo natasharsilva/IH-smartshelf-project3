@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Button, Input, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, CustomInput } from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
-import { Link } from "react-router-dom";
+
 import api from "../../api";
 import axios from "axios";
 
