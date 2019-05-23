@@ -202,14 +202,14 @@ export default class LibraryDetail extends Component {
             <Card>
             <CardBody>
               <Row>
-                <Col>
+                <Col s='3'>
                   <CardImg top width="100%" src={booksFromLibrary.picture} alt="Card image cap"
-                  style={{maxWidth:'130px'}}/>
+                  style={{maxWidth:'50px'}}/>
                 </Col>
-                <Col>
+                <Col s='9'>
                   <CardTitle>{booksFromLibrary.title}</CardTitle>
                   <CardSubtitle>{booksFromLibrary.author}</CardSubtitle>
-                  <CardText className="small" style={{overflow:'auto'}}>{booksFromLibrary.description}</CardText>
+                  {/* <CardText className="small" style={{overflow:'auto'}}>{booksFromLibrary.description}</CardText> */}
                 </Col>
                 </Row>
                   <Button size="sm" tag={Nlink} to={`/book-detail/${booksFromLibrary._id}`} className="send-invitation-btn">
