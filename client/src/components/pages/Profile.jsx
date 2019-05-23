@@ -182,7 +182,7 @@ export default class Profile extends Component {
               <Container>
               <Row style={{flexDirection:'row'}}>
                 <Col >
-                  <Button className="add-library-button btn" href="/add-library">
+                  <Button className="primary" href="/add-library">
                   <FontAwesomeIcon icon={faPlus} size="1x" className="icon"/> Add library
                   </Button>
                   </Col>
