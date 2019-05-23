@@ -33,6 +33,7 @@ export default class LibraryDetail extends Component {
       showAlertLeaveLibrary: false,
       showAlertDeleteLibrary: false,
       showAlertDeleteMember: false,
+      profileInfo: null
 
     };
         this.toggleAlertLeaveLibrary = this.toggleAlertLeaveLibrary.bind(this);
@@ -162,6 +163,12 @@ export default class LibraryDetail extends Component {
               {this.state.library.address}</CardSubtitle>
               <CardText>{this.state.library.description}</CardText>
 
+            {this.state.member && (
+              <Button href={`/send-invitation/${this.state.library._id}`} className="send-invitation-btn">
+                Send Invitation
+              </Button>
+            )}
+
               {this.state.member && this.state.member.role === "admin" && <Button onClick={this.toggleAlertDeleteLibrary} className="delete-libr-btn">
               <FontAwesomeIcon icon={faTrash} size="1x" className="icon"/>{' '}
                 Delete Library</Button>}
@@ -178,11 +185,6 @@ export default class LibraryDetail extends Component {
                   <Button onClick={(e) => this.leaveLibrary(e)} className="btn btn-danger">Leave!</Button>  
                   <Button onClick={this.toggleAlertLeaveLibrary} className="btn btn-info">Stay!</Button>     
                 </Alert>
-            {this.state.member && (
-              <Button href={`/send-invitation/${this.state.library._id}`} className="send-invitation-btn">
-                Send Invitation
-              </Button>
-            )}
 
             </CardBody>
           
@@ -193,13 +195,30 @@ export default class LibraryDetail extends Component {
       }
         <h3>Available Books</h3>
         {!this.state.book && <div>Loading...</div>}
+        {this.state.book && this.state.book.length === 0 && 
+        <div className="NoBooks">
+            <Card>
+                  <Col>
+                    <CardImg top width="100%" src="../../images/SadPup.jpg" alt="Card image cap" className="book-pic"
+                    />
+                  </Col>
+                  <Col>
+                    <CardBody>
+                      <CardTitle>
+                        There are currently no books at this library!
+                      </CardTitle>
+                
+                    </CardBody>
+                  </Col>
+              </Card>
+        </div>}
         {this.state.book &&
           this.state.book.slice(0, 2).map((booksFromLibrary, i) => (
             <div key={booksFromLibrary._id}>
               <Card>
                 <Row>
                   <Col>
-                    <CardImg top width="100%" src={booksFromLibrary.picture} alt="Card image cap" className="book-pic"
+                    <CardImg top width="100%" src={booksFromLibrary.picture} alt="Card image cap"
                     />
                   </Col>
                   <Col>
@@ -218,11 +237,12 @@ export default class LibraryDetail extends Component {
               </Card>
             </div>
           ))}
-        <Button outline color="info" size="sm" tag={Nlink} to={`/${this.props.match.params.libraryId}/books`}>
+        {this.state.book && !this.state.book.length === 0 && 
+        <Button className="send-invitation-btn" outline color="info" size="sm" tag={Nlink} to={`/${this.props.match.params.libraryId}/books`}>
           {" "}
           See all Books
-        </Button>
-        <Button outline color="info" size="sm" tag={Nlink} to={`/${this.props.match.params.libraryId}/add-book`}>
+        </Button>}
+        <Button className="send-invitation-btn" outline color="info" size="sm" tag={Nlink} to={`/${this.props.match.params.libraryId}/add-book`}>
           {" "}
           Add new Book
         </Button>
@@ -238,15 +258,11 @@ export default class LibraryDetail extends Component {
                 <Col xs="9">
                   <CardBody>
                     <CardTitle><b>{members._user.username}</b></CardTitle>
-                    <Row>
-                    <Col xs="6">
-                    <Button size="sm" tag={Nlink}to={`/profile/${members._user._id}`}  className="send-invitation-btn small">See details</Button>
-                    </Col><Col xs="6">
-                    {this.state.member && this.state.member.role === "admin" &&
+                    {/* <Button size="sm" tag={Nlink}to={`/profile/${members._user._id}`}  className="send-invitation-btn small">See details</Button> */}
+                    {this.state.member && this.state.member.role === "admin" && !(this.state.member_user === this.state.profileInfo._id) &&
                       <DeleteMember onDelete={() => this.handleDeleteMember(i)} memberToBeDeletedId={members._id} theLibrary={this.state.library}/>}
-                  </Col></Row>
                   </CardBody>
-                </Col>
+                  </Col>
               </Row>
             </Card>
           </div>))}
@@ -264,11 +280,13 @@ export default class LibraryDetail extends Component {
          })
       Promise.all([
           api.getMember(this.props.match.params.libraryId),
-          api.getAllMember(this.props.match.params.libraryId)
-        ]).then(([memberInfo,allmembers]) => {
+          api.getAllMember(this.props.match.params.libraryId),
+          api.showProfile()
+        ]).then(([memberInfo,allmembers,profileInfo]) => {
              this.setState({
                member: memberInfo[0],
-               allmembers: allmembers
+               allmembers: allmembers,
+               profileInfo: profileInfo
           })
           console.log("THIS IS THE LOGGED MEMBER:", this.state.member)
           console.log('THERE ARE THE MEMBERS-------->',this.state.allmembers)
