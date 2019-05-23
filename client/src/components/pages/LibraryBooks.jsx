@@ -3,7 +3,6 @@ import {
   Alert,
   Button,
   Card,
-  CardImg,
   CardText,
   CardBody,
   CardTitle,
@@ -90,18 +89,19 @@ export default class LibraryBooks extends Component {
                   .map(bookDetail => (
                     <li key={bookDetail._id}>
                       <div className="CardMain">
-                        <Card className="CardBox">
+                        <Card>
                           <Container>
+                            
+                            <CardBody>
                             <Row>
-                              <Col xs="3">
-                                <CardImg
+                              <Col s="3">
+                                <img
                                   src={bookDetail.picture}
                                   alt={`"${bookDetail.title}-cover"`}
                                 />
                                 {/* <img src={bookDetail.picture} alt={`"${bookDetail.title}-cover"`}/> */}
                               </Col>
-                              <Col xs="9">
-                                <CardBody>
+                                <Col s="9">
                                   <CardTitle>
                                     <span><strong>Title:</strong></span> {bookDetail.title}
                                   </CardTitle>
@@ -111,10 +111,11 @@ export default class LibraryBooks extends Component {
                                   <CardSubtitle>
                                     <span><strong>Genre:</strong></span> {bookDetail.genre}
                                   </CardSubtitle>
-                                  <CardText>
+                                  <CardText className="small">
                                     <span><strong>Description:</strong></span> {bookDetail.description}
                                   </CardText>
-
+                                  </Col>
+                                  </Row>
                                   <Button
                                     size="sm"
                                     tag={Nlink}
@@ -145,8 +146,8 @@ export default class LibraryBooks extends Component {
                                       </div>
                                     )}
                                 </CardBody>
-                              </Col>
-                            </Row>
+                              
+                            
                           </Container>
                         </Card>
                       </div>

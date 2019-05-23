@@ -233,7 +233,6 @@ export default class LibraryDetail extends Component {
                   <CardTitle>
                     There are currently no books at this library!
                   </CardTitle>
-            
                 </CardBody>
               </Col>
           </Card>
