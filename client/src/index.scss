@@ -531,12 +531,10 @@ body {
     width: 90%;
     margin: auto;
 
-    img {
-      margin: 20px;
-      object-fit: cover;
-      border-radius: none;
-      max-width:100px;
+    .imgCard{
+      width:70px;
     }
+    
   }
 
   .library-books-btn {
