@@ -307,13 +307,11 @@ body {
     color: $secondary;
   }
 
-  .infoContainer {
-    margin-top: 10px;
+  .libraryContainer {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
     // border:3px solid orange;
-  }
-
-  .infoContainer img {
-    height: 120px;
   }
 
   .library-cover {

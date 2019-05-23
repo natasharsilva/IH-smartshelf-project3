@@ -85,7 +85,6 @@ export default class AddLibrary extends Component {
           <br />
           Address:{" "}
           <AutocompletePlace onSelect={this.handleSelect} />
-
           <br />
           Description:{" "}
           <Input
@@ -102,7 +101,6 @@ export default class AddLibrary extends Component {
           </Button>
         </form>
         {this.state.message && <div className="info">{this.state.message}</div>}
-        
       </div>
     );
   }

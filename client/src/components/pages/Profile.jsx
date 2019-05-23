@@ -142,9 +142,9 @@ export default class Profile extends Component {
             <EditProfile theProfile={this.state.profileInfo}updateProfile={this.updateProfile} />
           </Card>
           <Card>
-            <CardBody>
+            <CardBody className="libraryContainer">
               <CardTitle tag="h3" className="libraryName">My Libraries</CardTitle>
-              <div className="infoContainer">
+              <div>
                 {this.state.profileInfo.members.length < 1 && (
                   <span>
                     You are not part of any libraries yet!
