@@ -99,14 +99,14 @@ export default class EditLibrary extends React.Component {
             <Input type="text" value={this.state.description} name="description" cols="20" rows="5" onChange={this.handleInputChange}
             />{" "} <br />
             </FormGroup>
-            {!this.state.place ? <Button disabled  onClick={() => this.handleFormSubmit()}>
+            {!this.state.place ? <Button disabled  className="edit-button" onClick={() => this.handleFormSubmit()}>
             Must have an address to update
             </Button> :
-            <Button outline color="info" onClick={() => this.handleFormSubmit()}
+            <Button className="confirm-profile-button" onClick={() => this.handleFormSubmit()}
             >
               Confirm
             </Button>}
-            <Button onClick={this.showEditForm} className="add-library-button btn">
+            <Button onClick={this.showEditForm} className="edit-button">
               Back
               </Button>
 
