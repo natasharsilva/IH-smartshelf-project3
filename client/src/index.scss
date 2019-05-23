@@ -39,6 +39,7 @@ body {
   font-family: $primary-font;
   display: flex;
   flex-direction: column;
+  
 
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -79,6 +80,14 @@ body {
     }
   }
 }
+//General styles----------------
+
+.Home, .AddLibrary,
+.AddBook {
+  background-color:$secondary;
+  color:white;
+}
+
 
 // --------------------
 // Style for Home component
@@ -424,6 +433,7 @@ body {
   margin: 0px;
   padding-bottom: 10px;
   background-color: $secondary;
+  min-height:96vh;
 
   h2, .searchInput {
     color: white;
