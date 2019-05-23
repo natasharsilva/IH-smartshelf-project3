@@ -17,7 +17,7 @@ const librarySchema = new mongoose.Schema({
     minlength: 2,
     maxlength: 2,
   },
-  picture: { type: String, default: "/images/defaultProfile.png" },
+  picture: { type: String, default: "/images/library-placeholder.jpg" },
   description: String,
 }, {
   timestamps: {
