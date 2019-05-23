@@ -6,6 +6,7 @@ import {
   CardBody,
   CardDeck,
   CardText,
+  CardImg,
   CardTitle, 
   Container, 
   Row, 
@@ -193,12 +194,9 @@ export default class Profile extends Component {
               </Row>
               </Container>
             </CardBody>
-          </Card>
-          
+          </Card> 
           <Card>
-            <CardBody>
-              <CardTitle tag="h3" className="bookName">Books I borrowed</CardTitle>
-              <CardText className="infoContainer">
+                  <CardBody>   
                 {this.state.profileInfo.books.length < 1 && (
                   <span>
                     You haven't borrowed books yet!
@@ -208,9 +206,13 @@ export default class Profile extends Component {
                 {this.state.profileInfo.books.length > 0 &&
                   this.state.profileInfo.books.slice(0,this.state.booksToShow).map(book => (
                     <li key={book._id}>
+                   
+                    <CardTitle tag="h3" className="bookName">Books I borrowed</CardTitle>
+                    <CardText className="infoContainer"></CardText>
                     <Container><Row>
                     <Col xs="3">
-                      <img src={book.picture} alt="" />
+                      <CardImg top width="100%" src={book.picture} alt="Card image cap"
+                  style={{maxWidth:'130px'}}/>
                       </Col>
                       <Col xs="9">
                       <span>
@@ -241,7 +243,7 @@ export default class Profile extends Component {
                       
                     </li>
                   ))}
-              </CardText>
+             
               {this.state.profileInfo.books.length > 2 && (
                 <Button onClick={this.toggleBooks} className="add-library-button btn"
                 >

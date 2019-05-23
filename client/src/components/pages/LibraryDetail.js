@@ -264,7 +264,7 @@ export default class LibraryDetail extends Component {
                       <DeleteMember onDelete={() => this.handleDeleteMember(i)} memberToBeDeletedId={members._id} theLibrary={this.state.library}/>}
                  
                   </Col>
-              </Row>
+                </Row>
               </CardBody>
             </Card>
           </div>))}
