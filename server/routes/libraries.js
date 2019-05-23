@@ -27,7 +27,10 @@ router.get("/:libraryId", (req, res, next) => {
 
 // ---------Update Libraries ------------
 router.put("/:libraryId", isLoggedIn, uploader.single('picture'), (req, res, next) => {
-  const { name, address, description, coordinates } = req.body;
+  const { name, address, description } = req.body;
+  const coordinates = [req.body.coordinates_lng, req.body.coordinates_lat]
+
+  
 
   let updatedData = {
     name,
