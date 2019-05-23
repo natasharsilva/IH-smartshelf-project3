@@ -102,7 +102,7 @@ export default class AddLibrary extends Component {
             onChange={this.handleInputChange}
           />
           </FormGroup>
-          <Button color="primary" onClick={e => this.addLibraryAndRedirectToProfile(e)}>
+          <Button color="primary" className="btn-yellow-fill" onClick={e => this.addLibraryAndRedirectToProfile(e)}>
             Create Library
           </Button>
         </Form>
