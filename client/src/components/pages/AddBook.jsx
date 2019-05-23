@@ -213,7 +213,7 @@ export default class AddBook extends Component {
               <Input
                 type="file"
                 name="picture"
-                onChange={this.handleInputChange}
+                onChange={this.handleFileChange}
               />{" "}
               <br />
               Rating:{" "}
