@@ -46,22 +46,17 @@ export default class Map extends Component {
         .setHTML(
           `<a href="https://ih-smart-shelf.herokuapp.com/libraries/${this.state.libraries[i]._id}"<b>${this.state.libraries[i].name}</b> <br>
           </a>
-
         `)
-
           let lng = this.state.libraries[i].coordinates[0]
           let lat = this.state.libraries[i].coordinates[1]
           // console.log("ARE THEY NUMBERS????", lat, lng)
             new mapboxgl.Marker({ color: 'yellow' })
             .setLngLat([lng, lat])
             .setPopup(popup)
-            .redirectToLibrary(this.state.libraries[i]._id)
             .addTo(this.map)
           }
         }
-        redirectToLibrary = (libraryId) => {
-
-        }
+        
   getCurrentCoordinates() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {

@@ -12,9 +12,13 @@ const bookSchema = new mongoose.Schema({
     required: true,
   },
   genre: {
-    type: String
+    type: String,
+    default:'No genre defined'
   },
-  picture: String,
+  picture: {
+    type: String,
+    default:'/images/book-cover-placeholder.jpg'
+  },
   description: String,
   rating: Number,
   pages: String,

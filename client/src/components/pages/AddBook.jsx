@@ -62,7 +62,7 @@ export default class AddBook extends Component {
             : '',
           picture: response.data.items[0].volumeInfo.imageLinks
             ? response.data.items[0].volumeInfo.imageLinks.thumbnail
-            : '',
+            : '/images/book-cover-placeholder.jpg',
           description: response.data.items[0].volumeInfo.description ? response.data.items[0].volumeInfo.description : '',
           rating: response.data.items[0].volumeInfo.averageRating ? response.data.items[0].volumeInfo.averageRating : '',
           pages: response.data.items[0].volumeInfo.pageCount ? response.data.items[0].volumeInfo.pageCount : '',

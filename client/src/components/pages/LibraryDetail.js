@@ -243,10 +243,7 @@ export default class LibraryDetail extends Component {
                     <Button size="sm" tag={Nlink}to={`/profile/${members._user._id}`}  className="send-invitation-btn small">See details</Button>
                     </Col><Col xs="6">
                     {this.state.member && this.state.member.role === "admin" &&
-                      <DeleteMember
-                      onDelete={() => this.handleDeleteMember(i)}
-                      memberToBeDeletedId={members._id}
-                      theLibrary={this.state.library}/>}
+                      <DeleteMember onDelete={() => this.handleDeleteMember(i)} memberToBeDeletedId={members._id} theLibrary={this.state.library}/>}
                   </Col></Row>
                   </CardBody>
                 </Col>

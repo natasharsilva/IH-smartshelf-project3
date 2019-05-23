@@ -117,7 +117,7 @@ export default class Profile extends Component {
                 </span>
               </CardText>
             </CardBody>
-            <EditProfile updateProfile={this.updateProfile} />
+            <EditProfile theProfile={this.state.profileInfo}updateProfile={this.updateProfile} />
           </Card>
           <Card>
             <CardBody>
