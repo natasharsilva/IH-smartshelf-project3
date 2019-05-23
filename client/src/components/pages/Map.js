@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
 import {
   Button,
-  Col,
-  Input,
-  Label,
-  Row
+
+  Row,
+
 } from 'reactstrap'
 import mapboxgl from "mapbox-gl/dist/mapbox-gl"; // NEW
 import api from "../../api";
-import 'mapbox-gl/dist/mapbox-gl.css' // Import of Mapbox CSS
 
 
 
@@ -38,7 +36,7 @@ export default class Map extends Component {
     });
 
     this.map.addControl(new mapboxgl.NavigationControl());
-    this.marker = new mapboxgl.Marker({ color: "purple" })
+    this.marker = new mapboxgl.Marker({ color: "#662d91" })
       .setLngLat([lng, lat])
       .addTo(this.map)
       for(let i = 0; i < this.state.libraries.length; i++){
@@ -50,14 +48,14 @@ export default class Map extends Component {
           let lng = this.state.libraries[i].coordinates[0]
           let lat = this.state.libraries[i].coordinates[1]
           // console.log("ARE THEY NUMBERS????", lat, lng)
-            new mapboxgl.Marker({ color: 'yellow' })
+            new mapboxgl.Marker({ color: '#ffcc05' })
             .setLngLat([lng, lat])
             .setPopup(popup)
             .addTo(this.map)
           }
         }
         
-  getCurrentCoordinates() {
+  getCurrentCoordinates = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
         console.log("The current coords are", position.coords)
@@ -77,12 +75,12 @@ export default class Map extends Component {
     return (
       <div className="LibraryLocations">
         <h1>Find libraries around you!</h1>
-        <Button className="btn btn-info" onClick={this.getCurrentCoordinates}>
+        {/* <Button className="add-library-button btn" onClick={this.getCurrentCoordinates}>
           Get Current Coordinates
-        </Button>
+        </Button> */}
         
         <Row className="my-4">
-          <Col sm={3}>
+          {/* <Col sm={3}>
             <Label for="exampleEmail">Coordinates</Label>
           </Col>
           <Col>
@@ -90,13 +88,12 @@ export default class Map extends Component {
           </Col>
           <Col>
             <Input type="number" value={this.state.lat} onChange={this.handleInputChange} name="lat" placeholder="Latitude" />
-          </Col>
+          </Col> */}
         </Row>
         <Button className="btn btn-info"onClick={() => this.initMap(this.state.lng,this.state.lat)}>
-          Find libraries!
+          Click here to find libraries!
         </Button>
         <div className="mapbox"ref={this.mapRef} style={{ height: 400 }} />
-
       </div>
       
     )
@@ -109,6 +106,7 @@ export default class Map extends Component {
       this.setState({
         libraries: libraries.response
       })
+      this.getCurrentCoordinates()
     });
   }
 

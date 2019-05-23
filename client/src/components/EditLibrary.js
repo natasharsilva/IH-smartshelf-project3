@@ -69,7 +69,7 @@ export default class EditLibrary extends React.Component {
       .catch(err => this.setState({ message: err.toString() }))
       }
 
-  showEditForm() {
+  showEditForm = () => {
     this.setState({
       showEditForm: !this.state.showEditForm
     });
@@ -106,6 +106,9 @@ export default class EditLibrary extends React.Component {
             >
               Confirm
             </Button>}
+            <Button onClick={this.showEditForm} className="add-library-button btn">
+              Back
+              </Button>
 
           </Form>
         )}
