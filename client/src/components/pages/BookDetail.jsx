@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import api from "../../api";
 import {
+  Alert,
   Card,
   CardImg,
   CardText,
@@ -124,6 +125,8 @@ export default class BookDetail extends Component {
                       Borrow
                     </Button>
                   )}
+                  {this.state.book.status === "Unavailable" && 
+                        <div><br /><Alert color="warning" >This book is not available at the moment - it has been borrowed.</Alert></div> }
                   <br />
                   <Button href={`/book-detail/${this.state.book._id}/add-review`} outline color="info">
                     Add a review

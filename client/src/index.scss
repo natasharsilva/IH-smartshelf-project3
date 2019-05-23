@@ -124,30 +124,28 @@ body {
     border: 0;
     color: $secondary;
   }
-    .button-home:hover{
-      background-color:rgb(207, 168, 9);
-      border:0;
-      color:$secondary;
-    } 
-    
-    .home-location{
-      background-color:$primary;
-      padding:30px;
-      color:$secondary;
-      
-      .icon{
-        color:$secondary;
-      }
-    }
-}
-
+  .button-home:hover {
+    background-color: rgb(207, 168, 9);
+    border: 0;
+    color: $secondary;
+  }
 
   .home-location {
     background-color: $primary;
     padding: 30px;
     color: $secondary;
-  }
 
+    .icon {
+      color: $secondary;
+    }
+  }
+}
+
+.home-location {
+  background-color: $primary;
+  padding: 30px;
+  color: $secondary;
+}
 
 .AddLibrary,
 .AddBook {
@@ -224,9 +222,9 @@ body {
     justify-content: space-evenly;
   }
 
-  img{
-    width:80px;
-    height:150px;
+  img {
+    width: 80px;
+    height: 150px;
     object-fit: cover;
   }
 
@@ -281,7 +279,7 @@ body {
     text-align: center;
     padding: 0px;
     border-radius: 10px;
-    margin:auto;
+    margin: auto;
   }
   .container-opacity {
     width: 100%;
@@ -299,8 +297,7 @@ body {
   }
   .add-library-button,
   .find-libraries-button,
-  .return-book-button
-   {
+  .return-book-button {
     border-radius: 50px;
     margin: 15px auto;
     background-color: $primary;
@@ -312,33 +309,31 @@ body {
   }
 
   .return-book-button {
-    margin:3px auto 15px auto;
+    margin: 3px auto 15px auto;
     width: 200px;
-
   }
 
   .add-library-button:hover,
   .find-libraries-button:hover,
   .return-book-button:hover,
-  .confirm-profile-button:hover, 
+  .confirm-profile-button:hover,
   .send-invitation-btn:hover,
-  .delete-libr-btn:hover
-    {
+  .delete-libr-btn:hover {
     background-color: $primary;
     background-color: rgb(207, 168, 9);
     border: 0;
     color: $secondary;
   }
 
-  .row{
-    flex-wrap:nowrap;
-    display:flex;
+  .row {
+    flex-wrap: nowrap;
+    display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     // align-content: center;
-    padding-top:5px;
-    padding-bottom:5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
 }
 
@@ -385,84 +380,101 @@ body {
 }
 
 .LibraryBooks {
+  margin: 0px;
+  padding-bottom: 10px;
+  background-color: $secondary;
+
+  h2, .searchInput {
+    color: white;
+  }
+
   li {
     list-style: none;
     padding: 0;
     margin: 0;
   }
+
   .CardMain {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 90%;
+    margin: auto;
 
     img {
-      width: 15%;
-      min-width: 110px;
+      min-width: 150px;
+      margin-top: 25px;
       object-fit: cover;
       border-radius: none;
     }
   }
+
+  .library-books-btn {
+    padding: 7px;
+    margin-right: 10px;
+    background-color: $primary;
+    border: 2px solid $primary;
+    color: $secondary;
+  }
 }
 
-.LibraryDetail{
-  margin:0px;
-  padding:10px;
+.LibraryDetail {
+  margin: 0px;
+  padding: 10px;
   background-color: $secondary;
 
   .library-pic {
     width: 60%;
-    margin:20px auto;
+    margin: 20px auto;
     min-width: 110px;
-    max-width:200px;
+    max-width: 200px;
     object-fit: cover;
     border-radius: 10px;
-    
   }
 
-  .card{
-    width:90%;
-    margin:auto;
+  .card {
+    width: 90%;
+    margin: auto;
   }
 
-  h3{
-    margin:20px;
+  h3 {
+    margin: 20px;
     font-size: 1.6em;
     color: white;
     font-weight: bold;
-
   }
 
   .book-pic {
-      width: 15%;
-      min-width: 110px;
-      object-fit: cover;
-      border-radius: none;
-    }
+    width: 15%;
+    min-width: 110px;
+    object-fit: cover;
+    border-radius: none;
+  }
 
-    .delete-libr-btn,.send-invitation-btn{
-      border-radius: 50px;
-      margin: 10px;
-      padding: 3px;
-      width: 150px;
-      display: inline-block;
-    }
+  .delete-libr-btn,
+  .send-invitation-btn {
+    border-radius: 50px;
+    margin: 10px;
+    padding: 3px;
+    width: 150px;
+    display: inline-block;
+  }
 
-    .delete-libr-btn{
-      background-color: white;
-      border: 2px solid $primary;
-      color: $secondary;
-      margin:2px;
+  .delete-libr-btn {
+    background-color: white;
+    border: 2px solid $primary;
+    color: $secondary;
+    margin: 2px;
+  }
 
-    }
-
-    .send-invitation-btn{
-      background-color: $primary;
-      border: 2px solid $primary;
-      color: $secondary;
-    }
+  .send-invitation-btn {
+    background-color: $primary;
+    border: 2px solid $primary;
+    color: $secondary;
+  }
 }
 
-.memberList{
+.memberList {
   img {
     height: 80px;
     width: 80px;
@@ -470,10 +482,7 @@ body {
     object-fit: cover;
     border-radius: 80px;
   }
-
-
 }
-
 
 .mapbox {
   display: flex;
@@ -507,7 +516,7 @@ body {
 
 .main {
   flex-grow: 1;
-  min-height:90vh;
+  min-height: 90vh;
 }
 
 .Footer {
@@ -515,7 +524,6 @@ body {
   background-color: $primary;
   color: $secondary;
   padding: 3px 0;
-  
 }
 
 .reviewContainer {

@@ -1,7 +1,19 @@
 import React, { Component } from "react";
-import { Alert, Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button, Container, Row, Col  } from 'reactstrap';
+import {
+  Alert,
+  Button,
+  Card,
+  CardImg,
+  CardText,
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+  Container,
+  Row,
+  Col
+} from "reactstrap";
+import { NavLink as Nlink } from "react-router-dom";
 import api from "../../api";
-
 
 export default class LibraryBooks extends Component {
   constructor(props) {
@@ -9,11 +21,11 @@ export default class LibraryBooks extends Component {
     this.state = {
       response: {
         library: {},
-        book: {},
+        book: {}
       },
       member: [],
       search: "",
-      message:"",
+      message: ""
     };
     this.changeSearch = this.changeSearch.bind(this);
   }
@@ -25,97 +37,144 @@ export default class LibraryBooks extends Component {
   }
 
   deleteBook(e, bookDetail) {
-    console.log("IS THIS THE BOOK YOU WANT TO DELETE?", bookDetail._id)
-    e.preventDefault()
-     api.deleteBook(bookDetail._id)
-     .then(response => {
-      console.log("DID IT WORK???", response)
-      api.getLibrary(this.props.match.params.libraryId)
-      .then(response => {
-      this.setState({
-        message: `Your book was deleted successfully`,
-        library: response.library,
-        book: response.book
-      })
-    })
-  })
-}
+    console.log("IS THIS THE BOOK YOU WANT TO DELETE?", bookDetail._id);
+    e.preventDefault();
+    api.deleteBook(bookDetail._id).then(response => {
+      console.log("DID IT WORK???", response);
+      api.getLibrary(this.props.match.params.libraryId).then(response => {
+        this.setState({
+          message: `Your book was deleted successfully`,
+          library: response.library,
+          book: response.book
+        });
+      });
+    });
+  }
 
   render() {
     return (
       <div className="LibraryBooks">
-        {(!this.state.book || !this.state.library) && <div>Loading... Make sure you're inside a library!</div>}
-        {this.state.book && (<div>
+        {(!this.state.book || !this.state.library) && (
+          <div>Loading... Make sure you're inside a library!</div>
+        )}
+        {this.state.book && (
           <div>
-            {/* <Button color="primary" href={`/libraries/${this.state.library}`}>Go Back to {this.state.library}</Button> */}
-            {/* <h1>{this.state.library}</h1> */}
-            <h2>List of Books</h2>
-            <p>
-              <input type="text" value={this.state.search} onChange={this.changeSearch}
-              /><br />
-              Filter by book title
-            </p>
-            <Button href={`/${this.state.library._id}/add-book`} color="primary">Add book</Button>
-            <br /><br />
-            {/* <h3>{this.state.boo}</h3> */}
-            <ul>
-              {this.state.book
-                .filter(bookDetail =>
-                  bookDetail.title
-                    .toUpperCase()
-                    .includes(this.state.search.toUpperCase()) 
-                )
-                .map(bookDetail => (
-                  <li key={bookDetail._id}>
-                  <div className="CardMain">
-                    <Card>
-                    <Container>
-                    <Row>
-                    <Col xs="3">
-                      <CardImg top width="20%" src={bookDetail.picture} alt={`"${bookDetail.title}-cover"`} />
-                        {/* <img src={bookDetail.picture} alt={`"${bookDetail.title}-cover"`}/> */}
-                        </Col>
-                    <Col xs="9">
-                      <CardBody>
-                        <CardTitle>Title: {bookDetail.title}</CardTitle>
-                        <CardTitle>Author: {bookDetail.author}</CardTitle>
-                        <CardSubtitle>Genre: {bookDetail.genre}</CardSubtitle>
-                        <CardText>Description: {bookDetail.description}</CardText>
-                        
-                        {this.state.role === "admin" && <Button color="danger" onClick={e => this.deleteBook(e,bookDetail)}>Delete Book</Button>}
-                        {bookDetail._currentOwner && bookDetail._currentOwner !== "000000000000000000000000" && 
-                        <div><br /><Alert color="warning" >This book is not available at the moment - It has been borrowed.</Alert></div> }
-                      
-                      </CardBody>
-                     </Col>
-                      </Row>
-                      </Container>
-                    </Card>
-                  </div>
-                  <br />
-                  </li>
-                ))}
-            </ul>
-          </div> 
-          </div>)}
+            <div>
+              {/* <Button color="primary" href={`/libraries/${this.state.library}`}>Go Back to {this.state.library}</Button> */}
+              {/* <h1>{this.state.library}</h1> */}
+              <h2>List of Books</h2>
+              <p className="searchInput">
+                <input
+                  type="text"
+                  value={this.state.search}
+                  onChange={this.changeSearch}
+                />
+                <br />
+                Filter by book title
+              </p>
+              <Button
+                href={`/${this.state.library._id}/add-book`}
+                className="library-books-btn"
+              >
+                Add book
+              </Button>
+              <br />
+              <br />
+              <ul>
+                {this.state.book
+                  .filter(bookDetail =>
+                    bookDetail.title
+                      .toUpperCase()
+                      .includes(this.state.search.toUpperCase())
+                  )
+                  .map(bookDetail => (
+                    <li key={bookDetail._id}>
+                      <div className="CardMain">
+                        <Card className="CardBox">
+                          <Container>
+                            <Row>
+                              <Col xs="3">
+                                <CardImg
+                                  src={bookDetail.picture}
+                                  alt={`"${bookDetail.title}-cover"`}
+                                />
+                                {/* <img src={bookDetail.picture} alt={`"${bookDetail.title}-cover"`}/> */}
+                              </Col>
+                              <Col xs="9">
+                                <CardBody>
+                                  <CardTitle>
+                                    <strong>Title:</strong> {bookDetail.title}
+                                  </CardTitle>
+                                  <CardTitle>
+                                    <strong>Author:</strong> {bookDetail.author}
+                                  </CardTitle>
+                                  <CardSubtitle>
+                                    <strong>Genre:</strong> {bookDetail.genre}
+                                  </CardSubtitle>
+                                  <CardText>
+                                    <strong>Description:</strong> {bookDetail.description}
+                                  </CardText>
+
+                                  <Button
+                                    size="sm"
+                                    tag={Nlink}
+                                    to={`/book-detail/${bookDetail._id}`}
+                                    className="library-books-btn"
+                                  >
+                                    See details
+                                  </Button>
+                                  {this.state.role === "admin" && (
+                                    <Button
+                                      color="danger"
+                                      onClick={e =>
+                                        this.deleteBook(e, bookDetail)
+                                      }
+                                    >
+                                      Delete Book
+                                    </Button>
+                                  )}
+                                  {bookDetail._currentOwner &&
+                                    bookDetail._currentOwner !==
+                                      "000000000000000000000000" && (
+                                      <div>
+                                        <br />
+                                        <Alert color="warning">
+                                          This book is not available at the
+                                          moment - It has been borrowed.
+                                        </Alert>
+                                      </div>
+                                    )}
+                                </CardBody>
+                              </Col>
+                            </Row>
+                          </Container>
+                        </Card>
+                      </div>
+                      <br />
+                    </li>
+                  ))}
+              </ul>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
 
   componentDidMount() {
     Promise.all([
-    api.getLibrary(this.props.match.params.libraryId),
-    api.getMember(this.props.match.params.libraryId)
-  ]).then(([response,member]) => {
+      api.getLibrary(this.props.match.params.libraryId),
+      api.getMember(this.props.match.params.libraryId)
+    ])
+      .then(([response, member]) => {
         console.log("response------->", response);
         this.setState({
           library: response.library,
           book: response.book,
           role: member[0].role
         });
-        console.log("ARE YOU AN ADMIN?? ROLE:", this.state.role)
-        console.log('currentOwner-------->',this.state.book[0]._currentOwner)
-
+        console.log("ARE YOU AN ADMIN?? ROLE:", this.state.role);
+        console.log("currentOwner-------->", this.state.book[0]._currentOwner);
       })
       .catch(err => console.log(err));
   }
