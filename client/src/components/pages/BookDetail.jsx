@@ -13,7 +13,9 @@ import {
   Row,
   Col
 } from "reactstrap";
+import Rating from '../Rating'
 import AddReview from "./AddReview"
+
 export default class BookDetail extends Component {
   constructor(props) {
     super(props);
@@ -158,9 +160,9 @@ export default class BookDetail extends Component {
                 <CardText>
                     {this.state.book.comments.map(comment => <li key={comment._id}>
                       <strong>"{comment.title}"</strong><br/>
-                      Author: {comment.author}<br/>
-                      Review: {comment.text}<br/>
-                      <strong>Rating:</strong> {comment.rating}<br/></li> )}
+                      <strong>Author:</strong> {comment.author[0].toUpperCase() + comment.author.substr(1)}<br/>
+                      <strong>Review:</strong> {comment.text}<br/>
+                      <strong>Rating:</strong> <Rating>{comment.rating}</Rating><br/><br/></li> )}
                     {/* DON'T FORGET TO MAP!!!!!!! */}
                 </CardText>
                 </CardBody>

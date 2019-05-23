@@ -103,12 +103,22 @@ body {
     font-size: 1.2em;
   }
 
-  img {
+
+  .SmartShelfLogo{
     width: 70%;
-    max-width: 400px;
-    min-width: 250px;
-    padding: 30px;
+    margin:0 auto 20px;
+    padding:20px 10px;
+
+  img {
+    width:100%;
+    max-width:300px;
+    margin:20px auto;
+    display:block;
   }
+    #symbol{
+      padding:0
+    }
+ }
 
   .features {
     padding: 5px;
@@ -140,12 +150,38 @@ body {
 
   .home-location {
     background-color: $primary;
-    padding: 30px;
+    padding: 60px;
     color: $secondary;
 
     .icon {
       color: $secondary;
     }
+  }
+
+  .testimonials{
+    padding:60px 20px;
+
+    h2{
+      margin:15px 0 30px 0;
+    }
+
+    .carousel {
+
+      h2{
+        margin:0px 0 30px 0;
+      }
+
+      img{
+        max-width:300px;
+        max-height:300px;
+        object-fit:cover;
+        border-radius:50%;
+        // opacity:0.5;
+        z-index:-1;
+        filter: grayscale(100%);}
+    }
+
+
   }
 }
 
@@ -337,13 +373,11 @@ body {
     color: $secondary;
   }
 
-  .infoContainer {
-    margin-top: 10px;
+  .libraryContainer {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
     // border:3px solid orange;
-  }
-
-  .infoContainer img {
-    height: 120px;
   }
 
   .library-cover {
@@ -633,7 +667,7 @@ body {
   background-color: white;
   padding: 0;
   margin: 0;
-  border: 1px solid #00000011;
+  // border: 1px solid #00000011;
 }
 
 .AutocompletePlace-items {
@@ -666,4 +700,37 @@ body {
     list-style: none;
     text-align: left;
   }
+}
+
+.Rating {
+  display: inline-block;
+  position: relative;
+  /* border: 1px solid black; */
+}
+
+.Rating .pop-up {
+  font-size: 14px;
+  line-height: 25px;
+  color: white;
+  text-align: center;
+  height: 25px;
+  width: 50px;
+  background-color: black;
+  position: absolute;
+  top: -20px;
+  left: calc(50% - 50px/2);
+  z-index: 100;
+}
+
+
+.Rating .pop-up::before {
+  content: '';
+  position: absolute;
+  height: 6px;
+  width: 6px;
+  transform: rotate(45deg);
+  background-color: black;
+  top: 21px;
+  left: calc(50% - 6px/2);
+  z-index: 1;
 }

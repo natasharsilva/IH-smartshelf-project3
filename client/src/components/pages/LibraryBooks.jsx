@@ -12,6 +12,7 @@ import {
   Col
 } from "reactstrap";
 import { NavLink as Nlink } from "react-router-dom";
+import DeleteBook from "../DeleteBook";
 import api from "../../api";
 
 export default class LibraryBooks extends Component {
@@ -24,9 +25,17 @@ export default class LibraryBooks extends Component {
       },
       member: [],
       search: "",
-      message: ""
+      message: "",
+      showAlertDeleteBook: false
     };
+    // this.toggleAlertDeleteBook = this.toggleAlertDeleteBook.bind(this);
     this.changeSearch = this.changeSearch.bind(this);
+  }
+
+  toggleAlertDeleteBook() {
+    this.setState({
+      showAlertDeleteBook: !this.state.showAlertDeleteBook
+    });
   }
 
   changeSearch(e) {
@@ -35,17 +44,20 @@ export default class LibraryBooks extends Component {
     });
   }
 
-  deleteBook(e, bookDetail) {
-    console.log("IS THIS THE BOOK YOU WANT TO DELETE?", bookDetail._id);
-    e.preventDefault();
-    api.deleteBook(bookDetail._id).then(response => {
-      console.log("DID IT WORK???", response);
-      api.getLibrary(this.props.match.params.libraryId).then(response => {
-        this.setState({
-          message: `Your book was deleted successfully`,
-          library: response.library,
-          book: response.book
-        });
+  // deleteBook(e, bookDetail) {
+  //   console.log("IS THIS THE BOOK YOU WANT TO DELETE?", bookDetail._id);
+  //   e.preventDefault();
+  //   api.deleteBook(bookDetail._id).then(response => {
+  //     console.log("DID IT WORK???", response);
+  //   });
+  // }
+
+  handleDeleteBook() {
+    api.getLibrary(this.props.match.params.libraryId).then(response => {
+      this.setState({
+        message: `Your book was deleted successfully`,
+        library: response.library,
+        book: response.book
       });
     });
   }
@@ -91,68 +103,72 @@ export default class LibraryBooks extends Component {
                       .toUpperCase()
                       .includes(this.state.search.toUpperCase())
                   )
-                  .map(bookDetail => (
+                  .map((bookDetail, i) => (
                     <li key={bookDetail._id}>
                       <div className="CardMain">
                         <Card>
                           <Container>
-                            
                             <CardBody>
-                            <Row>
-                              <Col s="3">
-                                <img
-                                  src={bookDetail.picture}
-                                  alt={`"${bookDetail.title}-cover"`}
-                                />
-                                {/* <img src={bookDetail.picture} alt={`"${bookDetail.title}-cover"`}/> */}
-                              </Col>
+                              <Row>
+                                <Col s="3">
+                                  <img
+                                    src={bookDetail.picture}
+                                    alt={`"${bookDetail.title}-cover"`}
+                                  />
+                                  {/* <img src={bookDetail.picture} alt={`"${bookDetail.title}-cover"`}/> */}
+                                </Col>
                                 <Col s="9">
                                   <CardTitle>
-                                    <span><strong>Title:</strong></span> {bookDetail.title}
+                                    <span>
+                                      <strong>Title:</strong>
+                                    </span>{" "}
+                                    {bookDetail.title}
                                   </CardTitle>
                                   <CardTitle>
-                                    <span><strong>Author:</strong></span> {bookDetail.author}
+                                    <span>
+                                      <strong>Author:</strong>
+                                    </span>{" "}
+                                    {bookDetail.author}
                                   </CardTitle>
                                   <CardSubtitle>
-                                    <span><strong>Genre:</strong></span> {bookDetail.genre}
+                                    <span>
+                                      <strong>Genre:</strong>
+                                    </span>{" "}
+                                    {bookDetail.genre}
                                   </CardSubtitle>
                                   <CardText >
                                     <span><strong>Status:</strong></span> {bookDetail.status}
                                   </CardText>
-                                  </Col>
-                                  </Row>
-                                  <Button
-                                    size="sm"
-                                    tag={Nlink}
-                                    to={`/book-detail/${bookDetail._id}`}
-                                    className="library-books-btn"
-                                  >
-                                    See details
-                                  </Button>
-                                  {this.state.role === "admin" && (
-                                    <Button
-                                      color="danger"
-                                      onClick={e =>
-                                        this.deleteBook(e, bookDetail)
-                                      }
-                                    >
-                                      Delete Book
-                                    </Button>
-                                  )}
-                                  {bookDetail._currentOwner &&
-                                    bookDetail._currentOwner !==
-                                      "000000000000000000000000" && (
-                                      <div>
-                                        <br />
-                                        <Alert color="warning">
-                                          This book is not available at the
-                                          moment - It has been borrowed.
-                                        </Alert>
-                                      </div>
-                                    )}
-                                </CardBody>
-                              
-                            
+                                </Col>
+                              </Row>
+                              <Button
+                                size="sm"
+                                tag={Nlink}
+                                to={`/book-detail/${bookDetail._id}`}
+                                className="library-books-btn"
+                              >
+                                See details
+                              </Button>
+                              {this.state.role === "admin" && (
+                                <DeleteBook
+                                  onDelete={() => this.handleDeleteBook()}
+                                  bookToBeDeletedId={bookDetail._id}
+                                  bookDetail={bookDetail}
+                                />
+                              )}
+
+                              {bookDetail._currentOwner &&
+                                bookDetail._currentOwner !==
+                                  "000000000000000000000000" && (
+                                  <div>
+                                    <br />
+                                    <Alert color="warning">
+                                      This book is not available at the moment -
+                                      It has been borrowed.
+                                    </Alert>
+                                  </div>
+                                )}
+                            </CardBody>
                           </Container>
                         </Card>
                       </div>
