@@ -21,9 +21,11 @@ export default class AddReview extends Component {
   }
 
   handleSubmit(e) {
+    console.log("IS IT YOU, FATHER COMPONENT??",this.props.theInfo)
+
     let data = {
-      _user: this.state.user,
-      author: this.state.user.username,
+      _user: this.props.theInfo.user._id,
+      author: this.props.theInfo.user.username,
       title: this.state.title,
       text: this.state.review,
       rating: this.state.rating
@@ -40,31 +42,24 @@ export default class AddReview extends Component {
       }, 5000);
     } else {
       api
-        .updateBook(this.props.match.params.bookId, {
-          title: this.state.book.title,
-          author: this.state.book.author,
-          genre: this.state.book.genre,
-          picture: this.state.book.picture,
-          description: this.state.book.description,
-          rating: this.state.book.rating,
-          pages: this.state.book.pages,
-          language: this.state.book.language,
-          _currentOwner: this.state.book._currentOwner,
-          status: this.state.book.status,
-          comments: [...this.state.book.comments, data]
+        .updateBook(this.props.theInfo.response._id, {
+          title: this.props.theInfo.response.title,
+          author: this.props.theInfo.response.author,
+          genre: this.props.theInfo.response.genre,
+          picture: this.props.theInfo.response.picture,
+          description: this.props.theInfo.response.description,
+          rating: this.props.theInfo.response.rating,
+          pages: this.props.theInfo.response.pages,
+          language: this.props.theInfo.response.language,
+          _currentOwner: this.props.theInfo.response._currentOwner,
+          status: this.props.theInfo.response.status,
+          comments: [...this.props.theInfo.response.comments, data]
         })
         .then(response => {
           this.setState({
-            feedback: `Your review was added! You'll be redirected`
+            feedback: `Your review was added!`
           });
-          setTimeout(() => {
-            this.setState({
-              feedback: null
-            });
-            this.props.history.push(
-              `/book-detail/${this.props.match.params.bookId}`
-            );
-          }, 2000);
+          this.props.onToggle()
         })
         .catch(err => this.setState({ message: err.toString() }));
     }
@@ -105,6 +100,9 @@ export default class AddReview extends Component {
           <Button color="primary" onClick={e => this.handleSubmit(e)}>
             Submit review
           </Button>
+          <Button color="primary" onClick={() => this.props.onToggle()}>
+            Back
+          </Button>
         </form>
         {this.state.feedback && (
           <div className="info">{this.state.feedback}</div>
@@ -113,19 +111,4 @@ export default class AddReview extends Component {
     );
   }
 
-  componentDidMount() {
-    Promise.all([
-      api.getBook(this.props.match.params.bookId),
-      api.showProfile()
-    ])
-      .then(response => {
-        console.log('THIS IS THE RESPONSEEEEE', response)
-        this.setState({
-          user: response[1].user,
-          book: response[0].response
-        });
-        console.log("THIS IS THE STATEEE", this.state);
-      })
-      .catch(err => console.log(err));
-  }
 }

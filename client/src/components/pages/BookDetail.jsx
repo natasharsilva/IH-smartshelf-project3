@@ -1,3 +1,4 @@
+  
 import React, { Component } from "react";
 import api from "../../api";
 import {
@@ -12,7 +13,7 @@ import {
   Row,
   Col
 } from "reactstrap";
-
+import AddReview from "./AddReview"
 export default class BookDetail extends Component {
   constructor(props) {
     super(props);
@@ -40,10 +41,11 @@ export default class BookDetail extends Component {
         rating: this.state.book.rating,
         pages: this.state.book.pages,
         language: this.state.book.language,
-        _currentOwner: this.state.user,
+        _currentOwner: this.state.user._id,
         borrowedDate: Date.now(),
         comments: this.state.book.comments,
-        status: "Unavailable"
+        status: "Unavailable",
+        showReviewForm: false
       })
       .then(result => {
         console.log("DID IT WORK???", result);
@@ -80,6 +82,11 @@ export default class BookDetail extends Component {
 
      return Math.round(diffMS/oneDay)
       } else {return 0}
+  }
+  renderReviewForm  =() => {
+    this.setState({
+      showReviewForm: !this.state.showReviewForm
+    })
   }
 
   render() {
@@ -128,14 +135,10 @@ export default class BookDetail extends Component {
                   {this.state.book.status === "Unavailable" && 
                         <div><br /><Alert color="warning" >This book is not available at the moment - it has been borrowed.</Alert></div> }
                   <br />
-                  <Button href={`/book-detail/${this.state.book._id}/add-review`} outline color="info">
-                    Add a review
-                  </Button><br />
-                  <Button
-                    href={`/report-problem/${this.state.book._library}`}
-                    outline
-                    color="info"
-                    size="sm"
+                  <Button onClick={this.renderReviewForm}>Add a review</Button>
+                  {this.state.showReviewForm && 
+                  <AddReview onToggle={this.renderReviewForm} theInfo={this.state.response} />}<br />
+                  <Button href={`/report-problem/${this.state.book._library}`} outline color="info" size="sm"
                   >
                     Report a problem
                   </Button>
@@ -173,7 +176,8 @@ export default class BookDetail extends Component {
       .then(response => {
         this.setState({
           user: response.user,
-          book: response.response
+          book: response.response,
+          response:response
         });
       })
       .catch(err => console.log(err));

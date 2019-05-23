@@ -116,8 +116,8 @@ export default class LibraryBooks extends Component {
                                   <CardSubtitle>
                                     <span><strong>Genre:</strong></span> {bookDetail.genre}
                                   </CardSubtitle>
-                                  <CardText className="small">
-                                    <span><strong>Description:</strong></span> {bookDetail.description}
+                                  <CardText >
+                                    <span><strong>Status:</strong></span> {bookDetail.status}
                                   </CardText>
                                   </Col>
                                   </Row>
