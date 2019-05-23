@@ -8,8 +8,14 @@ const userSchema = new Schema(
     username: { type: String, required: true },
     picture: { type: String, default: "/images/defaultProfile.png" },
     phoneNumber: Number,
-    favoriteBooks: String,
-    favoriteQuote: String,
+    favoriteBooks: {
+      type: String,
+      default:'Here goes my favorite book'
+    },
+    favoriteQuote: {
+      type: String,
+      default:'Always read something that will make you look good if you die in the middle of it.'
+    },
   },
 
   {

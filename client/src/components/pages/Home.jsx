@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, Carousel, CarouselItem, CarouselControl,  CarouselIndicators, CarouselCaption } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBookReader , faMapMarkerAlt, faUsers, faBookOpen} from '@fortawesome/free-solid-svg-icons'
-
+import { Link } from "react-router-dom";
 import './../../index.scss';
 
 
@@ -84,7 +84,7 @@ export default class Home extends Component {
     return (
       <div className="Home">
         <div className="home-header">
-          <img src="../../../images/logo.svg" alt="logo"></img>
+          <img src="../../../images/brand_smartShelf.svg" alt="logo"></img>
           <h2>Smart Shelf</h2>
           <Button href="/signup" className="button-home" color="primary" size="lg" border-radius="30px" block>Get Started</Button>
         </div>
@@ -104,10 +104,14 @@ export default class Home extends Component {
             <h3>Find and contribute to other libraries</h3>
             <p>Search for available libraries nearby you can borrow books from... And ask to be a part of them!</p>
           </div>
+          <Link to='/find-libraries'>
           <div className="home-location">
+          {/* <Link to='/find-libraries'> */}
             <FontAwesomeIcon icon={faMapMarkerAlt} size="4x" className="icon"/>
-            <h3>Find libraries near you</h3>  
+            <h3>Find libraries near you</h3>
+            {/* </Link>   */}
           </div>
+          </Link>
         </div>
         <div className="testimonials features">
           <h2>Testimonials</h2>
