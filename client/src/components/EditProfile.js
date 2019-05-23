@@ -102,7 +102,7 @@ export default class EditProfile extends React.Component {
             <Input type="text" value={this.state.favoriteQuote} name="favoriteQuote" cols="20" rows="5" onChange={this.handleInputChange}
             />{" "}<br />
             </FormGroup>
-        {/* Show disabled button if there is no username  -> Ternary*/}
+        {/* Show disabled button if there is no username  -> Ternary */}
             {!this.state.username ? <Button disabled  className="confirm-profile-button" onClick={() => this.handleFormSubmit()}>
               Confirm
             </Button> :

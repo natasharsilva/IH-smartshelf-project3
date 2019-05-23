@@ -195,53 +195,56 @@ export default class LibraryDetail extends Component {
       }
         <h3>Available Books</h3>
         {!this.state.book && <div>Loading...</div>}
-        {this.state.book && this.state.book.length === 0 && 
-        <div className="NoBooks">
+        
+        {this.state.book && this.state.book.length > 0 ? 
+        this.state.book.slice(0, 2).map((booksFromLibrary, i) => (
+          <div key={booksFromLibrary._id}>
             <Card>
-                  <Col>
-                    <CardImg top width="100%" src="../../images/SadPup.jpg" alt="Card image cap" className="book-pic"
-                    />
-                  </Col>
-                  <Col>
-                    <CardBody>
-                      <CardTitle>
-                        There are currently no books at this library!
-                      </CardTitle>
-                
-                    </CardBody>
-                  </Col>
-              </Card>
-        </div>}
-        {this.state.book &&
-          this.state.book.slice(0, 2).map((booksFromLibrary, i) => (
-            <div key={booksFromLibrary._id}>
-              <Card>
-                <Row>
-                  <Col>
-                    <CardImg top width="100%" src={booksFromLibrary.picture} alt="Card image cap"
-                    />
-                  </Col>
-                  <Col>
-                    <CardBody>
-                      <CardTitle>
-                        <strong>{booksFromLibrary.name}</strong>
-                      </CardTitle>
-                      <CardSubtitle>{booksFromLibrary.author}</CardSubtitle>
-                      <CardText className="small">{booksFromLibrary.description}</CardText>
-                      <Button size="sm" tag={Nlink} to={`/book-detail/${booksFromLibrary._id}`} className="send-invitation-btn">
-                        See details
-                      </Button>
-                    </CardBody>
-                  </Col>
-                </Row>
-              </Card>
-            </div>
-          ))}
-        {this.state.book && !this.state.book.length === 0 && 
+              <Row>
+                <Col>
+                  <CardImg top width="100%" src={booksFromLibrary.picture} alt="Card image cap"
+                  />
+                </Col>
+                <Col>
+                  <CardBody>
+                    <CardTitle>
+                      <strong>{booksFromLibrary.title}</strong>
+                    </CardTitle>
+                    <CardSubtitle>{booksFromLibrary.author}</CardSubtitle>
+                    <CardText className="small">{booksFromLibrary.description}</CardText>
+                    <Button size="sm" tag={Nlink} to={`/book-detail/${booksFromLibrary._id}`} className="send-invitation-btn">
+                      See details
+                    </Button>
+                  </CardBody>
+                </Col>
+              </Row>
+            </Card>
+          </div>
+        ))
+        :
+        <div className="NoBooks">
+        <Card>
+              <Col>
+                <CardImg top width="100%" src="../../images/SadPup.jpg" alt="Card image cap" className="book-pic"
+                />
+              </Col>
+              <Col>
+                <CardBody>
+                  <CardTitle>
+                    There are currently no books at this library!
+                  </CardTitle>
+            
+                </CardBody>
+              </Col>
+          </Card>
+    </div>}
+    
+        {this.state.book && this.state.book.length > 0 && 
         <Button className="send-invitation-btn" outline color="info" size="sm" tag={Nlink} to={`/${this.props.match.params.libraryId}/books`}>
           {" "}
           See all Books
         </Button>}
+        
         <Button className="send-invitation-btn" outline color="info" size="sm" tag={Nlink} to={`/${this.props.match.params.libraryId}/add-book`}>
           {" "}
           Add new Book

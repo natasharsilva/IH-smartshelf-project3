@@ -21,11 +21,33 @@ export default class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      profileInfo: null
+      profileInfo: null,
+      librariesToShow: 2,
+      expandedLibraries: false,
+      expandedBooks: false,
+      booksToShow: 2
+
+
     };
 
     this.calculateDueDate = this.calculateDueDate.bind(this);
     this.untilDueDate = this.untilDueDate.bind(this);
+    this.toggleShow = this.toggleShow.bind(this);
+
+  }
+  toggleShow() {
+    this.state.librariesToShow === 2 ? (
+      this.setState({ librariesToShow: this.state.profileInfo.members.length, expanded: true })
+    ) : (
+      this.setState({ librariesToShow: 2, expanded: false })
+    )
+  }
+  toggleShowBooks() {
+    this.state.booksToShow === 2 ? (
+      this.setState({ booksToShow: this.state.profileInfo.books.length, expandedBooks: true })
+    ) : (
+      this.setState({ booksToShow: 2, expandedBooks: false })
+    )
   }
 
   updateProfile = () => {
@@ -130,7 +152,7 @@ export default class Profile extends Component {
                   </span>
                 )}
                 {this.state.profileInfo.members.length > 0 &&
-                  this.state.profileInfo.members.map(library => (
+                  this.state.profileInfo.members.slice(0,this.state.librariesToShow).map(library => (
                     <li key={library._library._id}>
                     <Link to={`/libraries/${library._library._id}`}>
                       
@@ -148,12 +170,7 @@ export default class Profile extends Component {
                   ))}
               </div>
               {this.state.profileInfo.members.length > 2 && (
-                <Button
-                  onClick={this.showMore}
-                  outline
-                  color="info"
-                  size="sm"
-                >
+                <Button onClick={this.toggleShow} className="add-library-button btn" size="sm">
                   {this.state.expanded ? (
                     <span>Show less</span>
                   ) : (
@@ -190,7 +207,7 @@ export default class Profile extends Component {
                   </span>
                 )}
                 {this.state.profileInfo.books.length > 0 &&
-                  this.state.profileInfo.books.map(book => (
+                  this.state.profileInfo.books.slice(0,this.state.booksToShow).map(book => (
                     <li key={book._id}>
                     <Container><Row>
                     <Col xs="3">
@@ -226,17 +243,13 @@ export default class Profile extends Component {
                     </li>
                   ))}
               </CardText>
-              {this.state.profileInfo.members.length > 2 && (
-                <Button
-                  onClick={this.showMore}
-                  outline
-                  color="info"
-                  size="sm"
+              {this.state.profileInfo.books.length > 2 && (
+                <Button onClick={this.toggleBooks} className="add-library-button btn"
                 >
-                  {this.state.expanded ? (
-                    <span>Show less</span>
+                  {this.state.expandedBooks ? (
+                    <span>Show less books</span>
                   ) : (
-                    <span>Show more</span>
+                    <span>Show more books</span>
                   )}
                 </Button>
               )}

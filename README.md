@@ -9,6 +9,12 @@ $ kill $(lsof -t -i:5000)
 
 ## Notes from Maxence - DONE
 
+## HEROKU INSTRUCTIONS
+
+- Push and pull to Github (check if you are up to date)
+- $ heroku login (confirmed if you are logged in at the terminal)
+- $ git push heroku master
+
 In `models/Book.js`:
 - currentOwner -> _owner  
 - Add _library
