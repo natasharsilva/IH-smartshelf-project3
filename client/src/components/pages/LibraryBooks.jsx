@@ -103,16 +103,16 @@ export default class LibraryBooks extends Component {
                               <Col xs="9">
                                 <CardBody>
                                   <CardTitle>
-                                    <strong>Title:</strong> {bookDetail.title}
+                                    <span><strong>Title:</strong></span> {bookDetail.title}
                                   </CardTitle>
                                   <CardTitle>
-                                    <strong>Author:</strong> {bookDetail.author}
+                                    <span><strong>Author:</strong></span> {bookDetail.author}
                                   </CardTitle>
                                   <CardSubtitle>
-                                    <strong>Genre:</strong> {bookDetail.genre}
+                                    <span><strong>Genre:</strong></span> {bookDetail.genre}
                                   </CardSubtitle>
                                   <CardText>
-                                    <strong>Description:</strong> {bookDetail.description}
+                                    <span><strong>Description:</strong></span> {bookDetail.description}
                                   </CardText>
 
                                   <Button
