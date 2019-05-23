@@ -170,7 +170,7 @@ export default class Profile extends Component {
                   ))}
               </div>
               {this.state.profileInfo.members.length > 2 && (
-                <Button onClick={this.toggleShow} className="add-library-button btn" size="sm">
+                <Button onClick={this.toggleShow} className="btn-yellow-fill btn" size="sm">
                   {this.state.expanded ? (
                     <span>Show less</span>
                   ) : (
