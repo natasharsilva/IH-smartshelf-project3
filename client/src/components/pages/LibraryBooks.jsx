@@ -77,7 +77,12 @@ export default class LibraryBooks extends Component {
               >
                 Add book
               </Button>
-              <br />
+              <Button
+                href={`/libraries/${this.state.library._id}`}
+                className="library-books-btn"
+              >
+                Go back
+              </Button>
               <br />
               <ul>
                 {this.state.book
