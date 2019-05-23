@@ -531,6 +531,7 @@ body {
   .card {
     width: 90%;
     margin: auto;
+    display:flex;
   }
 
   h3 {
@@ -579,13 +580,29 @@ body {
 }
 
 .memberList {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+
   img {
-    height: 80px;
-    width: 80px;
-    margin: 15px;
+    // height: 60px;
+    width: 15vw;
+    margin: 5px;
     object-fit: cover;
     border-radius: 80px;
+    min-width:40px;
+    min-height:40px;
+    max-width:80px;
+    max-height:80px;
   }
+
+  .card {
+    width: 90%;
+    margin: 0 auto 10px;  
+  }
+
+
 }
 .show-more-btn {
     border-radius: 50px;

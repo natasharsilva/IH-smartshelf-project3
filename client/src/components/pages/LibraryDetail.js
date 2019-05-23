@@ -204,19 +204,17 @@ export default class LibraryDetail extends Component {
               <Row>
                 <Col>
                   <CardImg top width="100%" src={booksFromLibrary.picture} alt="Card image cap"
-                  />
+                  style={{maxWidth:'130px'}}/>
                 </Col>
                 <Col> 
-                  
                   <CardSubtitle>{booksFromLibrary.author}</CardSubtitle>
-                  <CardText className="small">{booksFromLibrary.description}</CardText>
+                  <CardText className="small" style={{overflow:'auto'}}>{booksFromLibrary.description}</CardText>
                 </Col>
                 </Row>
                   <Button size="sm" tag={Nlink} to={`/book-detail/${booksFromLibrary._id}`} className="send-invitation-btn">
                     See details
                   </Button>
-                  </CardBody>
-                
+                </CardBody>
             </Card>
           </div>
         ))
@@ -250,21 +248,24 @@ export default class LibraryDetail extends Component {
         <h3>Members</h3>
         {this.state.allmembers && this.state.allmembers.map((members,i) => (<div key={members._id}>
              <Card>
+             <CardBody>
               <Row>
                 <Col xs="3">
                   <CardImg top width="100%" src={members._user.picture} alt="Card image cap" />
                 </Col>
                 <Col xs="9">
-                  <CardBody>
+                  
                     <CardTitle><b>{members._user.username}</b></CardTitle>
+                    <CardText className="small">"<i>{members._user.favoriteQuote}</i>"</CardText>
                     {/* <Button size="sm" tag={Nlink}to={`/profile/${members._user._id}`}  className="send-invitation-btn small">See details</Button> */}
                     {this.state.member && 
                     this.state.member.role === "admin" && 
                     members._user._id !== this.state.profileInfo.user._id &&                    
                       <DeleteMember onDelete={() => this.handleDeleteMember(i)} memberToBeDeletedId={members._id} theLibrary={this.state.library}/>}
-                  </CardBody>
+                 
                   </Col>
               </Row>
+              </CardBody>
             </Card>
           </div>))}
         </div>
