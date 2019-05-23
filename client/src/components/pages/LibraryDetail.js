@@ -208,7 +208,7 @@ export default class LibraryDetail extends Component {
                 <Col>
                   <CardBody>
                     <CardTitle>
-                      <strong>{booksFromLibrary.name}</strong>
+                      <strong>{booksFromLibrary.title}</strong>
                     </CardTitle>
                     <CardSubtitle>{booksFromLibrary.author}</CardSubtitle>
                     <CardText className="small">{booksFromLibrary.description}</CardText>
