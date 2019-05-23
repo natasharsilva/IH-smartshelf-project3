@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import {
   Button,
-
   Row,
-
 } from 'reactstrap'
 import mapboxgl from "mapbox-gl/dist/mapbox-gl"; // NEW
 import api from "../../api";
+import 'mapbox-gl/dist/mapbox-gl.css' // Import of Mapbox CSS
 
 
 
@@ -74,7 +73,7 @@ export default class Map extends Component {
   render() {
     return (
       <div className="LibraryLocations">
-        <h1>Find libraries around you!</h1>
+        <h1>Click here to find libraries!</h1>
         {/* <Button className="add-library-button btn" onClick={this.getCurrentCoordinates}>
           Get Current Coordinates
         </Button> */}
