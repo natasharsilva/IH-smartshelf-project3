@@ -2,7 +2,13 @@ import React from "react";
 import {
   Button,
   Input,
+  CustomInput,
+  Form,
+  FormGroup,
+  Label
 } from "reactstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import api from "../api";
 import AutocompletePlace from "./AutocompletePlace"
 
@@ -11,9 +17,9 @@ export default class EditLibrary extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
-      address: "",
-      description: "",
+      name: this.props.theLibrary.name,
+      address: this.props.theLibrary.address,
+      description: this.props.theLibrary.description,
       showEditForm: true,
       picture: null,
       libraryId: this.props.theLibrary._id
@@ -21,7 +27,11 @@ export default class EditLibrary extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleFileChange = this.handleFileChange.bind(this)
+    this.handleSelect = this.handleSelect.bind(this)
 
+  }
+  handleSelect(place) {
+    this.setState({ place })
   }
   handleInputChange(event) {
     this.setState({
@@ -38,7 +48,7 @@ export default class EditLibrary extends React.Component {
   handleFormSubmit(e) {
     let uploadData = new FormData()
       uploadData.append("name", this.state.name)
-      uploadData.append("address", this.state.address)
+      uploadData.append("address", this.state.place.place_name)
       uploadData.append("picture", this.state.picture)
       uploadData.append("coordinates_lng", this.state.place.center[0])
       uploadData.append("coordinates_lat", this.state.place.center[1])
@@ -70,30 +80,37 @@ export default class EditLibrary extends React.Component {
     return (
       <div className="editForm">
         {this.state.showEditForm ? (
-          <Button onClick={e => this.showEditForm(e)} outline color="info" size="sm">
-            Edit Library
-          </Button>
+          <div className="edit-button" style={{flexDirection:'row'}}>
+          <FontAwesomeIcon icon={faEdit} size="1x" className="icon" onClick={e => this.showEditForm(e)}>edit</FontAwesomeIcon>
+          </div>
+
         ) : (
-          <form>
-            Name:{" "}
-            <Input type="Name" value={this.state.Name} name="name" onChange={this.handleInputChange}
-            />{" "}
-            Address:{" "}
+          <Form className="form-container">
+            <FormGroup>
+            <Label for="name">Name:{" "}</Label>
+            <Input type="Name" value={this.state.name} name="name" onChange={this.handleInputChange}
+            />
+            {" "}<br />
+            <Label for="address">Address:{" "}</Label>
             <AutocompletePlace onSelect={this.handleSelect} />
-            {" "}
-            Picture:{" "}
-            <Input type="file" name="picture" onChange={this.handleFileChange}
-            />{" "}
-            <br />
-            Description:{" "}
+            {" "}<br />
+            <Label for="picture">Picture:{" "}</Label>
+            <CustomInput type="file" id="exampleCustomFileBrowser" name="picture" onChange={this.handleFileChange}/>
+            {" "}<br />
+            <Label for="description">Description:{" "}</Label>
             <Input type="text" value={this.state.description} name="description" cols="20" rows="5" onChange={this.handleInputChange}
-            />{" "}
-            <br />
-            <Button outline color="info" onClick={() => this.handleFormSubmit()}
-            >
+            />{" "} <br />
+            </FormGroup>
+                 {/* Show disabled button if there is no address  -> Ternary*/}
+              {!this.state.address ? <Button disabled  className="confirm-profile-button" onClick={() => this.handleFormSubmit()}>
               Confirm
-            </Button>
-          </form>
+            </Button> :
+            <Button className="confirm-profile-button" onClick={() => this.handleFormSubmit()}>
+              Confirm
+            </Button>}
+
+
+          </Form>
         )}
       </div>
     );

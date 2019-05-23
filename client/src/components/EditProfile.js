@@ -16,10 +16,10 @@ export default class EditProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
-      phoneNumber: "",
-      favoriteBooks: "",
-      favoriteQuote: "",
+      username: this.props.theProfile.username,
+      phoneNumber: this.props.theProfile.phoneNumber,
+      favoriteBooks: this.props.theProfile.favoriteBooks,
+      favoriteQuote: this.props.theProfile.favoriteQuote,
       showEditForm: true,
 
     };
@@ -83,7 +83,8 @@ export default class EditProfile extends React.Component {
             <Label for="username">Username:{" "}</Label>
             {!this.state.username ? <div><Input invalid type="text" value={this.state.username} name="username" onChange={this.handleInputChange}
             />{" "}
-            <FormFeedback>Oh noes! You have to write your username</FormFeedback></div> :
+            <FormFeedback>Oh noes! You have to write your username</FormFeedback></div> 
+            :
             <div><Input valid type="text" value={this.state.username} name="username" onChange={this.handleInputChange}
             />{" "}</div>}
             <Label for="picture">Picture:{" "}</Label>
