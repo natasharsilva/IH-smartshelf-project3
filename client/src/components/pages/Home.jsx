@@ -84,9 +84,8 @@ export default class Home extends Component {
     return (
       <div className="Home">
         <div className="home-header">
-          <img src="../../../images/brand_smartShelf.svg" alt="logo"></img>
           <h2>Smart Shelf</h2>
-          <Button href="/signup" className="button-home" color="primary" size="lg" border-radius="30px" block>Get Started</Button>
+          <Button href="/signup" className="button-home" border-radius="30px" block>Get Started</Button>
         </div>
         <div className="home-features">
           <div className="features features-1">

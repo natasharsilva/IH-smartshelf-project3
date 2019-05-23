@@ -13,6 +13,7 @@ $primary-font: "Muli", sans-serif;
 
 // --------------------
 // Style reusable for all components
+
 body {
   margin: 0;
   padding: 0;
@@ -415,7 +416,25 @@ body {
     padding-bottom: 5px;
   }
 }
-
+.Map { 
+  color: white;
+  margin: 0;
+  font-family: $primary-font;
+  .map-header {
+    padding-top: 10px;
+    padding-bottom: 30px;
+  }
+  .button-map {
+    text-align: right;
+    padding: 5px;
+    font-size: 22px;
+    border-radius: 50px;
+    margin: 10px;
+    background-color: $primary;
+    border: 2px solid $primary;
+    color: $secondary
+  }
+}
 .editForm {
   .edit-button {
     // display:block;
@@ -595,7 +614,9 @@ body {
     width: 100%;
     display: inline-block;
 }
-
+.map-container {
+  padding: 10px;
+} 
 .mapbox {
   display: flex;
   min-width: 100%;
@@ -630,6 +651,7 @@ body {
 .main {
   flex-grow: 1;
   min-height: 90vh;
+  background-color: $secondary;
 }
 
 .Footer {

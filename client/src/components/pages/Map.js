@@ -5,8 +5,8 @@ import {
 } from 'reactstrap'
 import mapboxgl from "mapbox-gl/dist/mapbox-gl"; // NEW
 import api from "../../api";
+import '../../index.scss';
 import 'mapbox-gl/dist/mapbox-gl.css' // Import of Mapbox CSS
-
 
 
 mapboxgl.accessToken = "pk.eyJ1IjoiZ3RjYXJtb25hIiwiYSI6ImNqdWwxYzZwOTAzeWE0NGxsbjJ0ZnJ0aDYifQ.GIzsIahO6WNQFMg486tFkA"
@@ -31,7 +31,7 @@ export default class Map extends Component {
       container: this.mapRef.current,
       style: "mapbox://styles/mapbox/streets-v11",
       center: [lng, lat],
-      zoom: 12
+      zoom: 13
     });
 
     this.map.addControl(new mapboxgl.NavigationControl());
@@ -62,6 +62,8 @@ export default class Map extends Component {
           lng: position.coords.longitude,
           lat: position.coords.latitude,
         })
+        this.initMap(this.state.lng,this.state.lat)
+
       })
     }
   }
@@ -72,33 +74,20 @@ export default class Map extends Component {
   }
   render() {
     return (
-      <div className="LibraryLocations">
-        <h1>Click here to find libraries!</h1>
-        {/* <Button className="add-library-button btn" onClick={this.getCurrentCoordinates}>
-          Get Current Coordinates
-        </Button> */}
-        
-        <Row className="my-4">
-          {/* <Col sm={3}>
-            <Label for="exampleEmail">Coordinates</Label>
-          </Col>
-          <Col>
-            <Input type="number" value={this.state.lng} onChange={this.handleInputChange} name="lng" placeholder="Longitude" />
-          </Col>
-          <Col>
-            <Input type="number" value={this.state.lat} onChange={this.handleInputChange} name="lat" placeholder="Latitude" />
-          </Col> */}
-        </Row>
-        <Button className="btn btn-info"onClick={() => this.initMap(this.state.lng,this.state.lat)}>
-          Click here to find libraries!
-        </Button>
+      <div className="Map">
+        <div className="map-header">
+          <h2>Find Libraries nearby</h2>
+        </div>
+        <div className="map-container">
         <div className="mapbox"ref={this.mapRef} style={{ height: 400 }} />
+        </div>
+        <h3>Click on the marker and visit them!</h3>
+
       </div>
       
     )
   }
   componentDidMount() {
-    // this.initMap()
       api.getLibraries()
         .then(libraries => {
           console.log("TCL: Map -> componentDidMount -> libraries.response", libraries.response)

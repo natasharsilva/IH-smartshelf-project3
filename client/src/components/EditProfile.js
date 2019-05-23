@@ -17,7 +17,6 @@ export default class EditProfile extends React.Component {
     super(props);
     this.state = {
       username: this.props.theProfile.username,
-      phoneNumber: this.props.theProfile.phoneNumber,
       favoriteBooks: this.props.theProfile.favoriteBooks,
       favoriteQuote: this.props.theProfile.favoriteQuote,
       showEditForm: true,
@@ -43,7 +42,6 @@ export default class EditProfile extends React.Component {
     const uploadData = new FormData() 
     uploadData.append("username", this.state.username)
     uploadData.append("picture", this.state.picture)
-    uploadData.append("phoneNumber", this.state.phoneNumber)
     uploadData.append("favoriteBooks", this.state.favoriteBooks)
     uploadData.append("favoriteQuote", this.state.favoriteQuote)
 
@@ -90,9 +88,6 @@ export default class EditProfile extends React.Component {
             <Label for="picture">Picture:{" "}</Label>
             <CustomInput type="file" id="exampleCustomFileBrowser" name="picture" label="Bring that smile on!" onChange={this.handleFileChange}/>
             {" "}<br />
-            <Label for="phoneNumber">Phone:{" "}</Label>
-            <Input type="text" value={this.state.phoneNumber} name="phoneNumber" cols="20" rows="5" onChange={this.handleInputChange}
-            />{" "}<br />
             </FormGroup>
             <FormGroup>
             <Label for="favoriteBooks">Favorite Books:{" "}</Label>
