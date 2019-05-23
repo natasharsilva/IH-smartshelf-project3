@@ -193,31 +193,30 @@ export default class LibraryDetail extends Component {
           </Card>
         </div>
       }
-        <h3>Available Books</h3>
+        <h3>Library Books</h3>
         {!this.state.book && <div>Loading...</div>}
         
         {this.state.book && this.state.book.length > 0 ? 
         this.state.book.slice(0, 2).map((booksFromLibrary, i) => (
           <div key={booksFromLibrary._id}>
             <Card>
+            <CardBody>
               <Row>
                 <Col>
                   <CardImg top width="100%" src={booksFromLibrary.picture} alt="Card image cap"
                   />
                 </Col>
-                <Col>
-                  <CardBody>
-                    <CardTitle>
-                      <strong>{booksFromLibrary.title}</strong>
-                    </CardTitle>
-                    <CardSubtitle>{booksFromLibrary.author}</CardSubtitle>
-                    <CardText className="small">{booksFromLibrary.description}</CardText>
-                    <Button size="sm" tag={Nlink} to={`/book-detail/${booksFromLibrary._id}`} className="send-invitation-btn">
-                      See details
-                    </Button>
-                  </CardBody>
+                <Col> 
+                  
+                  <CardSubtitle>{booksFromLibrary.author}</CardSubtitle>
+                  <CardText className="small">{booksFromLibrary.description}</CardText>
                 </Col>
-              </Row>
+                </Row>
+                  <Button size="sm" tag={Nlink} to={`/book-detail/${booksFromLibrary._id}`} className="send-invitation-btn">
+                    See details
+                  </Button>
+                  </CardBody>
+                
             </Card>
           </div>
         ))
