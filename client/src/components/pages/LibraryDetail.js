@@ -242,12 +242,10 @@ export default class LibraryDetail extends Component {
           {" "}
           See all Books
         </Button>}
-        
         <Button className="send-invitation-btn" outline color="info" size="sm" tag={Nlink} to={`/${this.props.match.params.libraryId}/add-book`}>
           {" "}
           Add new Book
         </Button>
-
         <div className="memberList">
         <h3>Members</h3>
         {this.state.allmembers && this.state.allmembers.map((members,i) => (<div key={members._id}>
@@ -260,7 +258,9 @@ export default class LibraryDetail extends Component {
                   <CardBody>
                     <CardTitle><b>{members._user.username}</b></CardTitle>
                     {/* <Button size="sm" tag={Nlink}to={`/profile/${members._user._id}`}  className="send-invitation-btn small">See details</Button> */}
-                    {this.state.member && this.state.member.role === "admin" && !(this.state.member_user === this.state.profileInfo._id) &&
+                    {this.state.member && 
+                    this.state.member.role === "admin" && 
+                    members._user._id !== this.state.profileInfo.user._id &&                    
                       <DeleteMember onDelete={() => this.handleDeleteMember(i)} memberToBeDeletedId={members._id} theLibrary={this.state.library}/>}
                   </CardBody>
                   </Col>
@@ -289,6 +289,7 @@ export default class LibraryDetail extends Component {
                allmembers: allmembers,
                profileInfo: profileInfo
           })
+          console.log("CHECK IF THESE ARE THE SAME?", this.state.member._user._id, this.state.profileInfo.user._id)
           console.log("THIS IS THE LOGGED MEMBER:", this.state.member)
           console.log('THERE ARE THE MEMBERS-------->',this.state.allmembers)
         })     

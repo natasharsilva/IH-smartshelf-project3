@@ -12,7 +12,6 @@ export default class DeleteMember extends React.Component {
      showDeleteAlert: true,
      libraryId: this.props.theLibrary._id
 
-
     }
     this.showDeleteAlert = this.showDeleteAlert.bind(this)
   }
@@ -24,7 +23,6 @@ export default class DeleteMember extends React.Component {
       this.props.onDelete()
     })
   }
-  
   showDeleteAlert() {
     this.setState({
       showDeleteAlert: !this.state.showDeleteAlert
