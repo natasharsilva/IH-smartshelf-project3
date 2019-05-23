@@ -85,7 +85,7 @@ body {
 .Home, .AddLibrary,
 .AddBook {
   background-color:$secondary;
-  color:white;
+  
 }
 
 
@@ -566,6 +566,7 @@ body {
   border: 1px solid #00000011;
   cursor: pointer;
   padding: 10px 10px;
+  color:black;
 }
 
 .AutocompletePlace-items:hover {
