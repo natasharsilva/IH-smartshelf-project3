@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Input } from "reactstrap";
+import { Button, Input, Form, FormGroup, Label, CustomInput } from "reactstrap";
 import api from "../../api";
 import AutocompletePlace from "../AutocompletePlace"
 
@@ -65,29 +65,34 @@ export default class AddLibrary extends Component {
   render() {
     return (
       <div className="AddLibrary">
+      <div className="container">
         <h2>Add Library</h2>
-        <form>
-          Name:{" "}
+        <Form>
+        <FormGroup>
+        <Label for="name">Name</Label>
           <Input
             type="text"
             value={this.state.name}
             name="name"
             onChange={this.handleInputChange}
-          />{" "}
-          <br />
-          Picture:{" "}
-          <Input
-            type="file"
+          />
+         </FormGroup>
+         <FormGroup>
+         <Label for="picture">Picture</Label>
+          <CustomInput
+            type="file" 
+            id="exampleCustomFileBrowser"
             // value={this.state.picture}
             name="picture"
             onChange={this.handleFileChange}
-          />{" "}
-          <br />
-          Address:{" "}
+          />
+          </FormGroup>
+          <FormGroup>
+          <Label for="address">Address</Label>
           <AutocompletePlace onSelect={this.handleSelect} />
-
-          <br />
-          Description:{" "}
+          </FormGroup>
+          <FormGroup>
+          <Label for="description">Description</Label>
           <Input
             type="textarea"
             value={this.state.description}
@@ -95,14 +100,14 @@ export default class AddLibrary extends Component {
             cols="20"
             rows="5"
             onChange={this.handleInputChange}
-          />{" "}
-          <br />
+          />
+          </FormGroup>
           <Button color="primary" onClick={e => this.addLibraryAndRedirectToProfile(e)}>
             Create Library
           </Button>
-        </form>
+        </Form>
         {this.state.message && <div className="info">{this.state.message}</div>}
-        
+        </div>
       </div>
     );
   }

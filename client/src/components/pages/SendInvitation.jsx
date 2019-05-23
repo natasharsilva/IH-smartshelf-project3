@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Input } from "reactstrap";
+import { Button, Input, Form, FormGroup, Label } from "reactstrap";
 import api from "../../api";
 
 export default class SendInvitation extends Component {
@@ -56,31 +56,35 @@ export default class SendInvitation extends Component {
   render() {
     return (
       <div className="AddBook">
+      <div className="container">
         <h2>Invite friends to join this library</h2>
-        <form>
-          What's your friend's name?{" "}
+        <Form>
+          <FormGroup>
+          <Label for="name">What's your friend's name?</Label>
           <Input
             type="text"
             name="name"
             value={this.state.name}
             onChange={this.handleInputChange}
-          />{" "}
-          <br />
-          And your friend's e-mail?{" "}
+          />
+          </FormGroup>
+          <FormGroup>
+          <Label for="email">And your friend's e-mail?</Label>
           <Input
             type="text"
             name="email"
             value={this.state.email}
-            onChange={this.handleInputChange}
-          />{" "}
-          <br />
-          <Button color="primary" onClick={e => this.handleSubmit(e)}>
+            onChange={this.handleInputChange} 
+            />
+          </FormGroup>
+          <Button className="btn-yellow-fill" onClick={e => this.handleSubmit(e)}>
             Invite
           </Button>
-        </form>
+        </Form>
         {this.state.feedback && (
           <div className="info">{this.state.feedback}</div>
         )}
+      </div>
       </div>
     );
   }
