@@ -13,6 +13,7 @@ $primary-font: "Muli", sans-serif;
 
 // --------------------
 // Style reusable for all components
+
 body {
   margin: 0;
   padding: 0;
@@ -31,6 +32,8 @@ body {
 .info.info-danger {
   background-color: #e73f3f;
 }
+
+
 
 // --------------------
 // Style for App component
@@ -82,11 +85,7 @@ body {
 }
 //General styles----------------
 
-.Home, .AddLibrary,
-.AddBook {
-  background-color:$secondary;
-  color:white;
-}
+
 
 
 // --------------------
@@ -158,9 +157,40 @@ body {
 
 .AddLibrary,
 .AddBook {
+  background-color:$secondary;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content:center;
+  color:white;
+  min-height:91vh;
+
+  .container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // justify-items: center;
+  }
+
+  .btn-yellow-fill
+   {
+    border-radius: 50px;
+    margin: 15px auto;
+    background-color: $primary;
+    border: 0;
+    color: $secondary;
+    padding: 6px;
+    width: 60%;
+    display: inline-block;
+  }
+
+  .btn-yellow-fill:hover
+  {
+    background-color: $primary;
+    background-color: rgb(207, 168, 9);
+    border: 0;
+    color: $secondary;
+  }
 
   form {
     width: 70%;
@@ -384,7 +414,25 @@ body {
     padding-bottom: 5px;
   }
 }
-
+.Map { 
+  color: white;
+  margin: 0;
+  font-family: $primary-font;
+  .map-header {
+    padding-top: 10px;
+    padding-bottom: 30px;
+  }
+  .button-map {
+    text-align: right;
+    padding: 5px;
+    font-size: 22px;
+    border-radius: 50px;
+    margin: 10px;
+    background-color: $primary;
+    border: 2px solid $primary;
+    color: $secondary
+  }
+}
 .editForm {
   .edit-button {
     // display:block;
@@ -451,6 +499,7 @@ body {
       margin: 20px;
       object-fit: cover;
       border-radius: none;
+      max-width:100px;
     }
   }
 
@@ -480,6 +529,7 @@ body {
   .card {
     width: 90%;
     margin: auto;
+    display:flex;
   }
 
   h3 {
@@ -505,6 +555,14 @@ body {
     display: inline-block;
   }
 
+  .delete-libr-btn:hover,
+  .send-invitation-btn:hover {
+    background-color: $primary;
+    background-color: rgb(207, 168, 9);
+    border: 3px solid rgb(207, 168, 9);
+    color: $secondary;
+  }
+
   .delete-libr-btn {
     background-color: white;
     border: 2px solid $primary;
@@ -520,25 +578,43 @@ body {
 }
 
 .memberList {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+
   img {
-    height: 80px;
-    width: 80px;
-    margin: 15px;
+    // height: 60px;
+    width: 15vw;
+    margin: 5px;
     object-fit: cover;
     border-radius: 80px;
+    min-width:40px;
+    min-height:40px;
+    max-width:80px;
+    max-height:80px;
   }
+
+  .card {
+    width: 90%;
+    margin: 0 auto 10px;  
+  }
+
+
 }
 .show-more-btn {
-  border-radius: 50px;
-  margin: 15px auto;
-  background-color: $primary;
-  border: 0;
-  color: $secondary;
-  padding: 6px;
-  width: 100%;
-  display: inline-block;
+    border-radius: 50px;
+    margin: 15px auto;
+    background-color: $primary;
+    border: 0;
+    color: $secondary;
+    padding: 6px;
+    width: 100%;
+    display: inline-block;
 }
-
+.map-container {
+  padding: 10px;
+} 
 .mapbox {
   display: flex;
   min-width: 100%;
@@ -563,6 +639,7 @@ body {
   border: 1px solid #00000011;
   cursor: pointer;
   padding: 10px 10px;
+  color:black;
 }
 
 .AutocompletePlace-items:hover {
@@ -572,6 +649,7 @@ body {
 .main {
   flex-grow: 1;
   min-height: 90vh;
+  background-color: $secondary;
 }
 
 .Footer {

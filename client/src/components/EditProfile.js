@@ -17,7 +17,6 @@ export default class EditProfile extends React.Component {
     super(props);
     this.state = {
       username: this.props.theProfile.username,
-      phoneNumber: this.props.theProfile.phoneNumber,
       favoriteBooks: this.props.theProfile.favoriteBooks,
       favoriteQuote: this.props.theProfile.favoriteQuote,
       showEditForm: true,
@@ -43,7 +42,6 @@ export default class EditProfile extends React.Component {
     const uploadData = new FormData() 
     uploadData.append("username", this.state.username)
     uploadData.append("picture", this.state.picture)
-    uploadData.append("phoneNumber", this.state.phoneNumber)
     uploadData.append("favoriteBooks", this.state.favoriteBooks)
     uploadData.append("favoriteQuote", this.state.favoriteQuote)
 
@@ -63,7 +61,7 @@ export default class EditProfile extends React.Component {
       })
       .catch(err => this.setState({ message: err.toString() }));
 }
-  showEditForm() {
+  showEditForm = () => {
     this.setState({
       showEditForm: !this.state.showEditForm
     })
@@ -74,7 +72,7 @@ export default class EditProfile extends React.Component {
       <div className="editForm">
         {this.state.showEditForm ? (
           <div className="edit-button" style={{flexDirection:'row'}}>
-          <FontAwesomeIcon icon={faUserEdit} size="1x" className="icon" onClick={e => this.showEditForm(e)}>edit</FontAwesomeIcon>
+          <FontAwesomeIcon icon={faUserEdit} size="1x" className="icon" onClick={this.showEditForm}>edit</FontAwesomeIcon>
           </div>
         ) : ( //ternary
           <Form className="form-container">
@@ -90,9 +88,6 @@ export default class EditProfile extends React.Component {
             <Label for="picture">Picture:{" "}</Label>
             <CustomInput type="file" id="exampleCustomFileBrowser" name="picture" label="Bring that smile on!" onChange={this.handleFileChange}/>
             {" "}<br />
-            <Label for="phoneNumber">Phone:{" "}</Label>
-            <Input type="text" value={this.state.phoneNumber} name="phoneNumber" cols="20" rows="5" onChange={this.handleInputChange}
-            />{" "}<br />
             </FormGroup>
             <FormGroup>
             <Label for="favoriteBooks">Favorite Books:{" "}</Label>
@@ -103,12 +98,15 @@ export default class EditProfile extends React.Component {
             />{" "}<br />
             </FormGroup>
         {/* Show disabled button if there is no username  -> Ternary */}
-            {!this.state.username ? <Button disabled  className="confirm-profile-button" onClick={() => this.handleFormSubmit()}>
+            {!this.state.username ? <Button disabled  className="add-library-button btn" onClick={() => this.handleFormSubmit()}>
               Confirm
             </Button> :
-            <Button className="confirm-profile-button" onClick={() => this.handleFormSubmit()}>
+            <Button className="add-library-button btn" onClick={() => this.handleFormSubmit()}>
               Confirm
             </Button>}
+            <Button onClick={this.showEditForm} className="add-library-button btn">
+              Back
+              </Button>
         </Form>)}
       </div>
     );
