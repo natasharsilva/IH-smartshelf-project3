@@ -1,6 +1,8 @@
 import React from "react";
 import { Button, Alert } from "reactstrap";
 import api from "../api";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 export default class DeleteBook extends React.Component {
   constructor(props) {
@@ -31,9 +33,9 @@ export default class DeleteBook extends React.Component {
           <Button
             color="danger"
             onClick={this.showDeleteAlert}
-            className="delete-libr-btn"
-          >
-            Delete
+            className="library-books-btn"
+          > 
+          <FontAwesomeIcon icon={faTrash} size="1x" className="icon"/>{' '}Delete
           </Button>
         ) : (
           <Alert color="info">

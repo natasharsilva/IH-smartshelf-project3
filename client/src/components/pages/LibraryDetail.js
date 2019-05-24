@@ -12,6 +12,7 @@ import {
   Button,
   Row,
   Col,
+  Container,
   Alert
 } from "reactstrap";
 import { NavLink as Nlink } from "react-router-dom";
@@ -174,17 +175,19 @@ export default class LibraryDetail extends Component {
           <div key={booksFromLibrary._id}>
             <Card>
             <CardBody>
+            <Container>
               <Row>
-                <Col s='3'>
+                <Col xs='4'>
                   <CardImg top width="100%" src={booksFromLibrary.picture} alt="Card image cap"
-                  style={{maxWidth:'50px'}}/>
+                  style={{maxWidth:'80px'}}/>
                 </Col>
-                <Col s='9'>
-                  <CardTitle>{booksFromLibrary.title}</CardTitle>
-                  <CardSubtitle>{booksFromLibrary.author}</CardSubtitle>
+                <Col xs='8'>
+                  <CardTitle className="text-left"><strong>{booksFromLibrary.title}</strong></CardTitle>
+                  <CardSubtitle className="text-left">{booksFromLibrary.author}</CardSubtitle>
                   {/* <CardText className="small" style={{overflow:'auto'}}>{booksFromLibrary.description}</CardText> */}
                 </Col>
                 </Row>
+                </Container>
                   <Button size="sm" tag={Nlink} to={`/book-detail/${booksFromLibrary._id}`} className="send-invitation-btn">
                     See details
                   </Button>
@@ -265,7 +268,8 @@ export default class LibraryDetail extends Component {
                allmembers: allmembers,
                profileInfo: profileInfo
           })
-        })     
+        })
+        window.scrollTo(0, 0);     
       })
       .catch(err => console.log(err));
   }

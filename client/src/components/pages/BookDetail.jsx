@@ -196,6 +196,7 @@ export default class BookDetail extends Component {
           book: response.response,
           response:response
         });
+        window.scrollTo(0, 0);
       })
       .catch(err => console.log(err));
   }

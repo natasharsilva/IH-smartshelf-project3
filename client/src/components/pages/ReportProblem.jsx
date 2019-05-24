@@ -59,7 +59,7 @@ export default class ReportProblem extends Component {
       <div className="AddBook">
         <h2>Report a problem with this book</h2>
         <form>
-          Name:{" "}
+          Name{" "}
           <Input
             type="text"
             name="name"
@@ -67,7 +67,7 @@ export default class ReportProblem extends Component {
             onChange={this.handleInputChange}
           />{" "}
           <br />
-          Subject:{" "}
+          Subject{" "}
           <Input
             type="text"
             name="subject"
@@ -75,7 +75,7 @@ export default class ReportProblem extends Component {
             onChange={this.handleInputChange}
           />{" "}
           <br />
-          Message:{" "}
+          Message{" "}
           <Input
             type="textarea"
             name="message"
@@ -85,7 +85,7 @@ export default class ReportProblem extends Component {
             onChange={this.handleInputChange}
           />{" "}
           <br />
-          <Button color="primary" onClick={e => this.handleSubmit(e)}>
+          <Button className="btn-yellow-fill" onClick={e => this.handleSubmit(e)}>
             Send
           </Button>
         </form>

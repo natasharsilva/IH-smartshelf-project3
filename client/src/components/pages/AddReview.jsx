@@ -98,10 +98,10 @@ export default class AddReview extends Component {
             onChange={this.handleInputChange}
           />{" "}
           <br />
-          <Button color="primary" onClick={e => this.handleSubmit(e)}>
+          <Button className="btn-yellow-fill" onClick={e => this.handleSubmit(e)}>
             Submit review
           </Button>
-          <Button color="primary" onClick={() => this.props.onToggle()}>
+          <Button className="btn-yellow-outline" onClick={() => this.props.onToggle()}>
             Back
           </Button>
         </form>

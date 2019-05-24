@@ -206,6 +206,7 @@ export default class Profile extends Component {
                     <br /> Check your libraries to start reading
                   </span>
                 )}
+
                 {this.state.profileInfo.books.length > 0 &&
                   this.state.profileInfo.books.slice(0,this.state.booksToShow).map(book => (
                     

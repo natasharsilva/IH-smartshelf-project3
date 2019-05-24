@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {
-  Alert,
   Button,
   Card,
   CardText,
@@ -9,8 +8,11 @@ import {
   CardSubtitle,
   CardImg,
   Row,
-  Col
+  Col,
+  Container
 } from "reactstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimesCircle} from '@fortawesome/free-solid-svg-icons'
 import { NavLink as Nlink } from "react-router-dom";
 import DeleteBook from "../DeleteBook";
 import api from "../../api";
@@ -100,10 +102,10 @@ export default class LibraryBooks extends Component {
                     <li key={bookDetail._id}>
                       <div className="CardMain">
                         <Card>
-                          
                             <CardBody>
+                            <Container>
                               <Row>
-                                <Col s="3">
+                                <Col s='3'>
                                   <CardImg
                                     src={bookDetail.picture}
                                     alt={`"${bookDetail.title}-cover"`}
@@ -113,32 +115,37 @@ export default class LibraryBooks extends Component {
                                 </Col>
                                 <Col s="9">
                                   <CardTitle>
-                                    <span>
-                                      <strong>Title:</strong>
-                                    </span>{" "}
-                                    {bookDetail.title}
-                                  </CardTitle>
-                                  <CardTitle>
-                                    <span>
-                                      <strong>Author:</strong>
-                                    </span>{" "}
-                                    {bookDetail.author}
+                                  <strong>{bookDetail.title}</strong>
                                   </CardTitle>
                                   <CardSubtitle>
+                                      <strong>Author:</strong>{" "}
+                                    {bookDetail.author}
+                                  </CardSubtitle>
+                                  <CardSubtitle>
                                     <span>
-                                      <strong>Genre:</strong>
-                                    </span>{" "}
+                                      <strong>Genre:</strong>{" "}
+                                    </span>
                                     {bookDetail.genre}
                                   </CardSubtitle>
                                   <CardText >
-                                    <span><strong>Status:</strong></span> {bookDetail.status}
+                                  {bookDetail._currentOwner &&
+                                bookDetail._currentOwner !==
+                                  "000000000000000000000000" && (
+                                  <div>
+                                    <span style={{color:'red',fontWeight:'bold'}}>
+                                    <FontAwesomeIcon icon={faTimesCircle} size="1x" className="icon"/>{' '}Unavailable
+                                    </span>
+                                  </div>
+                                )}
                                   </CardText>
                                 </Col>
                               </Row>
+                              </Container>
+                              <Container>
                               <Row>
                                 <Col>
                               <Button
-                                size="sm"
+                                // size="sm"
                                 tag={Nlink}
                                 to={`/book-detail/${bookDetail._id}`}
                                 className="library-books-btn"
@@ -147,7 +154,7 @@ export default class LibraryBooks extends Component {
                               </Button>
                               </Col>
                               <Col>
-                              <br />
+                              {/* <br /> */}
                               {this.state.role === "admin" && (
                                 <DeleteBook
                                   onDelete={() => this.handleDeleteBook()}
@@ -157,17 +164,7 @@ export default class LibraryBooks extends Component {
                               )}
                               </Col>
                               </Row>
-                              {bookDetail._currentOwner &&
-                                bookDetail._currentOwner !==
-                                  "000000000000000000000000" && (
-                                  <div>
-                                    <br />
-                                    <Alert color="warning">
-                                        This book is not available at the moment -
-                                      It has been borrowed.
-                                    </Alert>
-                                  </div>
-                                )}
+                              </Container>
                             </CardBody>
                           
                         </Card>
@@ -194,6 +191,7 @@ export default class LibraryBooks extends Component {
           book: response.book,
           role: member[0].role
         });
+        window.scrollTo(0, 0);
       })
       .catch(err => console.log(err));
   }
