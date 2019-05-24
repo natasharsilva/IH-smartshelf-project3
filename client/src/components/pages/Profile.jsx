@@ -23,9 +23,9 @@ export default class Profile extends Component {
     super(props);
     this.state = {
       profileInfo: null,
-      librariesToShow: 2,
       expandedLibraries: false,
       expandedBooks: false,
+      librariesToShow: 2,
       booksToShow: 2
 
 
@@ -34,6 +34,8 @@ export default class Profile extends Component {
     this.calculateDueDate = this.calculateDueDate.bind(this);
     this.untilDueDate = this.untilDueDate.bind(this);
     this.toggleShow = this.toggleShow.bind(this);
+    this.toggleShowBooks = this.toggleShowBooks.bind(this);
+
 
   }
   toggleShow() {
@@ -44,6 +46,7 @@ export default class Profile extends Component {
     )
   }
   toggleShowBooks() {
+    console.log("WHAT IS THIS", this.state)
     this.state.booksToShow === 2 ? (
       this.setState({ booksToShow: this.state.profileInfo.books.length, expandedBooks: true })
     ) : (
@@ -202,11 +205,12 @@ export default class Profile extends Component {
                     <br /> Check your libraries to start reading
                   </span>
                 )}
+                    <CardTitle tag="h3" className="bookName">Books I borrowed</CardTitle>
                 {this.state.profileInfo.books.length > 0 &&
                   this.state.profileInfo.books.slice(0,this.state.booksToShow).map(book => (
+                    
                     <li key={book._id}>
                    
-                    <CardTitle tag="h3" className="bookName">Books I borrowed</CardTitle>
                     <CardText className="infoContainer"></CardText>
                     <Container><Row>
                     <Col s='3'>
@@ -244,7 +248,7 @@ export default class Profile extends Component {
                   ))}
              
               {this.state.profileInfo.books.length > 2 && (
-                <Button onClick={this.toggleBooks} className="add-library-button btn"
+                <Button onClick={this.toggleShowBooks} className="add-library-button btn"
                 >
                   {this.state.expandedBooks ? (
                     <span>Show less books</span>
