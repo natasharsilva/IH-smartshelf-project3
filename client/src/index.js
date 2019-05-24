@@ -6,7 +6,7 @@ import App from './components/App.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import './assets/css/fonts.css';
 
-// import registerServiceWorker from './registerServiceWorker';
+import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(<Router><App /></Router>, document.getElementById('root'));
-// registerServiceWorker();
+registerServiceWorker();
