@@ -12,9 +12,9 @@ import {
   CardTitle,
   CardSubtitle,
   Button,
-  Row,
-  Col,
-  Container
+  // Row,
+  // Col,
+  // Container
 } from "reactstrap";
 import Rating from '../Rating'
 import AddReview from "./AddReview"
@@ -94,6 +94,10 @@ export default class BookDetail extends Component {
     })
   }
 
+  handleAddReview() {
+    this.componentDidMount()
+  }
+
   render() {
     return (
       <div className="BookDetail">
@@ -144,10 +148,11 @@ export default class BookDetail extends Component {
                   {this.state.book.status === "Unavailable" && 
                         <div><br /><Alert color="warning" >This book is not available at the moment - it has been borrowed.</Alert></div> }
                   <br />
-                  <Button onClick={this.renderReviewForm} className="btn-yellow-outline">
+                  <Button onClick={this.renderReviewForm}
+                 className="btn-yellow-outline">
                   <FontAwesomeIcon icon={faComment} size="1x" className="icon"/>{' '}add a review</Button>
                   {this.state.showReviewForm && 
-                  <AddReview onToggle={this.renderReviewForm} theInfo={this.state.response} />}
+                  <AddReview onToggle={this.renderReviewForm} theInfo={this.state.response} onAddReview={() => this.handleAddReview()} />}
                   <Button href={`/report-problem/${this.state.book._library}`} className="btn-problem" size="sm"
                   >
                   <FontAwesomeIcon icon={faExclamationTriangle} size="1x" className="icon"/>{' '}Report a problem
