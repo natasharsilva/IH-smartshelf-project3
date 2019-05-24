@@ -170,8 +170,7 @@ export default class BookDetail extends Component {
             <Card className="reviewContainer">
               <CardBody>
               <CardTitle tag="h4">Reviews</CardTitle>
-                
-
+                    {this.state.book.comments.length === 0 && <div>There are no reviews yet. <br/> Be the first to write one!</div>}
                     {this.state.book.comments.map(comment => <li key={comment._id}>
                       <Card>
                       <CardBody>
