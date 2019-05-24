@@ -268,7 +268,8 @@ export default class LibraryDetail extends Component {
                allmembers: allmembers,
                profileInfo: profileInfo
           })
-        })     
+        })
+        window.scrollTo(0, 0);     
       })
       .catch(err => console.log(err));
   }

@@ -192,6 +192,7 @@ export default class LibraryBooks extends Component {
           book: response.book,
           role: member[0].role
         });
+        window.scrollTo(0, 0);
       })
       .catch(err => console.log(err));
   }

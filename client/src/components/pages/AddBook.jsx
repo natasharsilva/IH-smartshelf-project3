@@ -6,10 +6,6 @@ import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 import api from "../../api";
 import axios from "axios";
 
-
-
-
-
 export default class AddBook extends Component {
   constructor(props) {
     super(props);
@@ -279,5 +275,9 @@ export default class AddBook extends Component {
         </div>
       </div>
     );
+  }
+
+  componentDidMount() {
+    window.scrollTo(0, 0);
   }
 }
