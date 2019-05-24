@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import {
-  Button,
-  Row,
-} from 'reactstrap'
+// import {
+//   Button,
+//   Row,
+// } from 'reactstrap'
 import mapboxgl from "mapbox-gl/dist/mapbox-gl"; // NEW
 import api from "../../api";
 import '../../index.scss';
