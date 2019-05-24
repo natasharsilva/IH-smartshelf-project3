@@ -60,6 +60,7 @@ export default class AddReview extends Component {
             feedback: `Your review was added!`
           });
           this.props.onToggle()
+          this.props.onAddReview()
         })
         .catch(err => this.setState({ message: err.toString() }));
     }

@@ -12,9 +12,9 @@ import {
   CardTitle,
   CardSubtitle,
   Button,
-  Row,
-  Col,
-  Container
+  // Row,
+  // Col,
+  // Container
 } from "reactstrap";
 import Rating from '../Rating'
 import AddReview from "./AddReview"
@@ -35,7 +35,6 @@ export default class BookDetail extends Component {
 
   borrowBook(event) {
     event.preventDefault();
-    console.log("THIS IS THE ID LOOOOK", this.props.match.params.bookId);
     api
       .updateBook(this.props.match.params.bookId, {
         title: this.state.book.title,
@@ -53,7 +52,6 @@ export default class BookDetail extends Component {
         showReviewForm: false
       })
       .then(result => {
-        console.log("DID IT WORK???", result);
         this.setState({
           book: result.response,
           message: `You borrowed '${this.state.book.title}'. You have ${this.untilDueDate()} days to give it back`
@@ -92,6 +90,10 @@ export default class BookDetail extends Component {
     this.setState({
       showReviewForm: !this.state.showReviewForm
     })
+  }
+
+  handleAddReview() {
+    this.componentDidMount()
   }
 
   render() {
@@ -144,10 +146,11 @@ export default class BookDetail extends Component {
                   {this.state.book.status === "Unavailable" && 
                         <div><br /><Alert color="warning" >This book is not available at the moment - it has been borrowed.</Alert></div> }
                   <br />
-                  <Button onClick={this.renderReviewForm} className="btn-yellow-outline">
+                  <Button onClick={this.renderReviewForm}
+                 className="btn-yellow-outline">
                   <FontAwesomeIcon icon={faComment} size="1x" className="icon"/>{' '}add a review</Button>
                   {this.state.showReviewForm && 
-                  <AddReview onToggle={this.renderReviewForm} theInfo={this.state.response} />}
+                  <AddReview onToggle={this.renderReviewForm} theInfo={this.state.response} onAddReview={() => this.handleAddReview()} />}
                   <Button href={`/report-problem/${this.state.book._library}`} className="btn-problem" size="sm"
                   >
                   <FontAwesomeIcon icon={faExclamationTriangle} size="1x" className="icon"/>{' '}Report a problem
@@ -165,8 +168,7 @@ export default class BookDetail extends Component {
             <Card className="reviewContainer">
               <CardBody>
               <CardTitle tag="h4">Reviews</CardTitle>
-                
-
+                    {this.state.book.comments.length === 0 && <div>There are no reviews yet. <br/> Be the first to write one!</div>}
                     {this.state.book.comments.map(comment => <li key={comment._id}>
                       <Card>
                       <CardBody>

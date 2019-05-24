@@ -30,7 +30,6 @@ export default class AddLibrary extends Component {
 
   handleFileChange(event) {
     //  event.preventDefault();
-    console.log("The file added by the user is: ", event.target.files[0]);
     this.setState({
       picture: event.target.files[0]
     });
@@ -48,7 +47,6 @@ export default class AddLibrary extends Component {
   
       api.createLibrary(uploadData)
       .then(createdLibrary => {
-        console.log("SUCCESS!", createdLibrary);
         this.setState({
           message: `Your library '${this.state.name}' has been created`
         });

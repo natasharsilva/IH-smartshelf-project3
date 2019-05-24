@@ -16,7 +16,6 @@ export default class DeleteBook extends React.Component {
   //  ---------- METHOD TO DELETE BOOK AS AN ADMIN -------------------
   deleteBook = () => {
     api.deleteBook(this.props.bookToBeDeletedId).then(response => {
-      console.log("Book DELETED!", response);
       this.props.onDelete();
     });
   };

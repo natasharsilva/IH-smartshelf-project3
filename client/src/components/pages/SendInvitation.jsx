@@ -38,7 +38,6 @@ export default class SendInvitation extends Component {
       api
       .sendInvitation(this.props.match.params.libraryId, data)
       .then(response => {
-        console.log("THIS IS THE RESPONSEEEE", response);
         this.setState({
           feedback: `Your email was sent! You'll be redirected`
         });

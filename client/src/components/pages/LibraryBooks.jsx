@@ -47,13 +47,6 @@ export default class LibraryBooks extends Component {
     });
   }
 
-  // deleteBook(e, bookDetail) {
-  //   console.log("IS THIS THE BOOK YOU WANT TO DELETE?", bookDetail._id);
-  //   e.preventDefault();
-  //   api.deleteBook(bookDetail._id).then(response => {
-  //     console.log("DID IT WORK???", response);
-  //   });
-  // }
 
   handleDeleteBook() {
     api.getLibrary(this.props.match.params.libraryId).then(response => {
@@ -194,14 +187,11 @@ export default class LibraryBooks extends Component {
       api.getMember(this.props.match.params.libraryId)
     ])
       .then(([response, member]) => {
-        console.log("response------->", response);
         this.setState({
           library: response.library,
           book: response.book,
           role: member[0].role
         });
-        console.log("ARE YOU AN ADMIN?? ROLE:", this.state.role);
-        console.log("currentOwner-------->", this.state.book[0]._currentOwner);
       })
       .catch(err => console.log(err));
   }

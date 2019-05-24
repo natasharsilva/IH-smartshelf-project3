@@ -32,7 +32,6 @@ export default class EditProfile extends React.Component {
     });
   }
   handleFileChange(event) {
-    console.log("The file added by the user is: ", event.target.files[0])
     this.setState({
       picture: event.target.files[0]
     })
@@ -47,7 +46,6 @@ export default class EditProfile extends React.Component {
 
     api.editProfile(uploadData)
       .then(result => {
-        console.log("DID IT WORK???", result);
         this.props.updateProfile()
         this.setState({
           message: `Your profile was updated!`,
