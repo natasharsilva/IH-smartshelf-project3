@@ -196,7 +196,8 @@ export default class Profile extends Component {
             </CardBody>
           </Card> 
           <Card>
-                  <CardBody>   
+                  <CardBody>
+                  <CardTitle tag="h3" className="bookName">Books I borrowed</CardTitle>   
                 {this.state.profileInfo.books.length < 1 && (
                   <span>
                     You haven't borrowed books yet!
@@ -206,8 +207,6 @@ export default class Profile extends Component {
                 {this.state.profileInfo.books.length > 0 &&
                   this.state.profileInfo.books.slice(0,this.state.booksToShow).map(book => (
                     <li key={book._id}>
-                   
-                    <CardTitle tag="h3" className="bookName">Books I borrowed</CardTitle>
                     <CardText className="infoContainer"></CardText>
                     <Container><Row>
                     <Col s='3'>
