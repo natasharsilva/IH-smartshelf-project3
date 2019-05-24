@@ -123,6 +123,7 @@ export default class AddBook extends Component {
           this.setState({
             message: null
           });
+          this.props.history.push("/libraries/"+this.props.match.params.libraryId)
         }, 2000);
       })
       .catch(err => this.setState({ message: err.toString() }));
