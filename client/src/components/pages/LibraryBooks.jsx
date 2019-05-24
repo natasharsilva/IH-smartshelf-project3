@@ -7,7 +7,7 @@ import {
   CardBody,
   CardTitle,
   CardSubtitle,
-  Container,
+  CardImg,
   Row,
   Col
 } from "reactstrap";
@@ -107,13 +107,14 @@ export default class LibraryBooks extends Component {
                     <li key={bookDetail._id}>
                       <div className="CardMain">
                         <Card>
-                          <Container>
+                          
                             <CardBody>
                               <Row>
                                 <Col s="3">
-                                  <img
+                                  <CardImg
                                     src={bookDetail.picture}
                                     alt={`"${bookDetail.title}-cover"`}
+                                    className='imgCard'
                                   />
                                   {/* <img src={bookDetail.picture} alt={`"${bookDetail.title}-cover"`}/> */}
                                 </Col>
@@ -141,6 +142,8 @@ export default class LibraryBooks extends Component {
                                   </CardText>
                                 </Col>
                               </Row>
+                              <Row>
+                                <Col>
                               <Button
                                 size="sm"
                                 tag={Nlink}
@@ -149,6 +152,8 @@ export default class LibraryBooks extends Component {
                               >
                                 See details
                               </Button>
+                              </Col>
+                              <Col>
                               {this.state.role === "admin" && (
                                 <DeleteBook
                                   onDelete={() => this.handleDeleteBook()}
@@ -156,20 +161,21 @@ export default class LibraryBooks extends Component {
                                   bookDetail={bookDetail}
                                 />
                               )}
-
+                              </Col>
+                              </Row>
                               {bookDetail._currentOwner &&
                                 bookDetail._currentOwner !==
                                   "000000000000000000000000" && (
                                   <div>
                                     <br />
                                     <Alert color="warning">
-                                      This book is not available at the moment -
+                                        This book is not available at the moment -
                                       It has been borrowed.
                                     </Alert>
                                   </div>
                                 )}
                             </CardBody>
-                          </Container>
+                          
                         </Card>
                       </div>
                       <br />

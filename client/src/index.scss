@@ -85,7 +85,25 @@ body {
 }
 //General styles----------------
 
+.btn-yellow-fill
+   {
+    border-radius: 50px;
+    margin: 15px auto;
+    background-color: $primary;
+    border: 0;
+    color: $secondary;
+    padding: 6px;
+    width: 60%;
+    display: inline-block;
+  }
 
+  .btn-yellow-fill:hover
+  {
+    background-color: $primary;
+    background-color: rgb(207, 168, 9);
+    border: 0;
+    color: $secondary;
+  }
 
 
 // --------------------
@@ -140,6 +158,7 @@ body {
     margin: auto auto;
     background-color: $primary;
     border: 0;
+    font-size:1.6rem;
     color: $secondary;
   }
   .button-home:hover {
@@ -172,8 +191,8 @@ body {
       }
 
       img{
-        max-width:300px;
-        max-height:300px;
+        width:250px;
+        height:250px;
         object-fit:cover;
         border-radius:50%;
         // opacity:0.5;
@@ -531,12 +550,10 @@ body {
     width: 90%;
     margin: auto;
 
-    img {
-      margin: 20px;
-      object-fit: cover;
-      border-radius: none;
-      max-width:100px;
+    .imgCard{
+      width:70px;
     }
+    
   }
 
   .library-books-btn {
@@ -696,10 +713,21 @@ body {
 }
 
 .reviewContainer {
+
+  background-color: rgb(243, 218, 105);
+  margin-bottom:20px;
+
   li {
     list-style: none;
     text-align: left;
   }
+
+  h4{
+    color:$secondary;
+    font-weight: bold;
+  }
+
+
 }
 
 .Rating {
@@ -733,4 +761,54 @@ body {
   top: 21px;
   left: calc(50% - 6px/2);
   z-index: 1;
+}
+
+.BookDetail{
+
+  .bookCard{
+    width:95%;
+    margin:auto;
+  }
+
+  
+  .btn-problem,.btn-yellow-outline, .btn-yellow-fill{
+    border-radius: 50px;
+    padding: 6px;
+    width: 60%;
+    display: inline-block;
+  }
+
+  .btn-yellow-fill:hover, .btn-yellow-outline:hover
+  {
+    background-color: $primary;
+    background-color: rgb(207, 168, 9);
+    border: 0;
+    color: $secondary;
+  }
+
+  .btn-yellow-fill
+   {
+    margin: 5px auto;
+    background-color: $primary;
+    border: 0;
+    color: $secondary;
+  }
+
+  .btn-problem{
+    margin: 5px auto;
+    background-color: rgba(255, 0, 0, 0.753);
+    border: 0;
+    color: white;
+  }
+
+  
+
+  .btn-yellow-outline
+   {
+    margin: 15px auto;
+    background-color: white;
+    border: 3px solid $primary;
+    color: $secondary;
+  }
+
 }
