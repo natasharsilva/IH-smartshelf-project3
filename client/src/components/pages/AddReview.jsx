@@ -33,7 +33,7 @@ export default class AddReview extends Component {
 
     if (data.title === "" || data.review === "" || data.rating === "") {
       this.setState({
-        feedback: `Ops! You need to fill all the fields to send`
+        feedback: `Whooops! You need to fill all the fields to send`
       });
       setTimeout(() => {
         this.setState({
@@ -60,6 +60,7 @@ export default class AddReview extends Component {
             feedback: `Your review was added!`
           });
           this.props.onToggle()
+          this.props.onAddReview()
         })
         .catch(err => this.setState({ message: err.toString() }));
     }
@@ -110,5 +111,4 @@ export default class AddReview extends Component {
       </div>
     );
   }
-
 }

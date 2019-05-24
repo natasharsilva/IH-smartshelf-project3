@@ -229,7 +229,7 @@ export default class LibraryDetail extends Component {
                 </Col>
                 <Col xs="9">
                   
-                    <CardTitle><b>{members._user.username}</b></CardTitle>
+                    <CardTitle><b>{members._user.username[0].toUpperCase()+members._user.username.substr(1)}</b></CardTitle>
                     <CardText className="small">"<i>{members._user.favoriteQuote}</i>"</CardText>
                     {/* <Button size="sm" tag={Nlink}to={`/profile/${members._user._id}`}  className="send-invitation-btn small">See details</Button> */}
                     {this.state.member && 
@@ -247,6 +247,7 @@ export default class LibraryDetail extends Component {
       </div>
     );
   }
+  
   componentDidMount() {
      api.getLibrary(this.props.match.params.libraryId)
        .then(response => {

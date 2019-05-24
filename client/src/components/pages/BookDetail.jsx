@@ -12,9 +12,9 @@ import {
   CardTitle,
   CardSubtitle,
   Button,
-  Row,
-  Col,
-  Container
+  // Row,
+  // Col,
+  // Container
 } from "reactstrap";
 import Rating from '../Rating'
 import AddReview from "./AddReview"
@@ -92,6 +92,10 @@ export default class BookDetail extends Component {
     })
   }
 
+  handleAddReview() {
+    this.componentDidMount()
+  }
+
   render() {
     return (
       <div className="BookDetail">
@@ -142,10 +146,11 @@ export default class BookDetail extends Component {
                   {this.state.book.status === "Unavailable" && 
                         <div><br /><Alert color="warning" >This book is not available at the moment - it has been borrowed.</Alert></div> }
                   <br />
-                  <Button onClick={this.renderReviewForm} className="btn-yellow-outline">
+                  <Button onClick={this.renderReviewForm}
+                 className="btn-yellow-outline">
                   <FontAwesomeIcon icon={faComment} size="1x" className="icon"/>{' '}add a review</Button>
                   {this.state.showReviewForm && 
-                  <AddReview onToggle={this.renderReviewForm} theInfo={this.state.response} />}
+                  <AddReview onToggle={this.renderReviewForm} theInfo={this.state.response} onAddReview={() => this.handleAddReview()} />}
                   <Button href={`/report-problem/${this.state.book._library}`} className="btn-problem" size="sm"
                   >
                   <FontAwesomeIcon icon={faExclamationTriangle} size="1x" className="icon"/>{' '}Report a problem
@@ -163,14 +168,18 @@ export default class BookDetail extends Component {
             <Card className="reviewContainer">
               <CardBody>
               <CardTitle tag="h4">Reviews</CardTitle>
-                <CardText>
+                    {this.state.book.comments.length === 0 && <div>There are no reviews yet. <br/> Be the first to write one!</div>}
                     {this.state.book.comments.map(comment => <li key={comment._id}>
-                      <strong>"{comment.title}"</strong><br/>
-                      <strong>Author:</strong> {comment.author[0].toUpperCase() + comment.author.substr(1)}<br/>
-                      <strong>Review:</strong> {comment.text}<br/>
-                      <strong>Rating:</strong> <Rating>{comment.rating}</Rating><br/><br/></li> )}
-                    {/* DON'T FORGET TO MAP!!!!!!! */}
-                </CardText>
+                      <Card>
+                      <CardBody>
+                      <CardTitle><Rating>{comment.rating}</Rating>{' '}<strong>"{comment.title}"</strong></CardTitle>
+                      <CardSubtitle><strong>Author:</strong> {comment.author[0].toUpperCase() + comment.author.substr(1)}</CardSubtitle>
+                      <CardText><strong>Review:</strong> {comment.text}<br/>    
+                        </CardText>
+                        </CardBody>
+                        </Card>
+                      </li> )}
+               
                 </CardBody>
             </Card>
           </div>
