@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import api from "../../api";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBook,faComment } from '@fortawesome/free-solid-svg-icons'
+import { faBook,faComment, faExclamationTriangle,faArrowLeft} from '@fortawesome/free-solid-svg-icons'
 import {
   Alert,
   Card,
@@ -102,25 +102,20 @@ export default class BookDetail extends Component {
           <div className="bookCard">
             <Card>
             <CardBody>
-            <Container>
-              <Row>
-                <Col s='3'>
+           
                   <CardImg
                     body
                     src={this.state.book.picture}
                     alt="Card image cap"
-                    style={{width:'100px',objectFit:'cover'}}
+                    style={{width:'100px',objectFit:'cover',marginBottom:'10px'}}
                   />
-                </Col>
-                <Col s='9'>
-                  <CardTitle className="text-left" tag="h4">
+                
+                  <CardTitle className="text-center" tag="h4">
                     <strong>{this.state.book.title}</strong>
                   </CardTitle>
-                  <CardSubtitle  className="text-left" tag="h6"><i>by {this.state.book.author}</i></CardSubtitle>
-                  <CardText className="text-left">
-                    <strong>Genre: </strong>
-                    {this.state.book.genre}
-                    <br />
+                  <CardSubtitle  className="text-center" tag="h6"><i>by {this.state.book.author}</i></CardSubtitle>
+                  <CardText className="text-center">
+                    
                     <strong>Rating: </strong>
                     {this.state.book.rating}/5
                     <br />
@@ -130,19 +125,18 @@ export default class BookDetail extends Component {
                     <strong>ISBN: </strong>
                     {this.state.book.isbn}
                     <br />
+                    <strong>Genre: </strong>
+                    {this.state.book.genre}
                     
                   </CardText>
-                  </Col>
-                  </Row>
-                  </Container>
-                  
+                   
                   {this.state.book.description}
                   <br />
                   {this.state.book.status === "Available" && (
                     <Button
                       onClick={e => this.borrowBook(e)}
                       outline
-                      className="round-btn"
+                      className="btn-yellow-fill"
                     >
                       <FontAwesomeIcon icon={faBook} size="1x" className="icon"/>{' '}borrow this book
                     </Button>
@@ -150,23 +144,24 @@ export default class BookDetail extends Component {
                   {this.state.book.status === "Unavailable" && 
                         <div><br /><Alert color="warning" >This book is not available at the moment - it has been borrowed.</Alert></div> }
                   <br />
-                  <Button onClick={this.renderReviewForm}>
+                  <Button onClick={this.renderReviewForm} className="btn-yellow-outline">
                   <FontAwesomeIcon icon={faComment} size="1x" className="icon"/>{' '}add a review</Button>
                   {this.state.showReviewForm && 
-                  <AddReview onToggle={this.renderReviewForm} theInfo={this.state.response} />}<br />
-                  <Button href={`/report-problem/${this.state.book._library}`} outline color="info" size="sm"
+                  <AddReview onToggle={this.renderReviewForm} theInfo={this.state.response} />}
+                  <Button href={`/report-problem/${this.state.book._library}`} className="btn-problem" size="sm"
                   >
-                    Report a problem
+                  <FontAwesomeIcon icon={faExclamationTriangle} size="1x" className="icon"/>{' '}Report a problem
                   </Button>
-                  <br />
-                  <Button href={`/profile`}>
-                    Go Back
+                  
+                  <Button href={`/profile`} className="btn-yellow-fill">
+                  <FontAwesomeIcon icon={faArrowLeft} size="1x" className="icon"/>{' '}Go Back
                   </Button><br />
                   {this.state.message && (
                     <div className="info">{this.state.message}</div>
                   )}
                 </CardBody>
             </Card>
+            <br />
             <Card className="reviewContainer">
               <CardBody>
               <CardTitle tag="h4">Reviews</CardTitle>

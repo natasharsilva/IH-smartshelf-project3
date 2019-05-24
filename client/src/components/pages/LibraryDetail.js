@@ -174,16 +174,16 @@ export default class LibraryDetail extends Component {
                 Delete Library</Button>}
               <Alert color="info" isOpen={this.state.showAlertDeleteLibrary} toggle={this.toggleAlertDeleteLibrary}>
                 Are you sure you want to delete this library? <br />
-                  <Button onClick={(e) => this.deleteLibrary(e)} className="btn btn-danger">Delete!</Button>  
+                  <Button onClick={(e) => this.deleteLibrary(e)} className="send-invitation-btn">Delete!</Button>  
                   <Button onClick={this.toggleAlertDeleteLibrary} className="send-invitation-btn">No!</Button>     
                 </Alert>
               
-              {!this.state.member && <Button onClick={(e) => this.joinLibrary(e)} className="btn btn-info">Join</Button>}
-              {this.state.member && this.state.member.role === "member" && <Button onClick={this.toggleAlertLeaveLibrary} className="btn btn-info">Leave</Button>}
+              {!this.state.member && <Button onClick={(e) => this.joinLibrary(e)} className="send-invitation-btn">Join</Button>}
+              {this.state.member && this.state.member.role === "member" && <Button onClick={this.toggleAlertLeaveLibrary} className="delete-libr-btn">Leave</Button>}
               <Alert color="info" isOpen={this.state.showAlertLeaveLibrary} toggle={this.toggleAlertLeaveLibrary}>
               Are you sure you want to leave this library? <br />
-                  <Button onClick={(e) => this.leaveLibrary(e)} className="btn btn-danger">Leave!</Button>  
-                  <Button onClick={this.toggleAlertLeaveLibrary} className="btn btn-info">Stay!</Button>     
+                  <Button onClick={(e) => this.leaveLibrary(e)} className="delete-libr-btn">Leave!</Button>  
+                  <Button onClick={this.toggleAlertLeaveLibrary} className="send-invitation-btn">Stay!</Button>     
                 </Alert>
 
             </CardBody>
