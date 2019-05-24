@@ -165,14 +165,19 @@ export default class BookDetail extends Component {
             <Card className="reviewContainer">
               <CardBody>
               <CardTitle tag="h4">Reviews</CardTitle>
-                <CardText>
+                
+
                     {this.state.book.comments.map(comment => <li key={comment._id}>
-                      <strong>"{comment.title}"</strong><br/>
-                      <strong>Author:</strong> {comment.author[0].toUpperCase() + comment.author.substr(1)}<br/>
-                      <strong>Review:</strong> {comment.text}<br/>
-                      <strong>Rating:</strong> <Rating>{comment.rating}</Rating><br/><br/></li> )}
-                    {/* DON'T FORGET TO MAP!!!!!!! */}
-                </CardText>
+                      <Card>
+                      <CardBody>
+                      <CardTitle><Rating>{comment.rating}</Rating>{' '}<strong>"{comment.title}"</strong></CardTitle>
+                      <CardSubtitle><strong>Author:</strong> {comment.author[0].toUpperCase() + comment.author.substr(1)}</CardSubtitle>
+                      <CardText><strong>Review:</strong> {comment.text}<br/>    
+                        </CardText>
+                        </CardBody>
+                        </Card>
+                      </li> )}
+               
                 </CardBody>
             </Card>
           </div>
