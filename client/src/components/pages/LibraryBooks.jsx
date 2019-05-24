@@ -154,6 +154,7 @@ export default class LibraryBooks extends Component {
                               </Button>
                               </Col>
                               <Col>
+                              <br />
                               {this.state.role === "admin" && (
                                 <DeleteBook
                                   onDelete={() => this.handleDeleteBook()}
