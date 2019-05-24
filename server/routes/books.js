@@ -22,7 +22,6 @@ router.get("/:bookId", (req, res, next) => {
 // --------- Update Books ------------ Working without picture ****
 
 router.put("/:bookId", uploader.single("picture"), (req, res, next) => {
-  console.log("THIS IS THE REQ.BODYYYY",req.body)
     const {
       title,
       author,
@@ -99,44 +98,6 @@ router.delete("/:bookId", (req, res, next) => {
     }
   });
 });
-
-// ------------------ Create Book with API ------------- Working
-
-// router.post("/", isLoggedIn, (req, res, next) => {
-//   axios
-//     .get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${req.body.isbn}`)
-//     .then(response => {
-//       console.log("response Language--->" , response.data.items[0].volumeInfo.language)
-//       Book.create({
-//         title: response.data.items[0].volumeInfo.title,
-//         author: response.data.items[0].volumeInfo.authors[0],
-//         genre: response.data.items[0].volumeInfo.categories
-//           ? response.data.items[0].volumeInfo.categories[0]
-//           : "Provide a genre",
-//         picture: response.data.items[0].volumeInfo.imageLinks
-//           ? response.data.items[0].volumeInfo.imageLinks[0]
-//           : "Provide an image",
-//         description: response.data.items[0].volumeInfo.description,
-//         rating: response.data.items[0].volumeInfo.averageRating,
-//         pages: response.data.items[0].volumeInfo.pageCount,
-//         language: response.data.items[0].volumeInfo.language,
-//         isbn:response.data.items[0].volumeInfo.industryIdentifiers[1].identifier,
-//         _createdBy: req.user._id,
-//         _library: req.body._library
-//       }).then(response => {
-//         res.json({
-//           message: "Book created!",
-//           response
-//         });
-//       });
-//     })
-//     .catch(err => {
-//       next({
-//         status: 400,
-//         message: "We couldn't find your book, please fill in the form",
-//       });
-//     });
-// });
 
 // ------------------ Create Book with Form ------------- Working
 

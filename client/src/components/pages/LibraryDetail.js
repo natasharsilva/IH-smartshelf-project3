@@ -62,7 +62,6 @@ export default class LibraryDetail extends Component {
     api
       .createMember(this.props.match.params.libraryId)
       .then(result => {
-        console.log("CREATED MEMBER", result.role);
         this.setState({
           message: `Your book '${this.state.title}' has been created`,
           member: result
@@ -90,7 +89,6 @@ export default class LibraryDetail extends Component {
   leaveLibrary() {
     api.deleteMember(this.state.member._id, this.props.match.params.libraryId)
     .then(response => {
-      console.log("MEMBER DELETED!", response)
       api.getLibrary(this.props.match.params.libraryId)
        .then(response => {
          this.setState({
@@ -108,34 +106,9 @@ export default class LibraryDetail extends Component {
     })
   }
 
-//  ---------- METHOD TO DELETE MEMBER AS AN ADMIN -------------------
-  // deleteMemberADMIN(memberToBeDeletedId, ) {
-  //   api.deleteMember(memberToBeDeletedId, this.props.match.params.libraryId)
-  //   .then(response => {
-  //     console.log("MEMBER DELETED!", response)
-  //     api.getLibrary(this.props.match.params.libraryId)
-  //      .then(response => {
-  //        this.setState({
-  //          library: response.library,
-  //          book: response.book,
-  //        })
-  //        api.getMember(this.props.match.params.libraryId)
-  //          .then(memberInfo => {
-  //            this.setState({
-  //             allmembers: memberInfo
-  //           })
-  //         this.toggleAlertDeleteMember()
-  //       })     
-  //     })
-  //   .catch(err => console.log(err))      
-  //   })
-  // }
-  //  ---------- METHOD TO DELETE LIBRARY AS AN ADMIN -------------------
-
   deleteLibrary() {
     api.deleteLibrary(this.props.match.params.libraryId)
       .then(response => {
-        console.log("THE LIBRARY WAS DELETED!", response )
         this.props.history.push('/profile')
       })
       .catch(err => console.log(err))      
@@ -292,9 +265,6 @@ export default class LibraryDetail extends Component {
                allmembers: allmembers,
                profileInfo: profileInfo
           })
-          console.log("PLEASE LET ME KNOW IF THESE ARE THE SAME?", this.state.member._user._id, this.state.profileInfo.user._id)
-          console.log("THIS IS THE LOGGED MEMBER:", this.state.member)
-          console.log('THERE ARE THE MEMBERS-------->',this.state.allmembers)
         })     
       })
       .catch(err => console.log(err));

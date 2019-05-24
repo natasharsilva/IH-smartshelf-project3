@@ -35,7 +35,6 @@ export default class BookDetail extends Component {
 
   borrowBook(event) {
     event.preventDefault();
-    console.log("THIS IS THE ID LOOOOK", this.props.match.params.bookId);
     api
       .updateBook(this.props.match.params.bookId, {
         title: this.state.book.title,
@@ -53,7 +52,6 @@ export default class BookDetail extends Component {
         showReviewForm: false
       })
       .then(result => {
-        console.log("DID IT WORK???", result);
         this.setState({
           book: result.response,
           message: `You borrowed '${this.state.book.title}'. You have ${this.untilDueDate()} days to give it back`

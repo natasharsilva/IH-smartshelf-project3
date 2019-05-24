@@ -58,7 +58,6 @@ export default class Profile extends Component {
         this.setState({
           profileInfo: response
         });
-        console.log(this.state);
       })
       .catch(err => console.log(err));
   };

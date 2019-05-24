@@ -30,7 +30,6 @@ export default class Signup extends Component {
     }
     api.signup(data)
       .then(result => {
-        console.log('SUCCESS!')
         this.props.history.push("/profile") // Redirect to the profile
       })
       .catch(err => this.setState({ message: err.toString() }))

@@ -31,7 +31,7 @@ export default class Map extends Component {
       container: this.mapRef.current,
       style: "mapbox://styles/mapbox/light-v10",
       center: [lng, lat],
-      zoom: 13
+      zoom: 12
     });
 
     this.map.addControl(new mapboxgl.NavigationControl());
@@ -41,12 +41,11 @@ export default class Map extends Component {
       for(let i = 0; i < this.state.libraries.length; i++){
         let popup = new mapboxgl.Popup()
         .setHTML(
-          `<a href="https://ih-smart-shelf.herokuapp.com/libraries/${this.state.libraries[i]._id}"<b>${this.state.libraries[i].name}</b> <br>
+          `<a class="linkClass" href="https://ih-smart-shelf.herokuapp.com/libraries/${this.state.libraries[i]._id}"<b>${this.state.libraries[i].name}</b> <br>
           </a>
         `)
           let lng = this.state.libraries[i].coordinates[0]
           let lat = this.state.libraries[i].coordinates[1]
-          // console.log("ARE THEY NUMBERS????", lat, lng)
             new mapboxgl.Marker({ color: '#ffcc05' })
             .setLngLat([lng, lat])
             .setPopup(popup)
@@ -57,7 +56,6 @@ export default class Map extends Component {
   getCurrentCoordinates = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
-        console.log("The current coords are", position.coords)
         this.setState({
           lng: position.coords.longitude,
           lat: position.coords.latitude,
@@ -90,7 +88,6 @@ export default class Map extends Component {
   componentDidMount() {
       api.getLibraries()
         .then(libraries => {
-          console.log("TCL: Map -> componentDidMount -> libraries.response", libraries.response)
       this.setState({
         libraries: libraries.response
       })

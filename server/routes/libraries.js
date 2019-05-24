@@ -61,10 +61,8 @@ router.get("/", (req, res, next) => {
 
 //---------------- Delete libraries --------------   
 router.delete('/:libraryId', isLoggedIn, (req, res, next) => {
-  console.log("FILTER", {_library: req.params.libraryId, _user: req.user._id });
   Member.findOne({_library: req.params.libraryId, _user: req.user._id })
   .then(member => {
-		console.log("TCL: member", member)
     if (!member) {
       next({
         status: 400,
