@@ -43,24 +43,24 @@ export default class Example extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink tag={Nlink} to="/">
+                <NavLink tag={Nlink} onClick={this.toggle} to="/">
                   Home
                 </NavLink>
               </NavItem>
               <NavItem>
                 {api.isLoggedIn() && (
-                  <NavLink tag={Nlink} to="/profile">
+                  <NavLink tag={Nlink} onClick={this.toggle} to="/profile">
                     Profile
                   </NavLink>
                 )}
               </NavItem>
               <NavItem>
-          {!api.isLoggedIn() && <NavLink tag={Nlink} to="/login">Login</NavLink>}
+          {!api.isLoggedIn() && <NavLink tag={Nlink} onClick={this.toggle} to="/login">Login</NavLink>}
 
               </NavItem>
               <NavItem>
                 {!api.isLoggedIn() && (
-                  <NavLink tag={Nlink} to="/signup">
+                  <NavLink tag={Nlink} onClick={this.toggle} to="/signup">
                     Signup
                   </NavLink>
                 )}
