@@ -43,6 +43,7 @@ body {
   font-family: $primary-font;
   display: flex;
   flex-direction: column;
+
   
 
   .App-logo {
@@ -121,8 +122,6 @@ body {
   p {
     font-size: 1.2em;
   }
-
-
   .SmartShelfLogo{
     width: 70%;
     margin:0 auto 20px;
@@ -709,6 +708,7 @@ body {
   flex-grow: 1;
   min-height: 90vh;
   background-color: $secondary;
+  margin-top: 40px;
 }
 
 .Footer {
