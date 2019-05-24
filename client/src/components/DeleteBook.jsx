@@ -27,7 +27,7 @@ export default class DeleteBook extends React.Component {
 
   render() {
     return (
-      <div className="editForm">
+      <div>
         {this.state.showDeleteAlert ? (
           <Button
             color="danger"
@@ -37,7 +37,7 @@ export default class DeleteBook extends React.Component {
             Delete
           </Button>
         ) : (
-          <Alert color="danger">
+          <Alert color="info">
             Are you sure you want to delete this book?
             <br />
             <Button onClick={this.deleteBook} className="btn btn-danger">
@@ -45,7 +45,7 @@ export default class DeleteBook extends React.Component {
             </Button>
             <Button
               onClick={this.showDeleteAlert}
-              className="send-invitation-btn"
+              className="library-books-btn"
             >
               No!
             </Button>
