@@ -47,7 +47,6 @@ export default class AddBook extends Component {
   }
 
   handleFileChange(e) {
-    console.log("The file added by the user is: ", e.target.files[0]);
     this.setState({
       picture: e.target.files[0]
     });
@@ -60,7 +59,6 @@ export default class AddBook extends Component {
         `https://www.googleapis.com/books/v1/volumes?q=isbn:${this.state.isbn}`
       )
       .then(response => {
-        console.log('HEEEEY', response)
         this.setState({
           title: response.data.items[0].volumeInfo.title,
           author: response.data.items[0].volumeInfo.authors[0],
@@ -81,9 +79,6 @@ export default class AddBook extends Component {
           }. If this information is wrong, fill in the form below with the correct information`,
           _library: `ObjectId(${this.props.match.params.libraryId})`
         });
-
-        console.log("this.state.picture--->", this.state.picture);
-        console.log("this.state.title--->", this.state.title);
       })
       .catch(err => {
         console.log(err)
@@ -96,8 +91,6 @@ export default class AddBook extends Component {
   }
 
   addBookAndRedirectToLibraryPage(e) {
-    // console.log("this.props.match.params.libraryId",this.props.match.params.libraryId)
-    console.log("this.state.picture--->", this.state.picture);
     const uploadData = new FormData();
     uploadData.append("title", this.state.title);
     uploadData.append("author", this.state.author);
@@ -109,12 +102,10 @@ export default class AddBook extends Component {
     uploadData.append("language", this.state.language);
     uploadData.append("isbn", this.state.isbn);
     uploadData.append("_library", this.props.match.params.libraryId);
-    console.log("uploadData------->", uploadData);
 
     api
       .addBookWithForm(uploadData)
       .then(result => {
-        console.log("result--------->", result);
         this.setState({
           message: `Your book '${this.state.title}' has been created`
         });

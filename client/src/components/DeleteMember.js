@@ -19,7 +19,6 @@ export default class DeleteMember extends React.Component {
   deleteMemberADMIN = () => {
     api.deleteMember(this.props.memberToBeDeletedId, this.state.libraryId)
     .then(response => {
-      console.log("MEMBER DELETED!", response)
       this.props.onDelete()
     })
   }

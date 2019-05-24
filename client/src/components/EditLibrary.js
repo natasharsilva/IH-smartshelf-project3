@@ -37,7 +37,6 @@ export default class EditLibrary extends React.Component {
     });
   }
   handleFileChange(event) {
-    console.log("The file added by the user is: ", event.target.files[0])
     this.setState({
       picture: event.target.files[0]
     })
@@ -55,7 +54,6 @@ export default class EditLibrary extends React.Component {
     api.updateLibrary(this.state.libraryId,uploadData)
       .then(result => {
         this.props.updateLibrary()
-        console.log("DID IT WORK???", result);
         this.setState({
           message: `library was updated!`,
           showEditForm: !this.state.showEditForm

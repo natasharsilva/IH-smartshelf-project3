@@ -30,7 +30,6 @@ router.post("/", isLoggedIn, (req, res, next) => {
     _user: req.user._id
   })
   .then(response => {
-    console.log("TCL: req.body._library", req.body._library)
     res.json(response);
   })
   .catch(err => next(err))

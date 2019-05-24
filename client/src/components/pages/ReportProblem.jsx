@@ -40,7 +40,6 @@ export default class ReportProblem extends Component {
       api
       .sendEmail(this.props.match.params.libraryId, data)
       .then(response => {
-        console.log("THIS IS THE RESPONSEEEE", response);
         this.setState({
           feedback: `Your email was sent! You'll be redirected`
         });
