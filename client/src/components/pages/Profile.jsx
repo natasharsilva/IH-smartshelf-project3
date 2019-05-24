@@ -198,7 +198,8 @@ export default class Profile extends Component {
             </CardBody>
           </Card> 
           <Card>
-                  <CardBody>   
+                  <CardBody>
+                  <CardTitle tag="h3" className="bookName">Books I borrowed</CardTitle>   
                 {this.state.profileInfo.books.length < 1 && (
                   <span>
                     You haven't borrowed books yet!
