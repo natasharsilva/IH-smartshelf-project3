@@ -1,7 +1,7 @@
-##IH-smartshelf-project3
+## IH-smartshelf-project3
 This project was deployed in Heroku: https://ih-smart-shelf.herokuapp.com/
 
-##Brief Description
+## Brief Description
 This was a project developed in Ironhack Lisbon's web development Bootcamp. It was built by a team of three students: Guilherme Carmona, Natasha Silva e Carla Mendes.
 
 It was built in order to incorporate the learning of module 3 of the curriculum, using the following technologies and tools:
