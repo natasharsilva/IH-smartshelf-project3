@@ -1,7 +1,15 @@
 ## IH-smartshelf-project3
 This project was deployed in Heroku: https://ih-smart-shelf.herokuapp.com/
 
+
 ## Brief Description
+
+Users are able to create and/or join libraries where they can upload their available books to share them with other members. Once the User joins a library, he is able to add new books, leave reviews with ratings and borrow books, that will be displayed in the profile page, together with all the libraries that he is a member of. 
+
+Nearby libraries are displayed in a map, where you can see the available books and ask to join it. It is also possible to send invitation trough e-mail so that anyone can join.
+
+The goal is to help organize and create a book sharing enviroment in, for example, a workplace, commercial stabilisment or even for personal use. Keeping track of how long someone has been with a book and due dates do return it 
+
 This was a project developed in Ironhack Lisbon's web development Bootcamp. It was built by a team of three students: Guilherme Carmona, Natasha Silva e Carla Mendes.
 
 It was built in order to incorporate the learning of module 3 of the curriculum, using the following technologies and tools:
@@ -9,6 +17,8 @@ It was built in order to incorporate the learning of module 3 of the curriculum,
 React
 Reactstrap + Bootstrap
 Node.Js;
+Mapbox;
+Nodemailer;
 MongoDB;
 Express.Js;
 Google Books API -> Which was used to find books in to create a better user experience for user when adding their books to the database.
