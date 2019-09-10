@@ -27,7 +27,7 @@ This project was made with love, team work and friendship and we are incredibly 
 
 ## Guideline of errors
 
-### Send the write status code
+### Send the right status code
 
 Your backend API sends some status code at every request. By default, it will send `200`, which means `OK`, everything went fine.
 
