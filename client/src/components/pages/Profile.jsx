@@ -142,7 +142,7 @@ export default class Profile extends Component {
                 </span>
               </CardText>
             </CardBody>
-            <EditProfile theProfile={this.state.profileInfo}updateProfile={this.updateProfile} />
+            <EditProfile theProfile={this.state.profileInfo} updateProfile={this.updateProfile} />
           </Card>
           <Card>
             <CardBody className="libraryContainer">
@@ -284,6 +284,8 @@ export default class Profile extends Component {
         this.setState({
           profileInfo: response
         });
+        console.log(this.state.profileInfo.user)
+
       })
       .catch(err => console.log(err));
   }

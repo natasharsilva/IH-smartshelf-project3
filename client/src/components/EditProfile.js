@@ -16,9 +16,9 @@ export default class EditProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: this.props.theProfile.username,
-      favoriteBooks: this.props.theProfile.favoriteBooks,
-      favoriteQuote: this.props.theProfile.favoriteQuote,
+      username: this.props.theProfile.user.username,
+      favoriteBooks: this.props.theProfile.user.favoriteBooks,
+      favoriteQuote: this.props.theProfile.user.favoriteQuote,
       showEditForm: true,
 
     };
@@ -83,16 +83,17 @@ export default class EditProfile extends React.Component {
             :
             <div><Input valid type="text" value={this.state.username} name="username" onChange={this.handleInputChange}
             />{" "}</div>}
+
             <Label for="picture">Picture:{" "}</Label>
             <CustomInput type="file" id="exampleCustomFileBrowser" name="picture" label="Bring that smile on!" onChange={this.handleFileChange}/>
             {" "}<br />
             </FormGroup>
             <FormGroup>
-            <Label for="favoriteBooks">Favorite Books:{" "}</Label>
-            <Input type="text" value={this.state.favoriteBooks} name="favoriteBooks" cols="20" rows="5" onChange={this.handleInputChange}
+            <Label for="favoriteBooks">Favorite Book:{" "}</Label>
+            <Input type="textarea" value={this.state.favoriteBooks} name="favoriteBooks" cols="20" rows="5" onChange={this.handleInputChange}
             />{" "}<br />
             <Label for="favoriteQuote">Favorite Quote:{" "}</Label>
-            <Input type="text" value={this.state.favoriteQuote} name="favoriteQuote" cols="20" rows="5" onChange={this.handleInputChange}
+            <Input type="textarea" value={this.state.favoriteQuote} name="favoriteQuote" cols="20" rows="5" onChange={this.handleInputChange}
             />{" "}<br />
             </FormGroup>
         {/* Show disabled button if there is no username  -> Ternary */}
