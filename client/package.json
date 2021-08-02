@@ -8,12 +8,12 @@
     "@fortawesome/react-fontawesome": "^0.1.4",
     "axios": "^0.21.1",
     "bootstrap": "^4.3.1",
-    "mapbox-gl": "^0.54.0",
-    "node-sass": "^4.11.0",
+    "mapbox-gl": "^2.4.0",
+    "node-sass": "^6.0.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "^2.1.5",
+    "react-scripts": "^4.0.3",
     "reactstrap": "^8.0.0"
   },
   "scripts": {
@@ -21,7 +21,7 @@
     "build-dev": "dotenv -e .env.development react-scripts build",
     "build-prod": "dotenv -e .env.production react-scripts build",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -32,5 +32,12 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "babel-plugin-dynamic-import-node": "^2.3.3",
+    "jest": "^27.0.6"
+  },
+  "jest": {
+    "testEnvironment": "jest-environment-jsdom"
+  }
 }
