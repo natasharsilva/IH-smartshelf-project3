@@ -12,7 +12,7 @@
     "node": "8.9.4"
   },
   "dependencies": {
-    "bootstrap": "^4.3.1",
+    "bootstrap": "^4.6.2",
     "cloudinary": "^1.14.0",
     "multer": "^1.4.1",
     "nodemailer": "^6.4.16",
